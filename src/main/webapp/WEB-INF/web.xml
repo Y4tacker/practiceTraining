@@ -16,4 +16,13 @@
     <servlet-name>a</servlet-name>
     <url-pattern>/a</url-pattern>
   </servlet-mapping>
+
+  <filter>
+    <filter-name>GlobalFilter</filter-name>
+    <filter-class>com.renhouse.servlet.filter.GlobalFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>GlobalFilter</filter-name>
+    <url-pattern>/NULL</url-pattern><!--暂空，等待前端页面编写-->
+  </filter-mapping>
 </web-app>
