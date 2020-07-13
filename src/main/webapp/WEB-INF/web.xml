@@ -10,7 +10,7 @@
   
   <servlet>
     <servlet-name>a</servlet-name>
-    <servlet-class>com.stackery.servlet.a</servlet-class>
+    <servlet-class>com.renhouse.servlet.a</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>a</servlet-name>
