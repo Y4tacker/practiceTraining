@@ -1,4 +1,4 @@
-package com.renhouse.test;
+package com.renhouse.junit;
 
 import com.renhouse.pojo.User;
 import com.renhouse.service.UserService;
@@ -11,13 +11,12 @@ public class UserServiceTest {
 
     @Test
     public void registUser() {
-        userService.registUser(new User(null, "bbj168", "666666", "bbj168@qq.com"));
-        userService.registUser(new User(null, "abc168", "666666", "abc168@qq.com"));
+        userService.registUser(new User(null, "bbj168", "666666", "111111", null));
     }
 
     @Test
     public void login() {
-        System.out.println( userService.login(new User(null, "wzg168", "123456", null)) );
+        System.out.println( userService.login(new User(null, "wzg168", "123456", "222222",null)) );
     }
 
     @Test

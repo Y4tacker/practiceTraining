@@ -11,10 +11,30 @@
 
   <filter>
     <filter-name>GlobalFilter</filter-name>
-    <filter-class>com.renhouse.servlet.filter.GlobalFilter</filter-class>
+    <filter-class>com.renhouse.filter.GlobalFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>GlobalFilter</filter-name>
     <url-pattern>/NULL</url-pattern><!--暂空，等待前端页面编写-->
   </filter-mapping>
+  
+  <!-- 与用户登录注册相关 -->
+  <servlet>
+    <servlet-name>UserServlet</servlet-name>
+    <servlet-class>com.renhouse.servlet.UserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserServlet</servlet-name>
+    <url-pattern>/userServlet</url-pattern>
+  </servlet-mapping>
+
+  <!-- 验证码 -->
+  <servlet>
+    <servlet-name>KaptchaServlet</servlet-name>
+    <servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>KaptchaServlet</servlet-name>
+    <url-pattern>/captcha.jpg</url-pattern>
+  </servlet-mapping>
 </web-app>

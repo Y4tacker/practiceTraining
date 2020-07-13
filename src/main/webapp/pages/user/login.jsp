@@ -129,23 +129,31 @@
     <div class="admin-header">
         <span>房屋租赁平台</span>
     </div>
-    <form class="layui-form" action="/login" method="post">
+    <form class="layui-form" action="userServlet" method="post">
         <div>
             <i class="layui-icon layui-icon-username admin-icon"></i>
+            <input type="hidden" name="action" value="login">
+            <input type="hidden" name="msg" id="msg" value="${requestScope.msg}">
             <input type="text" name="username" id="username" placeholder="用户名" autocomplete="off"
-                   class="layui-input admin-input admin-input-username"/>
+               value="${requestScope.username}" class="layui-input admin-input admin-input-username"/>
         </div>
         <div>
             <i class="layui-icon layui-icon-password admin-icon"></i>
-            <input type="password" name="password" id="password" placeholder="密码" class="layui-input admin-input"/>
+            <input type="password" name="password" id="password" placeholder="密码"
+                   value="${requestScope.password}" class="layui-input admin-input"/>
+        </div>
+        <div>
+            <i class="layui-icon layui-icon-password admin-icon"></i>
+            <input type="captcha" name="captcha" id="captcha" placeholder="验证码"
+                   value="${requestScope.code}"class="layui-input admin-input"/>
+            <img id="codeImg" alt="" src="captcha.jpg" style="float: right; margin-right: 40px; width:120px;height:35px;">
         </div>
         <div class="layui-btn-group">
-            <input type="button" value="登 录" class="layui-btn admin-button submit-btn" lay-submit lay-filter="login"/>
+            <input type="submit" value="登 录" class="layui-btn admin-button submit-btn" lay-submit lay-filter="login"/>
             <input type="button" value="注 册" class="layui-btn admin-button1 submit-btn1" lay-submit lay-filter="login"/>
         </div>
     </form>
 </div>
-<script src="../../static/layui/lay/modules/jquery.js"></script>
 <script>
     layui.use(["layer", "jquery"], function () {
         var layer = layui.layer;
@@ -153,34 +161,38 @@
         $(".submit-btn").click(function () {
             var username = $('#username').val();
             var password = $("#password").val();
+            var code = $("#codeImg").val();
             if (username.length <= 0 || password.length <= 0){
                 layer.msg("用户名或密码不能为空",{
                     time: 600,
                 });
                 return false;
+            }else if(code.length <= 0){
+                layer.msg("验证码不能为空",{
+                    time: 600,
+                });
+                return false;
             }
-            $.ajax({
-                url: "/login",
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    "username": username,
-                    "password": password
-                },
-                success: function (res) {
-                    if (res.code == 0) {
-                        window.location="/home"
-                    } else {
-                        layer.msg(res.msg,{
-                            time: 600,
-                        })
-                    }
-                }
-            });
+
         })
         $(".submit-btn1").click(function () {
             window.location="/register"
         })
+        $(function () {
+            $("#codeImg").click(function () {
+                this.src = "captcha.jpg?time=" + +new Date();
+            });
+        })
+        //返回错误信息
+        window.onload = function(){
+            var message = $('#msg').val();
+            if (message.length > 0){
+                layer.msg(message,{
+                    time: 800,
+                });
+                return false;
+            }
+        };
     })
 </script>
 </body>

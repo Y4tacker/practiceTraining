@@ -1,4 +1,4 @@
-package com.renhouse.test;
+package com.renhouse.junit;
 
 import com.renhouse.utils.JdbcUtils;
 

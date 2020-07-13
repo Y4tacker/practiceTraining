@@ -1,9 +1,11 @@
-package com.renhouse.test;
+package com.renhouse.junit;
 
 import com.renhouse.dao.UserDao;
 import com.renhouse.dao.impl.UserDaoImpl;
 import com.renhouse.pojo.User;
 import org.junit.Test;
+
+import java.math.BigDecimal;
 
 public class UserDaoImplTest {
 
@@ -30,7 +32,7 @@ public class UserDaoImplTest {
 
     @Test
     public void saveUser() {
-        User user = new User(null,"admin3","123456","6666@qq.com");
+        User user = new User(null,"admin23","123456","6111111",new BigDecimal(500));
         UserDao userDao = new UserDaoImpl();
         if (userDao.saveUser(user) == -1){
             System.out.println("用户已存在");
