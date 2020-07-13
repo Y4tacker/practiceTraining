@@ -1,7 +1,6 @@
-package com.renhouse.dao.filter;
+package com.renhouse.servlet.filter;
 
 import javax.servlet.*;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 

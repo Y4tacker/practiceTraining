@@ -19,7 +19,7 @@
 
   <filter>
     <filter-name>GlobalFilter</filter-name>
-    <filter-class>com.renhouse.dao.filter.GlobalFilter</filter-class>
+    <filter-class>com.renhouse.servlet.filter.GlobalFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>GlobalFilter</filter-name>
