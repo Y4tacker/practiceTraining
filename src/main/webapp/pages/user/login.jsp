@@ -145,7 +145,7 @@
         </div>
     </form>
 </div>
-<script src="static/layui/lay/modules/jquery.js"></script>
+<script src="../../static/layui/lay/modules/jquery.js"></script>
 <script>
     layui.use(["layer", "jquery"], function () {
         var layer = layui.layer;
