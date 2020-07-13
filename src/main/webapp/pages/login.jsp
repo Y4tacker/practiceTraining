@@ -11,10 +11,10 @@
 <html>
 <head>
     <title>房屋租赁平台 - 登录</title>
-    <%@ include file="common/head.jsp"%>
+    <%@ include file="/pages/common/head.jsp"%>
     <style>
         body {
-            background-image: url("/static/images/bg.jpg");
+            background-image: url("static/images/bg.jpg");
             height: 100%;
             width: 100%;
         }
@@ -145,8 +145,8 @@
         </div>
     </form>
 </div>
-<script src="/static/layui.js"></script>
-<script src="/static/lay/modules/jquery.js"></script>
+<script src="static/layui/layui.js"></script>
+<script src="static/layui/lay/modules/jquery.js"></script>
 <script>
     layui.use(["layer", "jquery"], function () {
         var layer = layui.layer;

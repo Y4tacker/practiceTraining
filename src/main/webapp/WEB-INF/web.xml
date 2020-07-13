@@ -7,15 +7,7 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
   <display-name>Archetype Created Web Application</display-name>
-  
-  <servlet>
-    <servlet-name>a</servlet-name>
-    <servlet-class>com.renhouse.servlet.a</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>a</servlet-name>
-    <url-pattern>/a</url-pattern>
-  </servlet-mapping>
+
 
   <filter>
     <filter-name>GlobalFilter</filter-name>
