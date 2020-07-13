@@ -6,15 +6,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    String basePath = request.getScheme()
-            +"://"
-            +request.getServerName()
-            +":"
-            +request.getServerPort()
-            +request.getContextPath()
-            +"/";
-%>
-<base href="<%=basePath%>">
+<%--<%--%>
+<%--    String basePath = request.getScheme()--%>
+<%--            +"://"--%>
+<%--            +request.getServerName()--%>
+<%--            +":"--%>
+<%--            +request.getServerPort()--%>
+<%--            +request.getContextPath()--%>
+<%--            +"/";--%>
+<%--%>--%>
+<base href="http://localhost:8080/test/">
 <link type="text/css" rel="stylesheet" href="static/layui/css/layui.css">
 <script type="text/javascript" src="static/layui/layui.all.js"></script>

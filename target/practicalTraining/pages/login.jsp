@@ -15,8 +15,8 @@
     <style>
         body {
             background-image: url("static/images/bg.jpg");
-            height: 100%;
-            width: 100%;
+            background-size:100% 100% ;
+            background-attachment: fixed;
         }
 
         #container {
@@ -90,7 +90,7 @@
             margin-top: 20px;
             font-weight: bold;
             font-size: 18px;
-            width: 147px;
+            width: 150px;
             height: 50px;
             border-radius: 5px;
             background-color: #009688;
@@ -100,7 +100,7 @@
             margin-top: 20px;
             font-weight: bold;
             font-size: 18px;
-            width: 147px;
+            width: 150px;
             height: 50px;
             border-radius: 5px;
             background-color: #009688;
@@ -127,7 +127,7 @@
 <body>
 <div class="admin-login-background">
     <div class="admin-header">
-        <span>Fril上传平台</span>
+        <span>房屋租赁平台</span>
     </div>
     <form class="layui-form" action="/login" method="post">
         <div>
@@ -145,7 +145,6 @@
         </div>
     </form>
 </div>
-<script src="static/layui/layui.js"></script>
 <script src="static/layui/lay/modules/jquery.js"></script>
 <script>
     layui.use(["layer", "jquery"], function () {
