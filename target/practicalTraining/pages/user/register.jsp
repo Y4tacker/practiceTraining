@@ -1,27 +1,20 @@
-<%@ page import="org.apache.xpath.operations.String" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: steve95
   Date: 2020/7/13
-  Time: 16:47
+  Time: 21:24
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
-
-
 <html>
 <head>
-    <title>房屋租赁平台 - 登录</title>
+    <title>房屋租赁平台 - 注册</title>
     <%@ include file="/pages/common/head.jsp"%>
     <style>
         body {
             background-image: url("static/images/bg.jpg");
             background-size:100% 100% ;
             background-attachment: fixed;
-        }
-
-        #container {
-            height: 100%;
-            width: 100%;
         }
 
         input:-webkit-autofill {
@@ -77,6 +70,14 @@
             color: #9dadce !important;
         }
 
+        .layui-icon-email {
+            color: #a78369 !important;
+        }
+
+        .layui-icon-email:hover {
+            color: #9dadce !important;
+        }
+
         .admin-input-username {
             border-top-style: solid;
             border-radius: 10px 10px 0 0;
@@ -86,21 +87,19 @@
             border-radius: 0 0 10px 10px;
         }
 
+        .layui-icon-note {
+            color: #a78369 !important;
+        }
+
+        .layui-icon-note:hover {
+            color: #9dadce !important;
+        }
+
         .admin-button {
             margin-top: 20px;
             font-weight: bold;
             font-size: 18px;
-            width: 150px;
-            height: 50px;
-            border-radius: 5px;
-            background-color: #009688;
-            border: 1px solid #5FB878
-        }
-        .admin-button1 {
-            margin-top: 20px;
-            font-weight: bold;
-            font-size: 18px;
-            width: 150px;
+            width: 300px;
             height: 50px;
             border-radius: 5px;
             background-color: #009688;
@@ -117,11 +116,6 @@
             position: absolute;
         }
 
-        .admin-captcha {
-            position: absolute;
-            margin-left: 205px;
-            margin-top: -40px;
-        }
     </style>
 </head>
 <body>
@@ -129,71 +123,67 @@
     <div class="admin-header">
         <span>房屋租赁平台</span>
     </div>
-    <form class="layui-form" action="userServlet" method="post">
+    <form class="layui-form" action="/register" method="post">
         <div>
             <i class="layui-icon layui-icon-username admin-icon"></i>
-            <input type="hidden" name="action" value="login">
-            <input type="hidden" name="msg" id="msg" value="${requestScope.msg}">
             <input type="text" name="username" id="username" placeholder="用户名" autocomplete="off"
-               value="${requestScope.username}" class="layui-input admin-input admin-input-username"/>
+                   class="layui-input admin-input admin-input-username"/>
         </div>
         <div>
             <i class="layui-icon layui-icon-password admin-icon"></i>
-            <input type="password" name="password" id="password" placeholder="密码"
-                   value="${requestScope.password}" class="layui-input admin-input"/>
+            <input type="password" name="password" id="password" placeholder="密码" class="layui-input admin-input"/>
         </div>
         <div>
             <i class="layui-icon layui-icon-password admin-icon"></i>
-            <input type="captcha" name="captcha" id="captcha" placeholder="验证码"
-                   value="${requestScope.code}"class="layui-input admin-input"/>
-            <img id="codeImg" alt="" src="captcha.jpg" style="float: right; margin-right: 40px; width:120px;height:35px;">
+            <input type="password_verify" name="password_verify" id="password_verify" placeholder="确认密码"
+                   class="layui-input admin-input"/>
         </div>
-        <div class="layui-btn-group">
-            <input type="submit" value="登 录" class="layui-btn admin-button submit-btn" lay-submit lay-filter="login"/>
-            <input type="button" value="注 册" class="layui-btn admin-button1 submit-btn1" lay-submit lay-filter="login"/>
+        <div>
+            <i class="layui-icon layui-icon-note admin-icon"></i>
+            <input type="text" name="invite_code" id="invite_code" placeholder="邀请码" autocomplete="off"
+                   class="layui-input admin-input admin-input-verify"/>
         </div>
+        <input type="button" value="注 册" class="layui-btn admin-button submit-btn" lay-submit lay-filter="login"/>
     </form>
 </div>
 <script>
-    layui.use(["layer", "jquery"], function () {
-        var layer = layui.layer;
-        var $ = layui.jquery;
-        $(".submit-btn").click(function () {
-            var username = $('#username').val();
-            var password = $("#password").val();
-            var code = $("#codeImg").val();
-            if (username.length <= 0 || password.length <= 0){
-                layer.msg("用户名或密码不能为空",{
-                    time: 600,
-                });
-                return false;
-            }else if(code.length <= 0){
-                layer.msg("验证码不能为空",{
-                    time: 600,
-                });
-                return false;
-            }
-
-        })
-        $(".submit-btn1").click(function () {
-            window.location="/register"
-        })
-        $(function () {
-            $("#codeImg").click(function () {
-                this.src = "captcha.jpg?time=" + +new Date();
+layui.use(["layer", "jquery"], function () {
+    var layer = layui.layer;
+    var $ = layui.jquery;
+    $(".submit-btn").click(function () {
+        var username = $('#username').val();
+        var password = $("#password").val();
+        var password_verify = $("#password_verify").val();
+        var invite_code = $("#invite_code").val();
+        if (username.length <= 0 || password.length <= 0) {
+            layer.msg("用户名或密码不能为空",{
+                time: 600,
             });
-        })
-        //返回错误信息
-        window.onload = function(){
-            var message = $('#msg').val();
-            if (message.length > 0){
-                layer.msg(message,{
-                    time: 800,
-                });
-                return false;
+            return false;
+        }
+        $.ajax({
+            url: "/register",
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                "username": username,
+                "password": password,
+                "password_verify": password_verify,
+                "invite_code": invite_code
+            },
+            success: function (res) {
+                if(res.code == 0){
+                    window.location="/home"
+                }
+                else {
+                    layer.msg(res.msg, {
+                        time: 600,
+                    });
+                }
             }
-        };
+        });
     })
+})
 </script>
 </body>
 </html>

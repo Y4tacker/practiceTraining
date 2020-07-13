@@ -162,8 +162,13 @@
             var username = $('#username').val();
             var password = $("#password").val();
             var code = $("#codeImg").val();
-            if (username.length <= 0 || password.length <= 0){
+            if (username.length <= 0 ){
                 layer.msg("用户名或密码不能为空",{
+                    time: 600,
+                });
+                return false;
+            }else if(password.length <= 0){
+                layer.msg("密码不能为空",{
                     time: 600,
                 });
                 return false;
