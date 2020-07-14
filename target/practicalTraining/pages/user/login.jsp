@@ -146,7 +146,7 @@
             <i class="layui-icon layui-icon-password admin-icon"></i>
             <input type="captcha" name="captcha" id="captcha" placeholder="验证码"
                    value="${requestScope.code}"class="layui-input admin-input"/>
-            <img id="codeImg" alt="" src="captcha.jpg" style="float: right; margin-right: 40px; width:120px;height:35px;">
+            <img id="codeImg" alt="" src="captcha.jpg"  style="vertical-align:middle; float: right; margin-right: 40px; width:120px;height:35px;">
         </div>
         <div class="layui-btn-group">
             <input type="submit" value="登 录" class="layui-btn admin-button submit-btn" lay-submit lay-filter="login"/>
