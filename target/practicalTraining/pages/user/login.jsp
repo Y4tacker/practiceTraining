@@ -66,6 +66,8 @@
             width: 170px;
             padding-bottom: 0px;
             vertical-align:center;
+            display:block;
+            float:left;
         }
 
         .admin-input::-webkit-input-placeholder {
@@ -144,6 +146,7 @@
 
         .vercode-img{
             vertical-align: middle;
+            float:left;
         }
     </style>
 </head>
