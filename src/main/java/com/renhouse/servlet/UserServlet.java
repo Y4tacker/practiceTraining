@@ -88,14 +88,14 @@ public class UserServlet extends BaseServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user",user);
             userService.registUser(new User(null, username, password, phone, null));
-            // TODO 跳回登录成功页面
-            // request.getRequestDispatcher("/pages/user/regist_success.jsp").forward(request, response);
+             response.sendRedirect("pages/user/login.jsp");
         }else {
             //返回前端错误信息
             request.setAttribute("msg","验证码输入错误！");
             request.setAttribute("username", username);
             request.setAttribute("password", password);
             request.setAttribute("phone",phone);
+            request.getRequestDispatcher("pages/user/register.jsp").forward(request, response);
         }
     }
 
@@ -109,7 +109,7 @@ public class UserServlet extends BaseServlet {
     protected void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //删除session会话
         request.getSession().invalidate();
-        // TODO 重定向到主页
+        response.sendRedirect("pages/user/login.jsp");
     }
 
     /**

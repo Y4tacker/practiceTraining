@@ -187,7 +187,7 @@
         $(".submit-btn").click(function () {
             var username = $('#username').val();
             var password = $("#password").val();
-            var code = $("#codeImg").val();
+            var code = $("#captcha").val();
             if (username.length <= 0 || password.length <= 0){
                 layer.msg("用户名或密码不能为空",{
                     time: 600,
@@ -211,7 +211,7 @@
         })
         //返回错误信息
         window.onload = function(){
-            var message = $('#msg').val();
+            var message = $('#msg').value;
             if (message.length > 0){
                 layer.msg(message,{
                     time: 800,

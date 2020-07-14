@@ -193,7 +193,7 @@
 layui.use(["layer", "jquery"], function () {
     var layer = layui.layer;
     var $ = layui.jquery;
-    $(function () {
+    var change = $(function () {
         $("#codeImg").click(function () {
             this.src = "captcha.jpg?time=" + +new Date();
         });
@@ -279,7 +279,6 @@ layui.use(["layer", "jquery"], function () {
         $("#username").blur(
             function () {
                 var username= this.value;
-                // TODO 向userServlet POST数据 action=existUser，后端返回一个JSON数据{existUser:true/false}，根据返回的json类型数据弹窗
                 // 返回数据类型JSON{existUser:true/false}
                 // url:userServlet
                 $.ajax({
@@ -301,6 +300,18 @@ layui.use(["layer", "jquery"], function () {
                 })
             })
     })
+    //返回错误信息
+    window.onload = function(){
+        var message = $('#msg').val();
+        if (message.length > 0){
+            $("#codeImg").src = "captcha.jpg?time=" + +new Date();
+            layer.msg(message,{
+                time: 800,
+            });
+            return false;
+        }
+    };
+
 
 
 })
