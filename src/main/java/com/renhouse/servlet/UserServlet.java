@@ -108,9 +108,7 @@ public class UserServlet extends BaseServlet {
     protected void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //删除session会话
         request.getSession().invalidate();
-        System.out.println("111111");
-        response.sendRedirect("pages/user/login.jsp");
-        System.out.println("2222");
+        response.sendRedirect(request.getContextPath());
     }
 
     /**
