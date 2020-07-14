@@ -57,6 +57,17 @@
             padding-bottom: 0px;
         }
 
+        .admin-input-captcha {
+            border-top-style: none;
+            border-right-style: solid;
+            border-bottom-style: solid;
+            border-left-style: solid;
+            height: 50px;
+            width: 170px;
+            padding-bottom: 0px;
+            vertical-align:center;
+        }
+
         .admin-input::-webkit-input-placeholder {
             color: #a78369
         }
@@ -74,6 +85,14 @@
         }
 
         .layui-icon-password:hover {
+            color: #9dadce !important;
+        }
+
+        .layui-icon-vercode {
+            color: #a78369 !important;
+        }
+
+        .layui-icon-vercode:hover {
             color: #9dadce !important;
         }
 
@@ -113,14 +132,18 @@
             font-size: 30px;
         }
 
+        .admin-captcha-icon {
+            margin-left: 130px;
+            margin-top: 10px;
+            font-size: 30px;
+        }
+
         i {
             position: absolute;
         }
 
-        .admin-captcha {
-            position: absolute;
-            margin-left: 205px;
-            margin-top: -40px;
+        .vercode-img{
+            vertical-align: middle;
         }
     </style>
 </head>
@@ -143,10 +166,10 @@
                    value="${requestScope.password}" class="layui-input admin-input"/>
         </div>
         <div>
-            <i class="layui-icon layui-icon-password admin-icon"></i>
-            <input type="captcha" name="captcha" id="captcha" placeholder="验证码"
-                   value="${requestScope.code}"class="layui-input admin-input"/>
-            <img id="codeImg" alt="" src="captcha.jpg" style="float: right; margin-right: 40px; width:120px;height:35px;">
+            <i class="layui-icon layui-icon-vercode admin-captcha-icon"></i>
+            <input type="text" name="captcha" id="captcha" placeholder="验证码"
+                   value="${requestScope.code}"class="layui-input admin-input-captcha"/>
+            <img id="codeImg" alt="" src="captcha.jpg" style="float: right; margin-right: 0px; width:120px;height:50px;" class="vercode-img">
         </div>
         <div class="layui-btn-group">
             <input type="submit" value="登 录" class="layui-btn admin-button submit-btn" lay-submit lay-filter="login"/>
@@ -176,7 +199,7 @@
 
         })
         $(".submit-btn1").click(function () {
-            window.location="/register"
+            window.location="/register.jsp"
         })
         $(function () {
             $("#codeImg").click(function () {
