@@ -239,6 +239,11 @@ layui.use(["layer", "jquery"], function () {
         });
 
     });
+    //用户名校验
+    $(function(){
+        // TODO 向userServlet POST数据 action=existUser，后端返回一个JSON数据{existUser:true/false}，根据返回的json类型数据弹窗
+        // 返回数据类型JSON{existUser:true/false}
+    })
 
 })
 </script>

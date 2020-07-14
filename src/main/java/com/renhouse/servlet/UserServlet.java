@@ -119,4 +119,15 @@ public class UserServlet extends BaseServlet {
         request.getSession().invalidate();
         // TODO 重定向到主页
     }
+
+    /**
+     * 用户名校验
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void existUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        super.doGet(request, response);
+    }
 }
