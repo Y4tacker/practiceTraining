@@ -1,4 +1,4 @@
-package com.renhouse.dao.impl;
+package com.renhouse.dao;
 
 import com.renhouse.utils.JdbcUtils;
 import org.apache.commons.dbutils.QueryRunner;

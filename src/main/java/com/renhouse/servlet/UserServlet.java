@@ -3,11 +3,13 @@ package com.renhouse.servlet;
 import com.renhouse.pojo.User;
 import com.renhouse.service.UserService;
 import com.renhouse.service.impl.UserServiceImpl;
+import com.renhouse.utils.WebUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
@@ -58,5 +60,63 @@ public class UserServlet extends BaseServlet {
 
     }
 
+    /**
+     * 处理注册的功能
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //  获取请求验证码参数
+        String captcha = request.getParameter("captcha");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String phone = request.getParameter("phone");
 
+        // 将前端数据注入user中
+        User user = WebUtils.copyParamToBean(request.getParameterMap(), new User());
+
+        //获取前端生成的验证码
+        String token = (String) request.getSession().getAttribute(KAPTCHA_SESSION_KEY);
+        request.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
+        if (token != null && token.equalsIgnoreCase(captcha)){
+            //检查用户名是否可用
+            // TODO 将检查用户名放在前端刚刚写完就使用Ajax
+            if (userService.existsUsername(username) == true){
+                // 回显错误
+                request.setAttribute("msg", "用户名已存在");
+                request.setAttribute("password", password);
+                request.setAttribute("phone", phone);
+                // TODO 跳回注册页面
+//                request.getRequestDispatcher("/pages/user/regist.jsp").forward(request, response);
+            }else {
+                //保存到数据库
+                HttpSession session = request.getSession();
+                session.setAttribute("user",user);
+                userService.registUser(new User(null, username, password, phone, null));
+                // TODO 跳回登录成功页面
+//                request.getRequestDispatcher("/pages/user/regist_success.jsp").forward(request, response);
+            }
+        }else {
+            //返回前端错误信息
+            request.setAttribute("msg","验证码输入错误！");
+            request.setAttribute("username", username);
+            request.setAttribute("password", password);
+            request.setAttribute("phone",phone);
+        }
+    }
+
+    /**
+     * 处理注销的功能
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //删除session会话
+        request.getSession().invalidate();
+        // TODO 重定向到主页
+    }
 }

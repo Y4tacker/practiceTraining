@@ -1,5 +1,6 @@
 package com.renhouse.dao.impl;
 
+import com.renhouse.dao.BaseDao;
 import com.renhouse.dao.UserDao;
 import com.renhouse.pojo.User;
 
