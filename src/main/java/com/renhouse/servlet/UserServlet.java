@@ -1,5 +1,6 @@
 package com.renhouse.servlet;
 
+import com.google.gson.Gson;
 import com.renhouse.pojo.User;
 import com.renhouse.service.UserService;
 import com.renhouse.service.impl.UserServiceImpl;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
 
@@ -121,13 +124,23 @@ public class UserServlet extends BaseServlet {
     }
 
     /**
-     * 用户名校验
+     * 用户名校验,返回是否存在用户
      * @param request
      * @param response
      * @throws ServletException
      * @throws IOException
      */
     protected void existUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.doGet(request, response);
+        String username = request.getParameter("username");
+
+        boolean existUsername = userService.existsUsername(username);
+
+        Map<String, Object> result =  new HashMap<>();
+        result.put("existUsername",existUsername);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(result);
+        response.getWriter().write(json);
+
     }
 }
