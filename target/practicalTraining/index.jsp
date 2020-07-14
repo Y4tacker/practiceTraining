@@ -15,7 +15,7 @@
      <body style="padding:12% 5% 5% 5%;background-image:url(static/images/home-banner.jpg);">
         <div class="chatContainer" style="z-index: 100;">
          <!-- <div class="qqcss">
-         <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=476666&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:1341483593:53" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>        <i class="iconfont icon-xiaoxi1"></i>
+         <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1078433422&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:1341483593:53" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>        <i class="iconfont icon-xiaoxi1"></i>
          </div> -->
          <div class="chatBtn">
              <i class="iconfont icon-xiaoxi1"></i>
@@ -291,12 +291,12 @@
                     var re = "QQ：1078xxxxxx <br/> Wechat: WAOWAOWAO";
                     reply(re);
                 }
-                else if(textContent.indexOf("豪哥哥可爱2") != "-1"){
-                    var re = "菊花送上";
+                else if(textContent.indexOf("跪求豪哥哥联系方式") != "-1"){
+                    var re = "打钱就给";
                     reply(re);
                 }
-                else if(textContent.indexOf("豪哥哥可爱3") != "-1"){
-                    var re = "豪哥哥可爱";
+                else if(textContent.indexOf("豪哥哥可爱么") != "-1"){
+                    var re = "菊花送上";
                     reply(re);
                 }
                 else if(textContent.indexOf("豪哥哥可爱4") != "-1"){
@@ -304,7 +304,7 @@
                     reply(re);
                 }
                 else{
-                    var re = "请输入正确的关键字：<br> 1.在线客服联系方式是多少<br> 2.豪哥哥可爱2 <br>3.豪哥哥可爱3<br> 4.豪哥哥可爱4";
+                    var re = "请输入正确的关键字：<br> 1.在线客服联系方式是多少<br> 2.跪求豪哥哥联系方式 <br>3.豪哥哥可爱3<br> 4.豪哥哥可爱4";
                     reply(re);
                 }
 

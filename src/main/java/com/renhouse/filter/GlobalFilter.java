@@ -23,6 +23,7 @@ public class GlobalFilter implements Filter {
         Object user = httpServletRequest.getSession().getAttribute("user");
 
         if(user==null){
+            servletRequest.setAttribute("msg","请先登录！");
             servletRequest.getRequestDispatcher("/pages/user/login.jsp").forward(servletRequest,servletResponse);
             return;
         }else{
