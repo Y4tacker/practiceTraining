@@ -23,7 +23,7 @@ public class GlobalFilter implements Filter {
         Object user = httpServletRequest.getSession().getAttribute("user");
 
         if(user==null){
-            servletRequest.getRequestDispatcher("login.jsp").forward(servletRequest,servletResponse);
+            servletRequest.getRequestDispatcher("/pages/user/login.jsp").forward(servletRequest,servletResponse);
             return;
         }else{
             filterChain.doFilter(servletRequest,servletResponse);
