@@ -211,7 +211,7 @@
         })
         //返回错误信息
         window.onload = function(){
-            var message = $('#msg').value;
+            var message = $('#msg').val();
             if (message.length > 0){
                 layer.msg(message,{
                     time: 800,

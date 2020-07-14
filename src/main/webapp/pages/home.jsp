@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <%@ include file="/pages/common/head.jsp"%>
     <title>成都市房屋租赁管理系统</title>
-    <link rel="stylesheet" href="../static/layui/css/layui.css">
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -35,7 +35,7 @@
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="">退了</a></li>
+            <li class="layui-nav-item" id="logout" ><a href="">退出</a></li>
         </ul>
     </div>
 
@@ -78,12 +78,22 @@
         © layui.com - 底部固定区域
     </div>
 </div>
-<script src="../static/layui/layui.js"></script>
 <script>
     //JavaScript代码区域
-    layui.use('element', function(){
+    layui.use(['element','jquery'], function(){
         var element = layui.element;
-
+        var $ = layui.jquery;
+        $(function () {
+            $("#logout").click(
+                $.ajax({
+                    url:'userServlet',
+                    type:'post',
+                    data:{
+                        action:'logout'
+                    }
+                })
+            )
+        })
     });
 </script>
 </body>

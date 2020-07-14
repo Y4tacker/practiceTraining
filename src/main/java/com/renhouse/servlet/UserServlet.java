@@ -41,14 +41,13 @@ public class UserServlet extends BaseServlet {
             if (loginUser != null && code.equalsIgnoreCase(token)){
                 // 将user绑定到session域中，便于filter
                 request.getSession().setAttribute("user",loginUser);
-                response.getWriter().write("登录成功");
-                // TODO 跳转到登录成功页面
+                response.sendRedirect("pages/home.jsp");
             }else {
                 //密码错误
                 //把回显信息保存到request域中
                 request.setAttribute("msg","用户名或密码错误，登陆失败！");
                 // 跳回登录页面
-                request.getRequestDispatcher("/pages/user/login.jsp").forward(request, response);
+                request.getRequestDispatcher("pages/user/login.jsp").forward(request, response);
             }
         }else {
             //验证码输入错误
@@ -57,7 +56,7 @@ public class UserServlet extends BaseServlet {
             request.setAttribute("username", username);
             request.setAttribute("password", password);
             // 跳回登录页面
-            request.getRequestDispatcher("/pages/user/login.jsp").forward(request, response);
+            request.getRequestDispatcher("pages/user/login.jsp").forward(request, response);
         }
 
 
@@ -88,7 +87,7 @@ public class UserServlet extends BaseServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user",user);
             userService.registUser(new User(null, username, password, phone, null));
-             response.sendRedirect("pages/user/login.jsp");
+             response.sendRedirect("pages/home.jsp");
         }else {
             //返回前端错误信息
             request.setAttribute("msg","验证码输入错误！");
@@ -109,7 +108,9 @@ public class UserServlet extends BaseServlet {
     protected void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //删除session会话
         request.getSession().invalidate();
+        System.out.println("111111");
         response.sendRedirect("pages/user/login.jsp");
+        System.out.println("2222");
     }
 
     /**
