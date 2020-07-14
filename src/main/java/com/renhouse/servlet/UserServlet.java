@@ -84,23 +84,12 @@ public class UserServlet extends BaseServlet {
         String token = (String) request.getSession().getAttribute(KAPTCHA_SESSION_KEY);
         request.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
         if (token != null && token.equalsIgnoreCase(captcha)){
-            //检查用户名是否可用
-            // TODO 将检查用户名放在前端刚刚写完就使用Ajax
-            if (userService.existsUsername(username) == true){
-                // 回显错误
-                request.setAttribute("msg", "用户名已存在");
-                request.setAttribute("password", password);
-                request.setAttribute("phone", phone);
-                // TODO 跳回注册页面
-//                request.getRequestDispatcher("/pages/user/regist.jsp").forward(request, response);
-            }else {
-                //保存到数据库
-                HttpSession session = request.getSession();
-                session.setAttribute("user",user);
-                userService.registUser(new User(null, username, password, phone, null));
-                // TODO 跳回登录成功页面
-//                request.getRequestDispatcher("/pages/user/regist_success.jsp").forward(request, response);
-            }
+            //保存到数据库
+            HttpSession session = request.getSession();
+            session.setAttribute("user",user);
+            userService.registUser(new User(null, username, password, phone, null));
+            // TODO 跳回登录成功页面
+            // request.getRequestDispatcher("/pages/user/regist_success.jsp").forward(request, response);
         }else {
             //返回前端错误信息
             request.setAttribute("msg","验证码输入错误！");
