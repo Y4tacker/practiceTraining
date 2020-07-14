@@ -202,7 +202,7 @@
 
         })
         $(".submit-btn1").click(function () {
-            window.location="/register.jsp"
+            window.location="pages/user/register.jsp"
         })
         $(function () {
             $("#codeImg").click(function () {

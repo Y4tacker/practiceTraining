@@ -123,11 +123,13 @@
     <div class="admin-header">
         <span>房屋租赁平台</span>
     </div>
-    <form class="layui-form" action="/register" method="post">
+    <form class="layui-form" action="userServlet" method="post">
         <div>
+            <input type="hidden" name="action" value="register">
+            <input type="hidden" name="msg" id="msg" value="${requestScope.msg}">
             <i class="layui-icon layui-icon-username admin-icon"></i>
             <input type="text" name="username" id="username" placeholder="用户名" autocomplete="off"
-                   class="layui-input admin-input admin-input-username"/>
+                   value="${requestScope.username}" class="layui-input admin-input admin-input-username"/>
         </div>
         <div>
             <i class="layui-icon layui-icon-password admin-icon"></i>
@@ -139,50 +141,105 @@
                    class="layui-input admin-input"/>
         </div>
         <div>
-            <i class="layui-icon layui-icon-note admin-icon"></i>
-            <input type="text" name="invite_code" id="invite_code" placeholder="邀请码" autocomplete="off"
-                   class="layui-input admin-input admin-input-verify"/>
+            <i class="layui-icon layui-icon-password admin-icon"></i>
+            <input type="phone" name="phone" id="phone" placeholder="手机号"
+                   value="${requestScope.phone}" class="layui-input admin-input"/>
         </div>
-        <input type="button" value="注 册" class="layui-btn admin-button submit-btn" lay-submit lay-filter="login"/>
+        <div>
+            <i class="layui-icon layui-icon-vercode admin-captcha-icon"></i>
+            <input type="text" name="captcha" id="captcha" placeholder="验证码"
+                   value="${requestScope.code}"class="layui-input admin-input-captcha"/>
+            <img id="codeImg" alt="" src="captcha.jpg" style="float: right; margin-right: 0px; width:120px;height:50px;" class="vercode-img">
+        </div>
+        <input type="submit" value="注 册" class="layui-btn admin-button submit-btn" lay-submit lay-filter="login"/>
     </form>
 </div>
 <script>
 layui.use(["layer", "jquery"], function () {
     var layer = layui.layer;
     var $ = layui.jquery;
-    $(".submit-btn").click(function () {
-        var username = $('#username').val();
-        var password = $("#password").val();
-        var password_verify = $("#password_verify").val();
-        var invite_code = $("#invite_code").val();
-        if (username.length <= 0 || password.length <= 0) {
-            layer.msg("用户名或密码不能为空",{
-                time: 600,
-            });
-            return false;
-        }
-        $.ajax({
-            url: "/register",
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                "username": username,
-                "password": password,
-                "password_verify": password_verify,
-                "invite_code": invite_code
-            },
-            success: function (res) {
-                if(res.code == 0){
-                    window.location="/home"
-                }
-                else {
-                    layer.msg(res.msg, {
-                        time: 600,
-                    });
-                }
-            }
+    $(function () {
+        $("#codeImg").click(function () {
+            this.src = "captcha.jpg?time=" + +new Date();
         });
     })
+    //正则匹配验证输入
+    $(function () {
+        // 给注册绑定单击事件
+        $(".submit-btn").click(function () {
+            // 验证用户名：必须由字母，数字下划线组成，并且长度为5到12位
+            //1 获取用户名输入框里的内容
+            var usernameText = $("#username").val();
+            //2 创建正则表达式对象
+            var usernamePatt = /^\w{5,12}$/;
+            //3 使用test方法验证
+            if (!usernamePatt.test(usernameText)) {
+                //4 提示用户结果
+                layer.msg("用户名不合法！",{
+                    time: 600,
+                });
+
+                return false;
+            }
+
+            // 验证密码：必须由字母，数字下划线组成，并且长度为5到12位
+            //1 获取用户名输入框里的内容
+            var passwordText = $("#password").val();
+            //2 创建正则表达式对象
+            var passwordPatt = /^\w{5,12}$/;
+            //3 使用test方法验证
+            if (!passwordPatt.test(passwordText)) {
+                //4 提示用户结果
+                layer.msg("密码不合法！",{
+                    time: 600,
+                });
+
+                return false;
+            }
+
+            // 验证确认密码：和密码相同
+            //1 获取确认密码内容
+            var repwdText = $("#password_verify").val();
+            //2 和密码相比较
+            if (repwdText != passwordText) {
+                //3 提示用户
+                layer.msg("密码与确认密码不符合请重新输入",{
+                    time: 600,
+                });
+                $("#password_verify").value = ""
+                $("#password").value = ""
+                return false;
+            }
+
+            // 手机号验证
+            var phoneText = $("#phone").val();
+            var phonePatt = /^1[345789]\d{9}$/;
+            if (!phonePatt.test(phoneText)) {
+                //4 提示用户
+                layer.msg("手机号格式不正确请检查！",{
+                    time: 600,
+                });
+
+                return false;
+            }
+
+            // 验证码
+            var codeText = $("#captcha").val();
+            //去掉验证码前后空格
+            codeText = $.trim(codeText);
+            if (codeText == null || codeText == "") {
+                layer.msg("验证码不能为空",{
+                    time: 600,
+                });
+
+                return false;
+            }
+
+
+        });
+
+    });
+
 })
 </script>
 </body>
