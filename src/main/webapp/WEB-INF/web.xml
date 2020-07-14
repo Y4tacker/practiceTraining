@@ -8,14 +8,14 @@
          version="4.0">
   <display-name>Archetype Created Web Application</display-name>
 
-
+<!--过滤器相关配置-->
   <filter>
     <filter-name>GlobalFilter</filter-name>
     <filter-class>com.renhouse.filter.GlobalFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>GlobalFilter</filter-name>
-    <url-pattern>/NULL</url-pattern><!--暂空，等待前端页面编写-->
+    <url-pattern>/pages/home.jsp</url-pattern><!--暂空，等待前端页面编写-->
   </filter-mapping>
   
   <!-- 与用户登录注册相关 -->
