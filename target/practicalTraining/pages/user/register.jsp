@@ -50,6 +50,19 @@
             padding-bottom: 0px;
         }
 
+        .admin-input-captcha {
+            border-top-style: none;
+            border-right-style: solid;
+            border-bottom-style: solid;
+            border-left-style: solid;
+            height: 50px;
+            width: 170px;
+            padding-bottom: 0px;
+            vertical-align:center;
+            display:block;
+            float:left;
+        }
+
         .admin-input::-webkit-input-placeholder {
             color: #a78369
         }
@@ -67,6 +80,22 @@
         }
 
         .layui-icon-password:hover {
+            color: #9dadce !important;
+        }
+
+        .layui-icon-vercode {
+            color: #a78369 !important;
+        }
+
+        .layui-icon-vercode:hover {
+            color: #9dadce !important;
+        }
+
+        .layui-icon-cellphone {
+            color: #a78369 !important;
+        }
+
+        .layui-icon-cellphone:hover {
             color: #9dadce !important;
         }
 
@@ -112,6 +141,12 @@
             font-size: 30px;
         }
 
+        .admin-captcha-icon {
+            margin-left: 130px;
+            margin-top: 10px;
+            font-size: 30px;
+        }
+
         i {
             position: absolute;
         }
@@ -129,7 +164,7 @@
             <input type="hidden" name="msg" id="msg" value="${requestScope.msg}">
             <i class="layui-icon layui-icon-username admin-icon"></i>
             <input type="text" name="username" id="username" placeholder="用户名" autocomplete="off"
-                   value="${requestScope.username}" class="layui-input admin-input admin-input-username"/>
+                   value="${requestScope.username}" class="layui-input admin-input admin-input-username" />
         </div>
         <div>
             <i class="layui-icon layui-icon-password admin-icon"></i>
@@ -137,11 +172,11 @@
         </div>
         <div>
             <i class="layui-icon layui-icon-password admin-icon"></i>
-            <input type="password_verify" name="password_verify" id="password_verify" placeholder="确认密码"
+            <input type="password" name="password_verify" id="password_verify" placeholder="确认密码"
                    class="layui-input admin-input"/>
         </div>
         <div>
-            <i class="layui-icon layui-icon-password admin-icon"></i>
+            <i class="layui-icon layui-icon-cellphone admin-icon"></i>
             <input type="phone" name="phone" id="phone" placeholder="手机号"
                    value="${requestScope.phone}" class="layui-input admin-input"/>
         </div>
@@ -206,8 +241,8 @@ layui.use(["layer", "jquery"], function () {
                 layer.msg("密码与确认密码不符合请重新输入",{
                     time: 600,
                 });
-                $("#password_verify").value = ""
-                $("#password").value = ""
+                $("#password_verify").val('')
+                $("#password").val('')
                 return false;
             }
 
@@ -241,9 +276,32 @@ layui.use(["layer", "jquery"], function () {
     });
     //用户名校验
     $(function(){
-        // TODO 向userServlet POST数据 action=existUser，后端返回一个JSON数据{existUser:true/false}，根据返回的json类型数据弹窗
-        // 返回数据类型JSON{existUser:true/false}
+        $("#username").blur(
+            function () {
+                var username= this.value;
+                // TODO 向userServlet POST数据 action=existUser，后端返回一个JSON数据{existUser:true/false}，根据返回的json类型数据弹窗
+                // 返回数据类型JSON{existUser:true/false}
+                // url:userServlet
+                $.ajax({
+                    url: "userServlet",
+                    type: 'POST',
+                    dataType: 'json',
+                    data:{
+                        "action":"existUser",
+                        "username":username,
+                    },
+                    success: function(data){
+                        if(data.existUsername){
+                            $("#username").val('');
+                            layer.msg("用户名已存在");
+
+                        }
+                    }
+
+                })
+            })
     })
+
 
 })
 </script>
