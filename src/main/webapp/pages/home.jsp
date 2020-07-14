@@ -35,7 +35,7 @@
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item" id="logout" ><a href="">退出</a></li>
+            <li class="layui-nav-item" id="logout" ><a href="userServlet?action=logout">退出</a></li>
         </ul>
     </div>
 
@@ -83,17 +83,5 @@
     layui.use(['element','jquery'], function(){
         var element = layui.element;
         var $ = layui.jquery;
-        $(function () {
-            $("#logout").click(
-                $.ajax({
-                    url:'userServlet',
-                    type:'post',
-                    data:{
-                        action:'logout'
-                    }
-                })
-            )
-        })
-    });
 </script>
 </body>
