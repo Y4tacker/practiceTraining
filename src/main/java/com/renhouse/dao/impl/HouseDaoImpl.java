@@ -61,5 +61,4 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
         String sql = "select `id` ,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName` from t_house limit ?,?";
         return queryForList(House.class,sql,begin,pageSize);
     }
-
 }

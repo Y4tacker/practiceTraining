@@ -26,6 +26,10 @@ public interface UserDao {
      * @param user
      * @return 返回-1表示操作失败，其他是sql语句影响的行数
      */
-    public int saveUser(User user);
+    public int addUser(User user);
+
+//    Integer queryForPageTotalCount();
+
+//    List<User> queryForPageItems(int begin, int pageSize);
 
 }

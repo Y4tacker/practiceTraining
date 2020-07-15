@@ -18,8 +18,22 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     }
 
     @Override
-    public int saveUser(User user) {
+    public int addUser(User user) {
         String sql = "insert into t_user(`username`,`password`,`phone`,`income`) values(?,?,?,?)";
         return update(sql, user.getUsername(),user.getPassword(),user.getPhone(),user.getIncome());
     }
+
+/*
+    @Override
+    public Integer queryForPageTotalCount() {
+        String sql = "select count(id) from t_user";
+        Number count = (Number) queryForSingleValue(sql);
+        return count.intValue();
+    }
+
+    @Override
+    public List<User> queryForPageItems(int begin, int pageSize) {
+        String sql = "select `id`,`username`,`password`,`phone`,`income` from t_user limit ?,?";
+        return queryForList(Tenant.class,sql,begin,pageSize);
+    }*/
 }

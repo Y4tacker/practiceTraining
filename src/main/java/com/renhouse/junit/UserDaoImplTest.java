@@ -34,7 +34,7 @@ public class UserDaoImplTest {
     public void saveUser() {
         User user = new User(null,"admin23","123456","6111111",new BigDecimal(500));
         UserDao userDao = new UserDaoImpl();
-        if (userDao.saveUser(user) == -1){
+        if (userDao.addUser(user) == -1){
             System.out.println("用户已存在");
         }else {
             System.out.println("保存成功");
