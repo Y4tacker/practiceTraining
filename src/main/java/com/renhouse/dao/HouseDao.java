@@ -22,13 +22,6 @@ public interface HouseDao {
     public House queryHouseByLandlordAndTenant(String landlord,String tenant);
 
     /**
-     * 保存房屋信息
-     * @param house
-     * @return
-     */
-    public int saveHouse(House house);
-
-    /**
      * 添加房屋信息
      * @param house
      * @return
