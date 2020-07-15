@@ -70,8 +70,8 @@
 
         var account_table = table.render({
             elem: '#houseinfo-table',
-            url: 'houseSevelet?action=page',
-            height: 400,
+            url: 'houseServlet?action=page',
+            height: 'auto',
             title: '房源信息',
             toolbar: '#toolbaradd',
             page: true,
@@ -79,21 +79,23 @@
             defaultToolbar: ['filter', 'print', 'exports'],
             cols: [
                 [
-                    {field: 'id', title: "ID", sort: true, width: 80},
-                    {field: 'houseName', title: '房屋名', sort: true, width: 170},
-                    {field: 'layout', title: '户型', width: 170},
-                    {field: 'address', title: '地址', width: 200},
-                    {field: 'space', title: '面积', width: 200},
-                    {field: 'monthRent', title: '月租金', width: 200},
-                    {field: 'rentalStatus', title: '租赁状态', width: 200}
+                    {field: 'id', title: "ID", sort: true,},
+                    {field: 'houseName', title: '房屋名', sort: true,},
+                    {field: 'layout', title: '户型'},
+                    {field: 'address', title: '地址'},
+                    {field: 'space', title: '面积'},
+                    {field: 'monthRent', title: '月租金'},
+                    {field: 'rentalStatus', title: '租赁状态'},
+                    {field: 'operation', fixed:'right',title: '操作', toolbar: '#operation', width: 120}
                 ]
             ]
         });
         table.on('toolbar(houseinfo-table)',function (obj) {
             if(obj.event === 'add'){
                 var house = obj.data;
+                console.log(house);
                 layer.prompt({
-                    title: "编辑账户：ID"+house.id,
+                    title: "添加房源",
                     shadeClose: true,
                     shade: 0.8,
                     btnAlign: 'l',
@@ -170,7 +172,7 @@
                         dataType: 'json',
                         data: {
                             'action': 'deleteHouse',
-                            'aid': account.aid,
+                            'id': house.id,
                         },
                         success: function (data) {
                             if (data.code === 0) {
@@ -195,7 +197,7 @@
                 $('#form_houseinfo').find('#monthRent').val(house.monthRent);
                 $('#form_houseinfo').find('#rentalStatus').val(house.rentalStatus);
                 layer.prompt({
-                    title: "编辑账户：ID" + house.id,
+                    title: "编辑账户：ID" ,
                     shadeClose: true,
                     shade: 0.8,
                     btnAlign: 'l',
