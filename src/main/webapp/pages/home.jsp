@@ -70,6 +70,6 @@
     //JavaScript代码区域
     layui.use(['element','jquery'], function(){
         var element = layui.element;
-        var $ = layui.jquery;
+        var $ = layui.jquery;}
 </script>
 </body>
