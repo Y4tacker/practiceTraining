@@ -15,10 +15,14 @@ public class HouseDaoImplTest {
 
     @Test
     public void queryHouseByLandlord() {
+        HouseDao houseDao = new HouseDaoImpl();
+        System.out.println(houseDao.queryHouseByLandlord("admin"));
     }
 
     @Test
     public void queryHouseByLandlordAndTenant() {
+        HouseDao houseDao = new HouseDaoImpl();
+        System.out.println(houseDao.queryHouseByLandlordAndTenant("admin","ywh"));
     }
 
     @Test

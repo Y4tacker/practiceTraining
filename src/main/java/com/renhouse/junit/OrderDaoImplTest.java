@@ -15,26 +15,38 @@ public class OrderDaoImplTest {
 
     @Test
     public void queryOrderById() {
+        OrderDao orderDao = new OrderDaoImpl();
+        System.out.println(orderDao.queryOrderById(4));
     }
 
     @Test
     public void queryOrderByOrderNo() {
+        OrderDao orderDao = new OrderDaoImpl();
+        System.out.println(orderDao.queryOrderByOrderNo("ajdo"));
     }
 
     @Test
     public void queryOrderByOrderHouse() {
+        OrderDao orderDao = new OrderDaoImpl();
+        System.out.println(orderDao.queryOrderByOrderHouse("双流区哈哈路1号"));
     }
 
     @Test
     public void queryOrderByLandLord() {
+        OrderDao orderDao = new OrderDaoImpl();
+        System.out.println(orderDao.queryOrderByLandLord("大猩猩"));
     }
 
     @Test
     public void queryOrderByTenantName() {
+        OrderDao orderDao = new OrderDaoImpl();
+        System.out.println(orderDao.queryOrderByTenantName("小猴子"));
     }
 
     @Test
     public void queryOrderByOrderTime() {
+        OrderDao orderDao = new OrderDaoImpl();
+        System.out.println(orderDao.queryOrderByOrderTime("2020-6-20"));
     }
 
     @Test

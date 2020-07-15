@@ -16,10 +16,14 @@ public class TenantDaoImplTest {
 
     @Test
     public void queryTenantByTenantName() {
+        TenantDao tenantDao = new TenantDaoImpl();
+        System.out.println(tenantDao.queryTenantByTenantName("abcd123a"));
     }
 
     @Test
     public void queryTenantByTenantNameAndPassword() {
+        TenantDao tenantDao = new TenantDaoImpl();
+        System.out.println(tenantDao.queryTenantByTenantNameAndPassword("abcd123a","aaaa"));
     }
 
     @Test
