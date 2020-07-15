@@ -47,4 +47,13 @@
     <servlet-name>HouseServlet</servlet-name>
     <url-pattern>/houseServlet</url-pattern>
   </servlet-mapping>
+  <!-- 订单相关操作 -->
+  <servlet>
+    <servlet-name>OrderServlet</servlet-name>
+    <servlet-class>com.renhouse.servlet.OrderServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrderServlet</servlet-name>
+    <url-pattern>/orderServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

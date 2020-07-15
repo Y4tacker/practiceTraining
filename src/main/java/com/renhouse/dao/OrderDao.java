@@ -22,11 +22,25 @@ public interface OrderDao {
 
     public int updateOrder(Order order);
 
+    /**
+     * 返回整个订单信息
+     * @return
+     */
     public List<Order> queryOrders();
 
-//    Integer queryForPageTotalCount();
+    /**
+     * 查询总共数量
+     * @return
+     */
+    Integer queryForPageTotalCount();
 
-//    List<Order> queryForPageItems(int begin, int pageSize);
+    /**
+     * 查询分页信息
+     * @param begin
+     * @param pageSize
+     * @return
+     */
+    List<Order> queryForPageItems(int begin, int pageSize);
 
 
 
