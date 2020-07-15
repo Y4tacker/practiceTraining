@@ -1,10 +1,9 @@
 package com.renhouse.pojo;
 
-
 public class Tenant {
     private Integer id;
     private String tenantName;
-    private String password;
+    private String tenantPassword;
     private String landlord;
 
     public Tenant() {
@@ -13,7 +12,7 @@ public class Tenant {
     public Tenant(Integer id, String tenantName, String password, String landlord) {
         this.id = id;
         this.tenantName = tenantName;
-        this.password = password;
+        this.tenantPassword = password;
         this.landlord = landlord;
     }
 
@@ -33,12 +32,12 @@ public class Tenant {
         this.tenantName = tenantName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getTenantPassword() {
+        return tenantPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setTenantPassword(String tenantPassword) {
+        this.tenantPassword = tenantPassword;
     }
 
     public String getLandlord() {
@@ -54,7 +53,7 @@ public class Tenant {
         return "Tenant{" +
                 "id=" + id +
                 ", tenantName='" + tenantName + '\'' +
-                ", password='" + password + '\'' +
+                ", tenantPassword='" + tenantPassword + '\'' +
                 ", landlord='" + landlord + '\'' +
                 '}';
     }
