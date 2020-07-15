@@ -26,7 +26,26 @@ public class HouseServlet extends BaseServlet {
     }
 
     protected void editHouse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        House house = WebUtils.copyParamToBean(request.getParameterMap(),new House());
+        try {
+            House houseInfo = houseService.queryHouseById(house.getId());
+            house.setLandlord(houseInfo.getLandlord());
+            house.setTenant(houseInfo.getTenant());
+            house.setStartTime(houseInfo.getStartTime());
+            house.setEndTime(houseInfo.getEndTime());
+            houseService.updateHouse(house);
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": " + "\"修改成功！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }catch (Exception e){
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": " + "\"修改失败！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }
     }
 
     protected void delHouse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
