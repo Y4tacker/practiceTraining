@@ -11,7 +11,7 @@ public interface HouseDao {
      * @param landlord
      * @return 若返回null，说明没有这个房屋，反之亦然
      */
-    public House queryHouseByLandlord(String landlord);
+    public List<House> queryHouseByLandlord(String landlord);
 
     /**
      * 根据房东和租客查询房屋信息
@@ -19,7 +19,7 @@ public interface HouseDao {
      * @param tenant
      * @return 若返回null，说明房东或租客姓名错误，反之亦然
      */
-    public House queryHouseByLandlordAndTenant(String landlord,String tenant);
+    public List<House> queryHouseByLandlordAndTenant(String landlord,String tenant);
 
     /**
      * 添加房屋信息

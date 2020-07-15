@@ -10,11 +10,11 @@ public interface OrderDao {
 
     public Order queryOrderByOrderHouse(String orderHouse);
 
-    public Order queryOrderByLandLord(String landlord);
+    public List<Order> queryOrderByLandLord(String landlord);
 
-    public Order queryOrderByTenantName(String tenantName);
+    public List<Order> queryOrderByTenantName(String tenantName);
 
-    public Order queryOrderByOrderTime(String orderTime);
+    public List<Order> queryOrderByOrderTime(String orderTime);
 
     public int addOrder(Order order);
 

@@ -26,21 +26,21 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
     }
 
     @Override
-    public Order queryOrderByLandLord(String landlord) {
+    public List<Order> queryOrderByLandLord(String landlord) {
         String sql = "SELECT id,orderNo,orderHouse,landlord,tenantName,orderTime FROM `t_order` where landlord = ?";
-        return queryForOne(Order.class,sql,landlord);
+        return queryForList(Order.class,sql,landlord);
     }
 
     @Override
-    public Order queryOrderByTenantName(String tenantName) {
+    public List<Order> queryOrderByTenantName(String tenantName) {
         String sql = "SELECT id,orderNo,orderHouse,landlord,tenantName,orderTime FROM `t_order` where tenantName = ?";
-        return queryForOne(Order.class,sql,tenantName);
+        return queryForList(Order.class,sql,tenantName);
     }
 
     @Override
-    public Order queryOrderByOrderTime(String orderTime) {
+    public List<Order> queryOrderByOrderTime(String orderTime) {
         String sql = "SELECT id,orderNo,orderHouse,landlord,tenantName,orderTime FROM `t_order` where orderTime = ?";
-        return queryForOne(Order.class,sql,orderTime);
+        return queryForList(Order.class,sql,orderTime);
     }
 
     @Override
