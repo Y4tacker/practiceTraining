@@ -20,12 +20,6 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
     }
 
     @Override
-    public int saveHouse(House house) {
-        String sql = "insert into t_house(`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName`) values(?,?,?,?,?,?,?,?,?,?)";
-        return update(sql, house.getLandlord(),house.getTenant(),house.getMonthRent(),house.getSpace(),house.getRentalStatus(),house.getAddress(),house.getLayout(),house.getEndTime(),house.getStartTime(),house.getHouseName());
-    }
-
-    @Override
     public int addHouse(House house) {
         String sql = "INSERT INTO t_house(landlord,tenant,monthRent,space,rentalStatus,address,layout,endTime,startTime,houseName) VALUES (?,?,?,?,?,?,?,?,?,?)";
         return update(sql,house.getLandlord(),house.getTenant(),house.getMonthRent(),house.getSpace(),house.getRentalStatus(),house.getAddress(),house.getLayout(),house.getEndTime(),house.getStartTime(),house.getHouseName());

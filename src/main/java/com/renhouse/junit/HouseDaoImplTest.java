@@ -22,10 +22,6 @@ public class HouseDaoImplTest {
     }
 
     @Test
-    public void saveHouse() {
-    }
-
-    @Test
     public void addHouse() {
         HouseDao houseDao = new HouseDaoImpl();
         String landlord = "admin";
