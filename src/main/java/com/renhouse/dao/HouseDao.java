@@ -62,4 +62,9 @@ public interface HouseDao {
      */
     public List<House> queryHouses();
 
+    Integer queryForPageTotalCount();
+
+    List<House> queryForPageItems(int begin, int pageSize);
+
+
 }
