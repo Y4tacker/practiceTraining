@@ -37,7 +37,7 @@ public class GlobalFilter implements Filter {
         if (user == null) {
             servletRequest.setAttribute("msg", "请先登录！");
 //            servletRequest.getRequestDispatcher("/pages/user/login.jsp").forward(servletRequest,servletResponse); //请求转发
-            httpServletResponse.sendRedirect("/test/pages/pleaselogin.jsp");  //页面重定向
+            httpServletResponse.sendRedirect("../pages/pleaselogin.jsp");  //页面重定向
             return;
         } else {
             filterChain.doFilter(servletRequest, servletResponse);

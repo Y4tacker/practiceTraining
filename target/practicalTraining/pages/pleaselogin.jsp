@@ -12,6 +12,7 @@
 </head>
 <body>
 <span id="remainSeconds">3</span>
+<%@ include file="/pages/common/head.jsp"%>
 <script type="text/javascript">
     setInterval(jump, 1000);
     let sec = 3;
@@ -22,7 +23,7 @@
             document.getElementById('remainSeconds').innerHTML = sec;
 
         } else {
-            window.location.href = '/test/pages/user/login.jsp';
+            window.location.href = 'pages/user/login.jsp';
         }
 
     }
