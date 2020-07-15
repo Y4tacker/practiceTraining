@@ -10,6 +10,11 @@
 <head>
     <%@include file="../common/head.jsp"%>
     <title>房屋管理</title>
+    <style>
+        .layui-form-selected dl {
+            width: 20px;
+        }
+    </style>
 </head>
 <body>
 <script type="text/html" id="toolbaradd">
@@ -315,20 +320,15 @@
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">租赁状态<span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <input type="text" name="rentalStatus_edit" required lay-verify="required"style="width:300px"
-                   placeholder="租赁状态" autocomplete="off" class="layui-input" id="rentalStatus_edit">
+            <select name="rentalStatus" lay-verify="required" id="rentalStatus_edit">
+                <option value="">租赁状态</option>
+                <option value="0">租赁</option>
+                <option value="1">未租赁</option>
+            </select>
         </div>
     </div>
 </div>
 <div class="layui-form" id="form_houseinfo_add" style="width:500px;display:none">
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">ID <span style="color: #ff0000">*</span></label>
-        <div class="layui-input-block">
-            <input class="layui-input" lay-verify="required" type="text" name="id" placeholder="id"style="width:300px"
-                   id="id"
-                   placeholder="账号"/>
-        </div>
-    </div>
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">房屋名 <span style="color: red">*</span></label>
         <div class="layui-input-block">
@@ -369,8 +369,11 @@
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">租赁状态<span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <input type="text" name="rentalStatus" required lay-verify="required"style="width:300px"
-                   placeholder="租赁状态" autocomplete="off" class="layui-input" id="rentalStatus">
+            <select name="rentalStatus" lay-verify="required" id="rentalStatus">
+                <option value="">租赁状态</option>
+                <option value="0">租赁</option>
+                <option value="1">未租赁</option>
+            </select>
         </div>
     </div>
 </div>
