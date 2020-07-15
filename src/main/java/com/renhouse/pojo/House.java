@@ -8,7 +8,7 @@ public class House {
     private String tenant;
     private BigDecimal monthRent;
     private Integer space;
-    private Integer rentalStatus;
+    private String rentalStatus;
     private String address;
     private String layout;
     private String endTime;
@@ -18,7 +18,7 @@ public class House {
     public House() {
     }
 
-    public House(Integer id, String landlord, String tenant, BigDecimal monthRent, Integer space, Integer rentalStatus, String address, String layout, String startTime, String endTime, String houseName) {
+    public House(Integer id, String landlord, String tenant, BigDecimal monthRent, Integer space, String rentalStatus, String address, String layout, String startTime, String endTime, String houseName) {
         this.id = id;
         this.landlord = landlord;
         this.tenant = tenant;
@@ -72,11 +72,11 @@ public class House {
         this.space = space;
     }
 
-    public Integer getRentalStatus() {
+    public String getRentalStatus() {
         return rentalStatus;
     }
 
-    public void setRentalStatus(Integer rentalStatus) {
+    public void setRentalStatus(String rentalStatus) {
         this.rentalStatus = rentalStatus;
     }
 
