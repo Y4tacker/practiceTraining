@@ -157,7 +157,7 @@
                         layer.close(index);
                         return finish;
                     },
-                    content: $('#form_houseinfo')
+                    content: $('#form_houseinfo_add')
                 });
             }
         })
@@ -267,6 +267,60 @@
 </script>
 </body>
 <div class="layui-form" id="form_houseinfo" style="width:500px;display:none">
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">ID <span style="color: #ff0000">*</span></label>
+        <div class="layui-input-block">
+            <input class="layui-input" lay-verify="required" type="text" name="id" placeholder="id"style="width:300px"
+                   id="id"
+                   placeholder="账号"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">房屋名 <span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input class="layui-input" lay-verify="required" type="text" name="houseName" placeholder="房屋名"style="width:300px"
+                   id="houseName"
+                   placeholder="密码"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">户型<span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input type="text" name="layout" required lay-verify="required" placeholder="户型"style="width:300px"
+                   autocomplete="off" class="layui-input" id="layout">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">地址<span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input type="text" name="address" required lay-verify="required" placeholder="地址"style="width:300px"
+                   autocomplete="off" class="layui-input" id="address">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">面积<span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input type="text" name="space" required lay-verify="required" placeholder="面积"style="width:300px"
+                   autocomplete="off" class="layui-input" id="space">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">月租金<span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input type="text" name="monthRent" required lay-verify="required"style="width:300px"
+                   placeholder="月租金" autocomplete="off"
+                   class="layui-input" id="monthRent">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">租赁状态<span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input type="text" name="rentalStatus" required lay-verify="required"style="width:300px"
+                   placeholder="租赁状态" autocomplete="off" class="layui-input" id="rentalStatus">
+        </div>
+    </div>
+</div>
+<div class="layui-form" id="form_houseinfo_add" style="width:500px;display:none">
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">ID <span style="color: #ff0000">*</span></label>
         <div class="layui-input-block">
