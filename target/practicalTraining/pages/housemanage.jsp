@@ -70,7 +70,7 @@
 
         var account_table = table.render({
             elem: '#houseinfo-table',
-            url: '/account_get',
+            url: 'houseSevelet?action=page',
             height: 400,
             title: '房源信息',
             toolbar: '#toolbaradd',
@@ -115,20 +115,19 @@
                         });
                         var finish = false;
                         $.ajax({
-                            url: '/account_edit',
+                            url: 'houseServlet',
                             method: 'POST',
                             async: false,
                             dataType: 'json',
                             data: {
-                                'action': 'edit',
-                                'username': new_account,
-                                'password': new_password,
-                                '_ra': new_ra,
-                                '_gid': new_gid,
-                                '_ga': new_ga,
-                                '_fril_user_session_id': new_fril_user_session_id,
-                                '__gads': new__gads,
-                                'aid': account.aid,
+                                'action': 'addHouse',
+                                'id': id,
+                                'houseName': houseName,
+                                'layout': layout,
+                                'address': address,
+                                'space': space,
+                                'monthRent': monthRent,
+                                'rentalStatus': rentalStatus,
                             },
                             success: function (res) {
                                 layer.close(loading);
@@ -161,16 +160,16 @@
             }
         })
         table.on('tool(houseinfo-table)', function (obj) {
-            var account = obj.data;
+            var house = obj.data;
             if (obj.event === 'delete') {
                 layer.confirm('确定要删除吗', function (index) {
                     $.ajax({
-                        url: '/editHouse',
+                        url: 'houseServlet',
                         method: 'POST',
                         async: false,
                         dataType: 'json',
                         data: {
-                            'action': 'delete',
+                            'action': 'deleteHouse',
                             'aid': account.aid,
                         },
                         success: function (data) {
@@ -179,7 +178,6 @@
                                 layer.msg("删除成功", {icon: 6});
                                 layer.close(index);
                             } else {
-                                console.log(1111);
                                 layer.msg("删除失败", {icon: 5});
                             }
                         },
@@ -189,15 +187,15 @@
                     });
                 });
             } else if (obj.event === 'edit') {
-                $('#form_houseinfo').find('#id').val(account.username);
-                $('#form_houseinfo').find('#houseName').val(account.password);
-                $('#form_houseinfo').find('#layout').val(account._gid);
-                $('#form_houseinfo').find('#address').val(account._ga);
-                $('#form_houseinfo').find('#space').val(account._fril_user_session_id);
-                $('#form_houseinfo').find('#monthRent').val(account.__gads);
-                $('#form_houseinfo').find('#rentalStatus').val(account._ra);
+                $('#form_houseinfo').find('#id').val(house.id);
+                $('#form_houseinfo').find('#houseName').val(house.houseName);
+                $('#form_houseinfo').find('#layout').val(house.layout);
+                $('#form_houseinfo').find('#address').val(house.address);
+                $('#form_houseinfo').find('#space').val(house.space);
+                $('#form_houseinfo').find('#monthRent').val(house.monthRent);
+                $('#form_houseinfo').find('#rentalStatus').val(house.rentalStatus);
                 layer.prompt({
-                    title: "编辑账户：ID" + account.aid,
+                    title: "编辑账户：ID" + house.id,
                     shadeClose: true,
                     shade: 0.8,
                     btnAlign: 'l',
@@ -205,14 +203,13 @@
                     area: '700px',
                     offset: '120px',
                     yes: function (index, obj) {
-                        var new_account = obj.find('#new_account').val();
-                        var new_password = obj.find('#new_password').val();
-                        var new_ra = obj.find('#new_ra').val();
-                        var new_gid = obj.find('#new_gid').val();
-                        var new_ga = obj.find('#new_ga').val();
-                        var new_fril_user_session_id = obj.find('#new_fril_user_session_id').val();
-                        var new__gads = obj.find('#new__gads').val();
-                        var token = $('[name="csrfmiddlewaretoken"]').val();
+                        var id = obj.find('#id').val();
+                        var houseName = obj.find('#houseName').val();
+                        var layout = obj.find('#layout').val();
+                        var address = obj.find('#address').val();
+                        var space = obj.find('#space').val();
+                        var monthRent = obj.find('#monthRent').val();
+                        var rentalStatus = obj.find('#rentalStatus').val();
                         var loading = layer.msg("正在添加", {
                             icon: 16,
                             shade: 0.3,
@@ -220,20 +217,19 @@
                         });
                         var finish = false;
                         $.ajax({
-                            url: '/account_edit',
+                            url: 'houseServlet',
                             method: 'POST',
                             async: false,
                             dataType: 'json',
                             data: {
-                                'action': 'edit',
-                                'username': new_account,
-                                'password': new_password,
-                                '_ra': new_ra,
-                                '_gid': new_gid,
-                                '_ga': new_ga,
-                                '_fril_user_session_id': new_fril_user_session_id,
-                                '__gads': new__gads,
-                                'aid': account.aid,
+                                'action': 'editHouse',
+                                'id': id,
+                                'houseName': houseName,
+                                'layout': layout,
+                                'address': address,
+                                'space': space,
+                                'monthRent': monthRent,
+                                'rentalStatus': rentalStatus,
                             },
                             success: function (res) {
                                 layer.close(loading);
@@ -243,7 +239,7 @@
                                         title: '成功'
                                     });
                                     account_table.reload({
-                                        elem: "#account-table"
+                                        elem: "#houseinfo-table"
                                     });
                                 } else {
                                     layer.msg(res.msg, {

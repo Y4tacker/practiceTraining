@@ -49,6 +49,12 @@ public class HouseServlet extends BaseServlet {
         List<House> items = page.getItems();
         Gson gson = new Gson();
         String toJson = gson.toJson(items);
-        resp.getWriter().write(toJson);
+        String result = "{" +
+                "  \"code\": 0," +
+                "  \"msg\": \"\"," +
+                "  \"count\": "+page.getPageTotalCount()+"," +
+                "  \"data\": "+toJson +
+                "} ";
+        resp.getWriter().write(result);
     }
 }
