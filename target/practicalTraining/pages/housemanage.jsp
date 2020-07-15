@@ -271,7 +271,7 @@
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">ID <span style="color: #ff0000">*</span></label>
         <div class="layui-input-block">
             <input class="layui-input" lay-verify="required" type="text" name="id" placeholder="id"style="width:300px"
-                   id="id"
+                   id="id" disabled="disabled"
                    placeholder="账号"/>
         </div>
     </div>
