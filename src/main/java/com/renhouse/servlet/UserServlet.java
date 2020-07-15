@@ -41,6 +41,7 @@ public class UserServlet extends BaseServlet {
             if (loginUser != null && code.equalsIgnoreCase(token)){
                 // 将user绑定到session域中，便于filter
                 request.getSession().setAttribute("user",loginUser);
+                request.getSession().setAttribute("landlordName",loginUser.getUsername());
                 request.getSession().setAttribute("noticeStatus","true");
                 response.sendRedirect("pages/home.jsp");
             }else {
@@ -88,6 +89,8 @@ public class UserServlet extends BaseServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user",user);
             userService.registUser(new User(null, username, password, phone, null));
+            request.getSession().setAttribute("user",user);
+            request.getSession().setAttribute("landlordName",user.getUsername());
             request.getSession().setAttribute("noticeStatus","true");
             response.sendRedirect("pages/home.jsp");
         }else {

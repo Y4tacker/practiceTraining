@@ -18,11 +18,24 @@ public class HouseServlet extends BaseServlet {
     private HouseService houseService = new HouseServiceImpl();
 
     protected void addHouse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        House house = WebUtils.copyParamToBean(request.getParameterMap(),new House());
+        house.setId(null);
+        house.setLandlord((String) request.getSession().getAttribute("landlordName"));
 
-    }
-
-    protected void getHouse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        try {
+            houseService.addHouse(house);
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": " + "\"添加成功！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }catch (Exception e){
+            String result = "{" +
+                    "  \"code\": 1," +
+                    "  \"msg\": " + "\"添加失败！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }
     }
 
     protected void editHouse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,7 +54,7 @@ public class HouseServlet extends BaseServlet {
             response.getWriter().write(result);
         }catch (Exception e){
             String result = "{" +
-                    "  \"code\": 0," +
+                    "  \"code\": 1," +
                     "  \"msg\": " + "\"修改失败！\"" +
                     "} ";
             response.getWriter().write(result);
