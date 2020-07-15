@@ -20,7 +20,7 @@
 
                 </div>
                 <div class="layui-card-body">
-                    <table class="layui-hide" id="account-table" lay-filter="account-table"></table>
+                    <table class="layui-hide" id="houseinfo-table" lay-filter="houseinfo-table"></table>
                     <script type="text/html" id="operation">
                         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
                         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
@@ -31,11 +31,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    layui.config({
-        base: '{% static "lay/modules" %}',
-        debug: true,
-    });
-
     layui.use(['form', 'element', 'jquery', 'table', 'layer'], function () {
         var element = layui.element
             , form = layui.form
@@ -85,20 +80,18 @@
             elem: '#account-table',
             url: '/account_get',
             height: 400,
-            title: '账号单',
+            title: '房源信息',
             toolbar: 'true',
             page: true,
             cols: [
                 [
-                    {field: 'aid', title: "ID", sort: true, width: 80},
-                    {field: 'username', title: '账号', sort: true, width: 170},
-                    {field: 'password', title: '密码', width: 170},
-                    {field: '_ra', title: '_ra', width: 200},
-                    {field: '_gid', title: '_gid', width: 200},
-                    {field: '_ga', title: '_ga', width: 200},
-                    {field: '_fril_user_session_id', title: '_fril_user_session_id', width: 200},
-                    {field: '__gads', title: '__gads', width: 200},
-                    {field: 'operation', fixed:'right',title: '操作', toolbar: '#operation', width: 120}
+                    {field: 'id', title: "ID", sort: true, width: 80},
+                    {field: 'houseName', title: '房屋名', sort: true, width: 170},
+                    {field: 'layout', title: '户型', width: 170},
+                    {field: 'address', title: '地址', width: 200},
+                    {field: 'space', title: '面积', width: 200},
+                    {field: 'monthRent', title: '月租金', width: 200},
+                    {field: 'rentalStatus', title: '租赁状态', width: 200}
                 ]
             ]
         });
@@ -106,33 +99,30 @@
             var account = obj.data;
             if (obj.event === 'delete') {
                 layer.confirm('确定要删除吗', function (index) {
-                    var token = $('[name="csrfmiddlewaretoken"]').val();
-                    if (token !== "") {
-                        $.ajax({
-                            url: '/account_edit',
-                            method: 'POST',
-                            async: false,
-                            dataType: 'json',
-                            data: {
-                                'action': 'delete',
-                                'aid': account.aid,
-                                "csrfmiddlewaretoken": token
-                            },
-                            success: function (data) {
-                                if (data.code === 0) {
-                                    obj.del();
-                                    layer.msg("删除成功", {icon: 6});
-                                    layer.close(index);
-                                } else {
-                                    console.log(1111);
-                                    layer.msg("删除失败", {icon: 5});
-                                }
-                            },
-                            error: function () {
+                    $.ajax({
+                        url: '/account_edit',
+                        method: 'POST',
+                        async: false,
+                        dataType: 'json',
+                        data: {
+                            'action': 'delete',
+                            'aid': account.aid,
+                            "csrfmiddlewaretoken": token
+                        },
+                        success: function (data) {
+                            if (data.code === 0) {
+                                obj.del();
+                                layer.msg("删除成功", {icon: 6});
+                                layer.close(index);
+                            } else {
+                                console.log(1111);
                                 layer.msg("删除失败", {icon: 5});
                             }
-                        });
-                    }
+                        },
+                        error: function () {
+                            layer.msg("删除失败", {icon: 5});
+                        }
+                    });
                 });
             } else if (obj.event === 'edit') {
                 $('#editAccount').find('#new_account').val(account.username);
