@@ -6,15 +6,15 @@ import com.renhouse.pojo.House;
 
 public class HouseDaoImpl extends BaseDao implements HouseDao {
     @Override
-    public House queryHouseByLandload(String landload) {
+    public House queryHouseByLandlord(String landlord) {
         String sql = "select `id`,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName` from t_house where landlord = ?";
-        return queryForOne(House.class, sql,landload);
+        return queryForOne(House.class, sql,landlord);
     }
 
     @Override
-    public House queryHouseByLandloadAndTenant(String landload, String tenant) {
+    public House queryHouseByLandlordAndTenant(String landlord, String tenant) {
         String sql = "select `id`,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName` from t_house where landlord = ? and tenant = ?";
-        return queryForOne(House.class, sql,landload,tenant);
+        return queryForOne(House.class, sql,landlord,tenant);
     }
 
     @Override

@@ -5,14 +5,15 @@ import com.renhouse.dao.TenantDao;
 import com.renhouse.pojo.Tenant;
 
 public class TenantDaoImpl extends BaseDao implements TenantDao {
+
     @Override
-    public Tenant queruTenantByTenantname(String tenantName) {
+    public Tenant queryTenantByTenantName(String tenantName) {
         String sql = "select `id`,`tenantName`,`tenantPassword`,`landlord` from t_tenant where tenantName = ?";
         return queryForOne(Tenant.class, sql, tenantName);
     }
 
     @Override
-    public Tenant queryTenantByTenantnameAndPassword(String tenantName, String tenantPassword) {
+    public Tenant queryTenantByTenantNameAndPassword(String tenantName, String tenantPassword) {
         String sql = "select `id`,`tenantName`,`tenantPassword`,`landlord` from t_tenant where tenantName = ? and tenantPassword =?";
         return queryForOne(Tenant.class, sql, tenantName,tenantPassword);
     }

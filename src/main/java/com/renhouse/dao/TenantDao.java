@@ -10,7 +10,7 @@ public interface TenantDao {
      * @param tenantName 租客用户名
      * @return 如果返回null，说明没有这个租客，反之亦然
      */
-    public Tenant queruTenantByTenantname(String tenantName);
+    public Tenant queryTenantByTenantName(String tenantName);
 
     /**
      * 根据租客用户名和密码查询租客信息
@@ -18,7 +18,7 @@ public interface TenantDao {
      * @param tenantPassword
      * @return 如果返回null，说明没有这个租客，反之亦然
      */
-    public Tenant queryTenantByTenantnameAndPassword(String tenantName,String tenantPassword);
+    public Tenant queryTenantByTenantNameAndPassword(String tenantName,String tenantPassword);
 
     /**
      * 保存租客信息

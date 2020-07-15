@@ -1,6 +1,5 @@
 package com.renhouse.pojo;
 
-
 public class Tenant {
     private Integer id;
     private String tenantName;

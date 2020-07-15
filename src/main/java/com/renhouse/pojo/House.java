@@ -1,11 +1,13 @@
 package com.renhouse.pojo;
 
+import java.math.BigDecimal;
+
 public class House {
     private Integer id;
     private String landlord;
     private String tenant;
-    private Double monthRent;
-    private Double space;
+    private BigDecimal monthRent;
+    private BigDecimal space;
     private Integer rentalStatus;
     private String address;
     private String layout;
@@ -16,7 +18,7 @@ public class House {
     public House() {
     }
 
-    public House(Integer id, String landlord, String tenant, Double monthRent, Double space, Integer rentalStatus, String address, String layout, String endTime, String startTime, String houseName) {
+    public House(Integer id, String landlord, String tenant, BigDecimal monthRent, BigDecimal space, Integer rentalStatus, String address, String layout, String endTime, String startTime, String houseName) {
         this.id = id;
         this.landlord = landlord;
         this.tenant = tenant;
@@ -54,19 +56,19 @@ public class House {
         this.tenant = tenant;
     }
 
-    public Double getMonthRent() {
+    public BigDecimal getMonthRent() {
         return monthRent;
     }
 
-    public void setMonthRent(Double monthRent) {
+    public void setMonthRent(BigDecimal monthRent) {
         this.monthRent = monthRent;
     }
 
-    public Double getSpace() {
+    public BigDecimal getSpace() {
         return space;
     }
 
-    public void setSpace(Double space) {
+    public void setSpace(BigDecimal space) {
         this.space = space;
     }
 
