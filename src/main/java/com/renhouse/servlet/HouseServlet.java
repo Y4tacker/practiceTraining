@@ -48,8 +48,23 @@ public class HouseServlet extends BaseServlet {
         }
     }
 
-    protected void delHouse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    protected void deleteHouse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try{
+            String temp = request.getParameter("id");
+            Integer id = Integer.valueOf(temp);
+            houseService.deleteHouseById(id);
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": " + "\"删除成功！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }catch (Exception e){
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": " + "\"删除失败！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }
     }
 
     /**
