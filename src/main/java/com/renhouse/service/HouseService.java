@@ -16,5 +16,5 @@ public interface HouseService {
 
     public List<House> queryHouses();
 
-    Page<House> page(int pageNo, int pageSize);
+    Page<House> page(String username, int pageNo, int pageSize);
 }

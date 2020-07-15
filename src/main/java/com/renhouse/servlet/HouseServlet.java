@@ -92,7 +92,7 @@ public class HouseServlet extends BaseServlet {
         int pageNo = WebUtils.parseInt(req.getParameter("page"), 1);
         int pageSize = WebUtils.parseInt(req.getParameter("limit"), Page.PAGE_SIZE);
 
-        Page<House> page = houseService.page(pageNo,pageSize);
+        Page<House> page = houseService.page((String) req.getSession().getAttribute("landlordName"),pageNo,pageSize);
         List<House> items = page.getItems();
         Gson gson = new Gson();
         String toJson = gson.toJson(items);

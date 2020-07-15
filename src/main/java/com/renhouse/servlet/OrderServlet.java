@@ -21,7 +21,7 @@ public class OrderServlet extends BaseServlet {
         int pageNo = WebUtils.parseInt(req.getParameter("page"), 1);
         int pageSize = WebUtils.parseInt(req.getParameter("limit"), Page.PAGE_SIZE);
 
-        Page<Order> page = orderService.page(pageNo,pageSize);
+        Page<Order> page = orderService.page((String) req.getSession().getAttribute("landlordName"),pageNo,pageSize);
         List<Order> items = page.getItems();
         Gson gson = new Gson();
         String toJson = gson.toJson(items);

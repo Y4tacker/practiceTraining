@@ -80,4 +80,10 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
         String sql = "select `id` ,`orderNo`,`orderHouse`,`landlord`,`tenantName`,`orderTime` from t_order limit ?,?";
         return queryForList(Order.class,sql,begin,pageSize);
     }
+
+    @Override
+    public List<Order> queryForPageItemsByLandlord(int begin, int pageSize, String username) {
+        String sql = "select `id` ,`orderNo`,`orderHouse`,`landlord`,`tenantName`,`orderTime` from t_order  where landlord=? limit ?,?";
+        return queryForList(Order.class,sql,username, begin,pageSize);
+    }
 }
