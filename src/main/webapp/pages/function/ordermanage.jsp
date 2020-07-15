@@ -44,7 +44,7 @@
                     {field: 'orderNo', title: '订单编号', sort: true,},
                     {field: 'orderHouse', title: '预定参观房屋'},
                     {field: 'landlord', title: '所属房东'},
-                    {field: 'orderName', title: '预定客户'},
+                    {field: 'tenantName', title: '预定客户'},
                     {field: 'orderTime', title: '上门查看时间'},
                     {field: 'operation', fixed:'right',title: '操作', toolbar: '#operation', width: 120}
                 ]
@@ -55,12 +55,12 @@
             if (obj.event === 'delete') {
                 layer.confirm('确定已处理此订单信息了吗？', function (index) {
                     $.ajax({
-                        url: 'houseServlet',
+                        url: 'orderServlet',
                         method: 'POST',
                         async: false,
                         dataType: 'json',
                         data: {
-                            'action': 'deleteHouse',
+                            'action': 'deleteOrder',
                             'id': house.id,
                         },
                         success: function (data) {
@@ -79,12 +79,11 @@
                 });
             } else if (obj.event === 'edit') {
                 $('#form_houseinfo').find('#id').val(house.id);
-                $('#form_houseinfo').find('#houseName').val(house.houseName);
-                $('#form_houseinfo').find('#layout').val(house.layout);
-                $('#form_houseinfo').find('#address').val(house.address);
-                $('#form_houseinfo').find('#space').val(house.space);
-                $('#form_houseinfo').find('#monthRent').val(house.monthRent);
-                $('#form_houseinfo').find('#rentalStatus').val(house.rentalStatus);
+                $('#form_houseinfo').find('#orderNo').val(house.orderNo);
+                $('#form_houseinfo').find('#orderHouse').val(house.orderHouse);
+                $('#form_houseinfo').find('#landlord').val(house.landlord);
+                $('#form_houseinfo').find('#tenantName').val(house.tenantName);
+                $('#form_houseinfo').find('#orderTime').val(house.orderTime);
                 layer.prompt({
                     title: "编辑账户：ID" ,
                     shadeClose: true,
@@ -95,12 +94,11 @@
                     offset: '120px',
                     yes: function (index, obj) {
                         var id = obj.find('#id').val();
-                        var houseName = obj.find('#houseName').val();
-                        var layout = obj.find('#layout').val();
-                        var address = obj.find('#address').val();
-                        var space = obj.find('#space').val();
-                        var monthRent = obj.find('#monthRent').val();
-                        var rentalStatus = obj.find('#rentalStatus').val();
+                        var orderNo = obj.find('#orderNo').val();
+                        var orderHouse = obj.find('#orderHouse').val();
+                        var landlord = obj.find('#landlord').val();
+                        var tenantName = obj.find('#tenantName').val();
+                        var orderTime = obj.find('#orderTime').val();
                         var loading = layer.msg("正在添加", {
                             icon: 16,
                             shade: 0.3,
@@ -108,19 +106,18 @@
                         });
                         var finish = false;
                         $.ajax({
-                            url: 'houseServlet',
+                            url: 'orderServlet',
                             method: 'POST',
                             async: false,
                             dataType: 'json',
                             data: {
-                                'action': 'editHouse',
+                                'action': 'editOrder',
                                 'id': id,
-                                'houseName': houseName,
-                                'layout': layout,
-                                'address': address,
-                                'space': space,
-                                'monthRent': monthRent,
-                                'rentalStatus': rentalStatus,
+                                'orderNo': orderNo,
+                                'orderHouse': orderHouse,
+                                'landlord': landlord,
+                                'tenantName': tenantName,
+                                'orderTime': orderTime,
                             },
                             success: function (res) {
                                 layer.close(loading);
@@ -167,37 +164,37 @@
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">订单编号 <span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <input class="layui-input" lay-verify="required" type="text" name="houseName" placeholder="订单编号"style="width:300px"
-                   id="houseName"/>
+            <input class="layui-input" lay-verify="required" type="text" name="orderNo" placeholder="订单编号"style="width:300px"
+                   id="orderNo"/>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">预定参观房屋<span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <input type="text" name="layout" required lay-verify="required" placeholder="预定参观房屋"style="width:300px"
-                   autocomplete="off" class="layui-input" id="layout">
+            <input type="text" name="orderHouse" required lay-verify="required" placeholder="预定参观房屋"style="width:300px"
+                   autocomplete="off" class="layui-input" id="orderHouse">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">所属房东<span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <input type="text" name="address" required lay-verify="required" placeholder="所属房东"style="width:300px"
-                   autocomplete="off" class="layui-input" id="address">
+            <input type="text" name="landlord" required lay-verify="required" placeholder="所属房东"style="width:300px"
+                   autocomplete="off" class="layui-input" id="landlord">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">预定客户<span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <input type="text" name="space" required lay-verify="required" placeholder="预定客户"style="width:300px"
-                   autocomplete="off" class="layui-input" id="space">
+            <input type="text" name="tenantName" required lay-verify="required" placeholder="预定客户"style="width:300px"
+                   autocomplete="off" class="layui-input" id="tenantName">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">上门查看时间<span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <input type="text" name="monthRent" required lay-verify="required"style="width:300px"
+            <input type="text" name="orderTime" required lay-verify="required"style="width:300px"
                    placeholder="上门查看时间" autocomplete="off"
-                   class="layui-input" id="monthRent">
+                   class="layui-input" id="orderTime">
         </div>
     </div>
 </div>

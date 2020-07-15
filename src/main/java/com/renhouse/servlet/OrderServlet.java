@@ -1,6 +1,7 @@
 package com.renhouse.servlet;
 
 import com.google.gson.Gson;
+import com.renhouse.pojo.House;
 import com.renhouse.pojo.Order;
 import com.renhouse.pojo.Page;
 import com.renhouse.service.OrderService;
@@ -32,6 +33,43 @@ public class OrderServlet extends BaseServlet {
                 "  \"data\": "+toJson +
                 "} ";
         resp.getWriter().write(result);
+    }
+
+    protected void editOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Order order = WebUtils.copyParamToBean(request.getParameterMap(),new Order());
+        try {
+            orderService.updateOrder(order);
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": " + "\"修改成功！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }catch (Exception e){
+            String result = "{" +
+                    "  \"code\": 1," +
+                    "  \"msg\": " + "\"修改失败！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }
+    }
+
+    protected void deleteOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try{
+            String temp = request.getParameter("id");
+            Integer id = Integer.valueOf(temp);
+            orderService.deleteOrderById(id);
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": " + "\"删除成功！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }catch (Exception e){
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": " + "\"删除失败！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }
     }
 
 }

@@ -21,6 +21,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order queryOrderById(Integer id) {
+        return orderDao.queryOrderById(id);
+    }
+
+    @Override
+    public void updateOrder(Order order) {
+        orderDao.updateOrder(order);
+    }
+
+    @Override
     public Page<Order> page(String username, int pageNo, int pageSize) {
         Page<Order> page = new Page<Order>();
 
