@@ -16,6 +16,7 @@
   <filter-mapping>
     <filter-name>GlobalFilter</filter-name>
     <url-pattern>/pages/*</url-pattern>
+    <url-pattern>/houseServlet</url-pattern>
   </filter-mapping>
   
   <!-- 与用户登录注册相关 -->
