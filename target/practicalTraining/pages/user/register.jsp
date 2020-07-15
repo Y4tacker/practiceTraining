@@ -184,7 +184,7 @@
             <i class="layui-icon layui-icon-vercode admin-captcha-icon"></i>
             <input type="text" name="captcha" id="captcha" placeholder="验证码"
                    value="${requestScope.code}"class="layui-input admin-input-captcha"/>
-            <img id="codeImg" alt="" src="captcha.jpg" style="float: right; margin-right: 0px; width:120px;height:50px;" class="vercode-img">
+            <img id="codeImg" alt="" src="captcha.jpg" style="float: right; margin-right: 0px; width:130px;height:50px;" class="vercode-img">
         </div>
         <input type="submit" value="注 册" class="layui-btn admin-button submit-btn" lay-submit lay-filter="login"/>
     </form>
