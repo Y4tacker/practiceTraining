@@ -21,7 +21,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Page<Order> page(int pageNo, int pageSize) {
+    public Page<Order> page(String username, int pageNo, int pageSize) {
         Page<Order> page = new Page<Order>();
 
         // 设置每页显示的数量
@@ -44,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
         // 求当前页数据的开始索引
         int begin = (page.getPageNo() - 1) * pageSize;
         // 求当前页数据
-        List<Order> items = orderDao.queryForPageItems(begin,pageSize);
+        List<Order> items = orderDao.queryForPageItemsByLandlord(begin,pageSize,username);
         // 设置当前页数据
         page.setItems(items);
 

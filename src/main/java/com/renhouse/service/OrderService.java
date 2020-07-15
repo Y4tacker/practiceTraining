@@ -10,5 +10,5 @@ public interface OrderService {
      */
     public void deleteOrderById(Integer id);
 
-    Page<Order> page(int pageNo, int pageSize);
+    Page<Order> page(String username, int pageNo, int pageSize);
 }

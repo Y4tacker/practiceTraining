@@ -1,5 +1,6 @@
 package com.renhouse.dao;
 
+import com.renhouse.pojo.House;
 import com.renhouse.pojo.Order;
 import java.util.List;
 
@@ -41,6 +42,8 @@ public interface OrderDao {
      * @return
      */
     List<Order> queryForPageItems(int begin, int pageSize);
+
+    public List<Order> queryForPageItemsByLandlord(int begin, int pageSize, String username);
 
 
 

@@ -37,7 +37,7 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public Page<House> page(int pageNo, int pageSize) {
+    public Page<House> page(String username, int pageNo, int pageSize) {
         Page<House> page = new Page<House>();
         HouseDao houseDao = new HouseDaoImpl();
 
@@ -61,7 +61,7 @@ public class HouseServiceImpl implements HouseService {
         // 求当前页数据的开始索引
         int begin = (page.getPageNo() - 1) * pageSize;
         // 求当前页数据
-        List<House> items = houseDao.queryForPageItems(begin,pageSize);
+        List<House> items = houseDao.queryForPageItemsByLandlord(begin, pageSize, username);
         // 设置当前页数据
         page.setItems(items);
 

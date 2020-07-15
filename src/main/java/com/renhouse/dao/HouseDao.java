@@ -69,5 +69,7 @@ public interface HouseDao {
      */
     List<House> queryForPageItems(int begin, int pageSize);
 
+    public List<House> queryForPageItemsByLandlord(int begin, int pageSize, String username);
+
 
 }
