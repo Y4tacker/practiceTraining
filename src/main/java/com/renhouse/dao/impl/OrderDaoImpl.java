@@ -63,7 +63,7 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 
     @Override
     public List<Order> queryOrders() {
-        String sql = "select orderNo,orderHouse,landlord,tenantName,orderTime from t_order";
+        String sql = "select `orderNo`,`orderHouse`,`landlord`,`tenantName`,`orderTime` from t_order";
         return queryForList(Order.class,sql);
     }
 }

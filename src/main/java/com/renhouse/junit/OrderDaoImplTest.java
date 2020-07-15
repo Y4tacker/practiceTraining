@@ -71,6 +71,7 @@ public class OrderDaoImplTest {
     public void queryOrders() {
         OrderDao orderDao = new OrderDaoImpl();
         List<Order> orders = orderDao.queryOrders();
+        System.out.println(orders);
         for(Order order:orders) {
             System.out.println(order);
         }

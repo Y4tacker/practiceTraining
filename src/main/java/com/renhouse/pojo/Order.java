@@ -69,5 +69,15 @@ public class Order {
         this.orderTime = orderTime;
     }
 
-
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", orderNo='" + orderNo + '\'' +
+                ", orderHouse='" + orderHouse + '\'' +
+                ", landlord='" + landlord + '\'' +
+                ", tenantName='" + tenantName + '\'' +
+                ", orderTime='" + orderTime + '\'' +
+                '}';
+    }
 }
