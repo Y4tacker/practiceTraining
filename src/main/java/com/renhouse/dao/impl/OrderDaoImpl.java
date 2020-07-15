@@ -2,6 +2,7 @@ package com.renhouse.dao.impl;
 
 import com.renhouse.dao.BaseDao;
 import com.renhouse.dao.OrderDao;
+import com.renhouse.pojo.House;
 import com.renhouse.pojo.Order;
 
 import java.util.List;
@@ -65,5 +66,18 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
     public List<Order> queryOrders() {
         String sql = "select `orderNo`,`orderHouse`,`landlord`,`tenantName`,`orderTime` from t_order";
         return queryForList(Order.class,sql);
+    }
+
+    @Override
+    public Integer queryForPageTotalCount() {
+        String sql = "select count(id) from t_order";
+        Number count = (Number) queryForSingleValue(sql);
+        return count.intValue();
+    }
+
+    @Override
+    public List<Order> queryForPageItems(int begin, int pageSize) {
+        String sql = "select `id` ,`orderNo`,`orderHouse`,`landlord`,`tenantName`,`orderTime` from t_order limit ?,?";
+        return queryForList(Order.class,sql,begin,pageSize);
     }
 }

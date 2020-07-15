@@ -55,8 +55,18 @@ public interface HouseDao {
      */
     public List<House> queryHouses();
 
+    /**
+     * 查询总共数量
+     * @return
+     */
     Integer queryForPageTotalCount();
 
+    /**
+     * 查询分页信息
+     * @param begin
+     * @param pageSize
+     * @return
+     */
     List<House> queryForPageItems(int begin, int pageSize);
 
 

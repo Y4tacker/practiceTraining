@@ -31,7 +31,7 @@
             , layer = layui.layer
         var account_table = table.render({
             elem: '#houseinfo-table',
-            url: 'houseServlet?action=page',
+            url: 'orderServlet?action=page',
             height: 'auto',
             title: '订单信息',
             toolbar: '#toolbaradd',
@@ -41,11 +41,11 @@
             cols: [
                 [
                     {field: 'id', title: "ID", sort: true,},
-                    {field: 'houseName', title: '订单编号', sort: true,},
-                    {field: 'layout', title: '预定参观房屋'},
-                    {field: 'address', title: '所属房东'},
-                    {field: 'space', title: '预定客户'},
-                    {field: 'monthRent', title: '上门查看时间'},
+                    {field: 'orderNo', title: '订单编号', sort: true,},
+                    {field: 'orderHouse', title: '预定参观房屋'},
+                    {field: 'landlord', title: '所属房东'},
+                    {field: 'orderName', title: '预定客户'},
+                    {field: 'orderTime', title: '上门查看时间'},
                     {field: 'operation', fixed:'right',title: '操作', toolbar: '#operation', width: 120}
                 ]
             ]
