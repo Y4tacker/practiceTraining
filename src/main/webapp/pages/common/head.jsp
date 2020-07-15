@@ -5,7 +5,7 @@
   Time: 13:33
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%--<%--%>
 <%--    String basePath = request.getScheme()--%>
 <%--            +"://"--%>
@@ -15,6 +15,7 @@
 <%--            +request.getContextPath()--%>
 <%--            +"/";--%>
 <%--%>--%>
-<base href="http://localhost:8080/test/">
+<base href="${pageContext.request.contextPath}/test">
 <link type="text/css" rel="stylesheet" href="static/layui/css/layui.css">
 <script type="text/javascript" src="static/layui/layui.all.js"></script>
+<script type="text/javascript" src="static/layui/layui.js"></script>

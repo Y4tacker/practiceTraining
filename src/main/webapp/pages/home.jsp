@@ -16,14 +16,13 @@
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
+                <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;">修改信息</a></dd>
                     <dd><a href="javascript:;">安全管理</a></dd>
-                    <dd><a href="javascript:;">退了</a></dd>
+                    <dd><a href="userServlet?action=logout">安全退出</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item" id="logout" ><a href="userServlet?action=logout">退出</a></li>
         </ul>
     </div>
 
@@ -31,45 +30,68 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">房产管理</a>
-             <!--       <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">添加信息</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="javascript:;">列表三</a></dd>
-                        <dd><a href="">超链接</a></dd>
-                    </dl> -->
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">租客管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="">超链接</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item"><a href="">统计报表</a></li>
-                <li class="layui-nav-item"><a href="">我的账单</a></li>
-                <li class="layui-nav-item"><a href="">系统公告</a></li>
-                <li class="layui-nav-item"><a href="">快捷操作</a></li>
+                <li class="layui-nav-item leftdaohang" mytitle="房产管理" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="0">房产管理</a></li>
+                <li class="layui-nav-item leftdaohang" mytitle="租客管理" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="1">租客管理</a></li>
+                <li class="layui-nav-item leftdaohang" mytitle="统计报表" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="2">统计报表</a></li>
+                <li class="layui-nav-item leftdaohang" mytitle="我的账单" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="3">我的账单</a></li>
+                <li class="layui-nav-item leftdaohang" mytitle="系统公告" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="4">系统公告</a></li>
+                <li class="layui-nav-item leftdaohang" mytitle="快捷操作" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="5">快捷操作</a></li>
             </ul>
         </div>
     </div>
 
-    <div class="layui-body">
-        <!-- 内容主体区域 -->
-        <div style="padding: 15px;">内容主体区域</div>
+    <div class="layui-body layui-bg-gray">
+        <div class="layui-tab layui-tab-card" lay-allowClose="true" lay-filter="tabs">
+            <ul class="layui-tab-title">
+            </ul>
+            <div class="layui-tab-content" style="height: 1400px">
+
+            </div>
+        </div>
     </div>
 
     <div class="layui-footer">
-        <!-- 底部固定区域 -->
         © layui.com - 底部固定区域
     </div>
 </div>
 <script>
     //JavaScript代码区域
-    layui.use(['element','jquery'], function(){
-        var element = layui.element;
-        var $ = layui.jquery;}
+    layui.use(['form', 'element', 'jquery'], function () {
+        var $ = layui.jquery, element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+        //触发事件
+        var active = {
+            tabAdd: function () {
+                //新增一个Tab项
+                var htmlurl = $(this).attr('data-url');
+                var mytitle = $(this).attr('mytitle');
+                var arrayObj = new Array();　//创建一个数组  
+                $(".layui-tab-title").find('li').each(function () {
+                    var y = $(this).attr("lay-id");
+                    arrayObj.push(y);
+                });
+                var have = $.inArray(mytitle, arrayObj);  //返回 3,
+                if (have >= 0) {
+                    element.tabChange('tabs', mytitle); //切换到当前点击的页面
+                } else {
+                    element.tabAdd('tabs', {
+                        title: mytitle //用于演示
+                        ,
+                        content: '<iframe style="width: 100%;height: 100%;" scrolling="auto" src=' + htmlurl + ' ></iframe>'
+                        ,
+                        id: mytitle //实际使用一般是规定好的id，这里以时间戳模拟下
+                    })
+                    element.tabChange('tabs', mytitle); //切换到当前点击的页面
+                }
+            }
+
+        };
+        $(".leftdaohang").click(function () {
+            var type = "tabAdd";
+            var othis = $(this);
+            active[type] ? active[type].call(this, othis) : '';
+        });
+
+    });
 </script>
 </body>
