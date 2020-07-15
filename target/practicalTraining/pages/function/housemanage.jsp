@@ -139,7 +139,7 @@
                                         title: '成功'
                                     });
                                     account_table.reload({
-                                        elem: "#account-table"
+                                        elem: "#houseinfo-table"
                                     });
                                 } else {
                                     layer.msg(res.msg, {
