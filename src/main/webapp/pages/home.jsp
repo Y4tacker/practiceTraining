@@ -12,27 +12,15 @@
         <div class="layui-logo">l房屋租赁管理系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">控制台</a></li>
-            <li class="layui-nav-item"><a href="">商品管理</a></li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">其它系统</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">邮件管理</a></dd>
-                    <dd><a href="">消息管理</a></dd>
-                    <dd><a href="">授权管理</a></dd>
-                </dl>
-            </li>
+            <li class="layui-nav-item"><a href="">用户信息</a></li>
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="javascript:;">
-                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    贤心
-                </a>
+                <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
+                    <dd><a href="javascript:;">修改信息</a></dd>
+                    <dd><a href="javascript:;">安全管理</a></dd>
+                    <dd><a href="javascript:;">退了</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item" id="logout" ><a href="userServlet?action=logout">退出</a></li>
@@ -45,12 +33,12 @@
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">房产管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
+             <!--       <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">添加信息</a></dd>
                         <dd><a href="javascript:;">列表二</a></dd>
                         <dd><a href="javascript:;">列表三</a></dd>
                         <dd><a href="">超链接</a></dd>
-                    </dl>
+                    </dl> -->
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">租客管理</a>
@@ -82,6 +70,6 @@
     //JavaScript代码区域
     layui.use(['element','jquery'], function(){
         var element = layui.element;
-        var $ = layui.jquery;
+        var $ = layui.jquery;}
 </script>
 </body>
