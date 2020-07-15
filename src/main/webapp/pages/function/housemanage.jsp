@@ -189,13 +189,13 @@
                     });
                 });
             } else if (obj.event === 'edit') {
-                $('#form_houseinfo').find('#id').val(house.id);
-                $('#form_houseinfo').find('#houseName').val(house.houseName);
-                $('#form_houseinfo').find('#layout').val(house.layout);
-                $('#form_houseinfo').find('#address').val(house.address);
-                $('#form_houseinfo').find('#space').val(house.space);
-                $('#form_houseinfo').find('#monthRent').val(house.monthRent);
-                $('#form_houseinfo').find('#rentalStatus').val(house.rentalStatus);
+                $('#form_houseinfo').find('#id_edit').val(house.id);
+                $('#form_houseinfo').find('#houseNam_edite').val(house.houseName);
+                $('#form_houseinfo').find('#layout_edit').val(house.layout);
+                $('#form_houseinfo').find('#address_edit').val(house.address);
+                $('#form_houseinfo').find('#space_edit').val(house.space);
+                $('#form_houseinfo').find('#monthRent_edit').val(house.monthRent);
+                $('#form_houseinfo').find('#rentalStatus_edit').val(house.rentalStatus);
                 layer.prompt({
                     title: "编辑账户：ID" ,
                     shadeClose: true,
@@ -205,13 +205,13 @@
                     area: '700px',
                     offset: '120px',
                     yes: function (index, obj) {
-                        var id = obj.find('#id').val();
-                        var houseName = obj.find('#houseName').val();
-                        var layout = obj.find('#layout').val();
-                        var address = obj.find('#address').val();
-                        var space = obj.find('#space').val();
-                        var monthRent = obj.find('#monthRent').val();
-                        var rentalStatus = obj.find('#rentalStatus').val();
+                        var id = obj.find('#id_edit').val();
+                        var houseName = obj.find('#houseName_edit').val();
+                        var layout = obj.find('#layout_edit').val();
+                        var address = obj.find('#address_edit').val();
+                        var space = obj.find('#space_edit').val();
+                        var monthRent = obj.find('#monthRent_edit').val();
+                        var rentalStatus = obj.find('#rentalStatus_edit').val();
                         var loading = layer.msg("正在添加", {
                             icon: 16,
                             shade: 0.3,
@@ -271,52 +271,52 @@
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">ID <span style="color: #ff0000">*</span></label>
         <div class="layui-input-block">
             <input class="layui-input" lay-verify="required" type="text" name="id" placeholder="id"style="width:300px"
-                   id="id" disabled="disabled"
+                   id="id_edit" disabled="disabled"
                    placeholder="账号"/>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">房屋名 <span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <input class="layui-input" lay-verify="required" type="text" name="houseName" placeholder="房屋名"style="width:300px"
-                   id="houseName"
+            <input class="layui-input" lay-verify="required" type="text" name="houseName_edit" placeholder="房屋名"style="width:300px"
+                   id="houseName_edit"
                    placeholder="密码"/>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">户型<span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <input type="text" name="layout" required lay-verify="required" placeholder="户型"style="width:300px"
-                   autocomplete="off" class="layui-input" id="layout">
+            <input type="text" name="layout_edit" required lay-verify="required" placeholder="户型"style="width:300px"
+                   autocomplete="off" class="layui-input" id="layout_edit">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">地址<span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <input type="text" name="address" required lay-verify="required" placeholder="地址"style="width:300px"
-                   autocomplete="off" class="layui-input" id="address">
+            <input type="text" name="address_edit" required lay-verify="required" placeholder="地址"style="width:300px"
+                   autocomplete="off" class="layui-input" id="address_edit">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">面积<span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <input type="text" name="space" required lay-verify="required" placeholder="面积"style="width:300px"
-                   autocomplete="off" class="layui-input" id="space">
+            <input type="text" name="space_edit" required lay-verify="required" placeholder="面积"style="width:300px"
+                   autocomplete="off" class="layui-input" id="space_edit">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">月租金<span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <input type="text" name="monthRent" required lay-verify="required"style="width:300px"
+            <input type="text" name="monthRent_edit" required lay-verify="required"style="width:300px"
                    placeholder="月租金" autocomplete="off"
-                   class="layui-input" id="monthRent">
+                   class="layui-input" id="monthRent_edit">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">租赁状态<span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <input type="text" name="rentalStatus" required lay-verify="required"style="width:300px"
-                   placeholder="租赁状态" autocomplete="off" class="layui-input" id="rentalStatus">
+            <input type="text" name="rentalStatus_edit" required lay-verify="required"style="width:300px"
+                   placeholder="租赁状态" autocomplete="off" class="layui-input" id="rentalStatus_edit">
         </div>
     </div>
 </div>
