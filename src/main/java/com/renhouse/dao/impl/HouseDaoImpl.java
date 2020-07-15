@@ -8,15 +8,15 @@ import java.util.List;
 
 public class HouseDaoImpl extends BaseDao implements HouseDao {
     @Override
-    public House queryHouseByLandlord(String landlord) {
+    public List<House> queryHouseByLandlord(String landlord) {
         String sql = "select `id`,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName` from t_house where landlord = ?";
-        return queryForOne(House.class, sql,landlord);
+        return queryForList(House.class, sql,landlord);
     }
 
     @Override
-    public House queryHouseByLandlordAndTenant(String landlord, String tenant) {
+    public List<House> queryHouseByLandlordAndTenant(String landlord, String tenant) {
         String sql = "select `id`,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName` from t_house where landlord = ? and tenant = ?";
-        return queryForOne(House.class, sql,landlord,tenant);
+        return queryForList(House.class, sql,landlord,tenant);
     }
 
     @Override
