@@ -14,9 +14,6 @@
     <div class="layui-header">
         <div class="layui-logo">房屋租赁管理系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">用户信息</a></li>
-        </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
@@ -33,8 +30,8 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item leftdaohang" mytitle="房产管理" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="0">房产管理</a></li>
-                <li class="layui-nav-item leftdaohang" mytitle="租客管理" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="1">租客管理</a></li>
+                <li class="layui-nav-item leftdaohang" mytitle="房产管理" data-url="pages/function/housemanage.jsp"><a data-type="tabAdd" data-id="0">房产管理</a></li>
+                <li class="layui-nav-item leftdaohang" mytitle="预定订单" data-url="pages/function/ordermanage.jsp"><a data-type="tabAdd" data-id="1">预定订单</a></li>
                 <li class="layui-nav-item leftdaohang" mytitle="统计报表" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="2">统计报表</a></li>
                 <li class="layui-nav-item leftdaohang" mytitle="我的账单" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="3">我的账单</a></li>
                 <li class="layui-nav-item leftdaohang" mytitle="系统公告" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="4">系统公告</a></li>

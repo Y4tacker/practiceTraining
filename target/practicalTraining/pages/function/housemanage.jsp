@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html>
 <head>
-    <%@include file="common/head.jsp"%>
+    <%@include file="../common/head.jsp"%>
     <title>房屋管理</title>
 </head>
 <body>
