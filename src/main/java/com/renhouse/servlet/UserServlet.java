@@ -41,6 +41,7 @@ public class UserServlet extends BaseServlet {
             if (loginUser != null && code.equalsIgnoreCase(token)){
                 // 将user绑定到session域中，便于filter
                 request.getSession().setAttribute("user",loginUser);
+                request.getSession().setAttribute("noticeStatus","true");
                 response.sendRedirect("pages/home.jsp");
             }else {
                 //密码错误
@@ -87,7 +88,8 @@ public class UserServlet extends BaseServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user",user);
             userService.registUser(new User(null, username, password, phone, null));
-             response.sendRedirect("pages/home.jsp");
+            request.getSession().setAttribute("noticeStatus","true");
+            response.sendRedirect("pages/home.jsp");
         }else {
             //返回前端错误信息
             request.setAttribute("msg","验证码输入错误！");
@@ -129,6 +131,18 @@ public class UserServlet extends BaseServlet {
         Gson gson = new Gson();
         String json = gson.toJson(result);
         response.getWriter().write(json);
+
+    }
+
+    /**
+     * 控制弹窗
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void notice(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().setAttribute("noticeStatus","false");
 
     }
 }

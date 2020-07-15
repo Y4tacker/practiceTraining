@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <%@ include file="/pages/common/head.jsp"%>
     <title>成都市房屋租赁管理系统</title>
+    <script src="static/script/sweetalert.min.js"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
+    <input type="hidden" id="username" name="username" value="${sessionScope.user.username}">
+    <input type="hidden" id="status" name="status" value="${sessionScope.noticeStatus}">
     <div class="layui-header">
         <div class="layui-logo">l房屋租赁管理系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
@@ -55,6 +58,65 @@
     </div>
 </div>
 <script>
+    function notice(status){
+        if(status === 'true'){
+            var d=new Date();
+            var year=d.getFullYear();
+            var month=change(d.getMonth()+1);
+            var day=change(d.getDate());
+            var hour=change(d.getHours());
+            var minute=change(d.getMinutes());
+            var second=change(d.getSeconds());
+            function change(t){
+                if(t<10){
+                    return "0"+t;
+                }else{
+                    return t;
+                }
+            }
+            var time=year+'-'+month+'-'+day+' '+hour+':'+minute+':'+second;
+            var status = null;
+            var user = document.getElementById('username').value;
+            if(d.getHours()<12){
+                status = "早上好！"+user
+            }else if(d.getHours()<18){
+                status = "下午好！"+user
+            }else if(d.getHours()<24){
+                status = "晚上好！"+user
+            }
+
+            swal(status,'\n\n当前时间'+time,'success'); function AddFavorite(title, url) {
+
+                try {
+
+                    window.external.addFavorite(url, title);
+
+                }
+
+                catch (e) {
+
+                    try {
+
+                        window.sidebar.addPanel(title, url,);
+
+                    }
+
+                    catch (e) {
+
+                        alert("抱歉，您所使用的浏览器无法完成此操作。");
+
+                    }
+
+                }
+
+            }
+        }else{
+
+        }
+    }
+
+</script>
+<script>
     //JavaScript代码区域
     layui.use(['form', 'element', 'jquery'], function () {
         var $ = layui.jquery, element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
@@ -91,6 +153,22 @@
             var othis = $(this);
             active[type] ? active[type].call(this, othis) : '';
         });
+
+        $(function(){
+            var status = document.getElementById('status').value;
+            if(status === 'true'){
+                notice(status);
+                $.ajax({
+                    url: "userServlet",
+                    type: 'POST',
+                    dataType: 'json',
+                    data:{
+                        "action":"notice",
+                    },
+                })
+            }
+        })
+
 
     });
 </script>
