@@ -15,7 +15,7 @@
   </filter>
   <filter-mapping>
     <filter-name>GlobalFilter</filter-name>
-    <url-pattern>/pages/home.jsp</url-pattern><!--暂空，等待前端页面编写-->
+    <url-pattern>/pages/*</url-pattern>
   </filter-mapping>
   
   <!-- 与用户登录注册相关 -->

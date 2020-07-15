@@ -15,7 +15,7 @@
   </filter>
   <filter-mapping>
     <filter-name>GlobalFilter</filter-name>
-    <url-pattern>/pages/home.jsp</url-pattern><!--暂空，等待前端页面编写-->
+    <url-pattern>/pages/*</url-pattern>
   </filter-mapping>
   
   <!-- 与用户登录注册相关 -->
@@ -36,5 +36,14 @@
   <servlet-mapping>
     <servlet-name>KaptchaServlet</servlet-name>
     <url-pattern>/captcha.jpg</url-pattern>
+  </servlet-mapping>
+  <!-- 房产相关操作 -->
+  <servlet>
+    <servlet-name>HouseServlet</servlet-name>
+    <servlet-class>com.renhouse.servlet.HouseServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HouseServlet</servlet-name>
+    <url-pattern>/houseServlet</url-pattern>
   </servlet-mapping>
 </web-app>
