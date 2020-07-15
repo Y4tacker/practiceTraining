@@ -12,7 +12,7 @@
     <input type="hidden" id="username" name="username" value="${sessionScope.user.username}">
     <input type="hidden" id="status" name="status" value="${sessionScope.noticeStatus}">
     <div class="layui-header">
-        <div class="layui-logo">l房屋租赁管理系统</div>
+        <div class="layui-logo">房屋租赁管理系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="">用户信息</a></li>

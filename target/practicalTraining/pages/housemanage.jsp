@@ -12,30 +12,17 @@
     <title>房屋管理</title>
 </head>
 <body>
-<div class="layui-fluid">
-    <div class="layui-row layui-col-space12">
-        <div class="layui-col-md12">
-            <div class="layui-card">
-                <div class="layui-card-header">
-
-                </div>
-                <div class="layui-card-body">
-                    <table class="layui-hide" id="account-table" lay-filter="account-table"></table>
-                    <script type="text/html" id="operation">
-                        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
-                    </script>
-                </div>
-            </div>
-        </div>
+<script type="text/html" id="toolbaradd">
+    <div class="layui-btn-container">
+        <div class="layui-inline" lay-event="add"><i class="layui-icon layui-icon-add-1"></i></div>
     </div>
-</div>
+</script>
+<table class="layui-hide" id="houseinfo-table" lay-filter="houseinfo-table"></table>
+<script type="text/html" id="operation">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+</script>
 <script type="text/javascript">
-    layui.config({
-        base: '{% static "lay/modules" %}',
-        debug: true,
-    });
-
     layui.use(['form', 'element', 'jquery', 'table', 'layer'], function () {
         var element = layui.element
             , form = layui.form
@@ -62,7 +49,7 @@
                             title: '成功'
                         });
                         account_table.reload({
-                            elem: "#account-table"
+                            elem: "#houseinfo-table"
                         });
                         finish = true;
                     } else {
@@ -82,66 +69,133 @@
         });
 
         var account_table = table.render({
-            elem: '#account-table',
+            elem: '#houseinfo-table',
             url: '/account_get',
             height: 400,
-            title: '账号单',
-            toolbar: 'true',
+            title: '房源信息',
+            toolbar: '#toolbaradd',
             page: true,
+            limit:15,
+            defaultToolbar: ['filter', 'print', 'exports'],
             cols: [
                 [
-                    {field: 'aid', title: "ID", sort: true, width: 80},
-                    {field: 'username', title: '账号', sort: true, width: 170},
-                    {field: 'password', title: '密码', width: 170},
-                    {field: '_ra', title: '_ra', width: 200},
-                    {field: '_gid', title: '_gid', width: 200},
-                    {field: '_ga', title: '_ga', width: 200},
-                    {field: '_fril_user_session_id', title: '_fril_user_session_id', width: 200},
-                    {field: '__gads', title: '__gads', width: 200},
-                    {field: 'operation', fixed:'right',title: '操作', toolbar: '#operation', width: 120}
+                    {field: 'id', title: "ID", sort: true, width: 80},
+                    {field: 'houseName', title: '房屋名', sort: true, width: 170},
+                    {field: 'layout', title: '户型', width: 170},
+                    {field: 'address', title: '地址', width: 200},
+                    {field: 'space', title: '面积', width: 200},
+                    {field: 'monthRent', title: '月租金', width: 200},
+                    {field: 'rentalStatus', title: '租赁状态', width: 200}
                 ]
             ]
         });
-        table.on('tool(account-table)', function (obj) {
-            var account = obj.data;
-            if (obj.event === 'delete') {
-                layer.confirm('确定要删除吗', function (index) {
-                    var token = $('[name="csrfmiddlewaretoken"]').val();
-                    if (token !== "") {
+        table.on('toolbar(houseinfo-table)',function (obj) {
+            if(obj.event === 'add'){
+                var house = obj.data;
+                layer.prompt({
+                    title: "编辑账户：ID"+house.id,
+                    shadeClose: true,
+                    shade: 0.8,
+                    btnAlign: 'l',
+                    btn: ['确认', '取消'],
+                    area: '700px',
+                    offset: '120px',
+                    yes: function (index, obj) {
+                        var id = obj.find('#id').val();
+                        var houseName = obj.find('#houseName').val();
+                        var layout = obj.find('#layout').val();
+                        var address = obj.find('#address').val();
+                        var space = obj.find('#space').val();
+                        var monthRent = obj.find('#monthRent').val();
+                        var rentalStatus = obj.find('#rentalStatus').val();
+                        var loading = layer.msg("正在添加", {
+                            icon: 16,
+                            shade: 0.3,
+                            time: 0
+                        });
+                        var finish = false;
                         $.ajax({
                             url: '/account_edit',
                             method: 'POST',
                             async: false,
                             dataType: 'json',
                             data: {
-                                'action': 'delete',
+                                'action': 'edit',
+                                'username': new_account,
+                                'password': new_password,
+                                '_ra': new_ra,
+                                '_gid': new_gid,
+                                '_ga': new_ga,
+                                '_fril_user_session_id': new_fril_user_session_id,
+                                '__gads': new__gads,
                                 'aid': account.aid,
-                                "csrfmiddlewaretoken": token
                             },
-                            success: function (data) {
-                                if (data.code === 0) {
-                                    obj.del();
-                                    layer.msg("删除成功", {icon: 6});
-                                    layer.close(index);
+                            success: function (res) {
+                                layer.close(loading);
+                                if (res.code == 0) {
+                                    finish = true;
+                                    layer.msg(res.msg, {
+                                        title: '成功'
+                                    });
+                                    account_table.reload({
+                                        elem: "#account-table"
+                                    });
                                 } else {
-                                    console.log(1111);
-                                    layer.msg("删除失败", {icon: 5});
+                                    layer.msg(res.msg, {
+                                        title: '失败'
+                                    });
                                 }
+                                layer.close(index);
                             },
-                            error: function () {
-                                layer.msg("删除失败", {icon: 5});
+                            error: function (err) {
+                                layer.close(loading);
+                                layer.msg("修改失败", {icon: 5});
+                                layer.close(index);
                             }
                         });
-                    }
+                        layer.close(index);
+                        return finish;
+                    },
+                    content: $('#form_houseinfo')
+                });
+            }
+        })
+        table.on('tool(houseinfo-table)', function (obj) {
+            var account = obj.data;
+            if (obj.event === 'delete') {
+                layer.confirm('确定要删除吗', function (index) {
+                    $.ajax({
+                        url: '/editHouse',
+                        method: 'POST',
+                        async: false,
+                        dataType: 'json',
+                        data: {
+                            'action': 'delete',
+                            'aid': account.aid,
+                        },
+                        success: function (data) {
+                            if (data.code === 0) {
+                                obj.del();
+                                layer.msg("删除成功", {icon: 6});
+                                layer.close(index);
+                            } else {
+                                console.log(1111);
+                                layer.msg("删除失败", {icon: 5});
+                            }
+                        },
+                        error: function () {
+                            layer.msg("删除失败", {icon: 5});
+                        }
+                    });
                 });
             } else if (obj.event === 'edit') {
-                $('#editAccount').find('#new_account').val(account.username);
-                $('#editAccount').find('#new_password').val(account.password);
-                $('#editAccount').find('#new_gid').val(account._gid);
-                $('#editAccount').find('#new_ga').val(account._ga);
-                $('#editAccount').find('#new_fril_user_session_id').val(account._fril_user_session_id);
-                $('#editAccount').find('#new__gads').val(account.__gads);
-                $('#editAccount').find('#new_ra').val(account._ra);
+                $('#form_houseinfo').find('#id').val(account.username);
+                $('#form_houseinfo').find('#houseName').val(account.password);
+                $('#form_houseinfo').find('#layout').val(account._gid);
+                $('#form_houseinfo').find('#address').val(account._ga);
+                $('#form_houseinfo').find('#space').val(account._fril_user_session_id);
+                $('#form_houseinfo').find('#monthRent').val(account.__gads);
+                $('#form_houseinfo').find('#rentalStatus').val(account._ra);
                 layer.prompt({
                     title: "编辑账户：ID" + account.aid,
                     shadeClose: true,
@@ -180,7 +234,6 @@
                                 '_fril_user_session_id': new_fril_user_session_id,
                                 '__gads': new__gads,
                                 'aid': account.aid,
-                                "csrfmiddlewaretoken": token
                             },
                             success: function (res) {
                                 layer.close(loading);
@@ -201,18 +254,72 @@
                             },
                             error: function (err) {
                                 layer.close(loading);
-                                layer.msg("修改失败123", {icon: 5});
+                                layer.msg("修改失败", {icon: 5});
                                 layer.close(index);
                             }
                         });
                         layer.close(index);
                         return finish;
                     },
-                    content: $('#editAccount')
+                    content: $('#form_houseinfo')
                 });
             }
         });
     });
 </script>
 </body>
+<div class="layui-form" id="form_houseinfo" style="width:500px;display:none">
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">ID <span style="color: #ff0000">*</span></label>
+        <div class="layui-input-block">
+            <input class="layui-input" lay-verify="required" type="text" name="id" placeholder="id"style="width:300px"
+                   id="id"
+                   placeholder="账号"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">房屋名 <span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input class="layui-input" lay-verify="required" type="text" name="houseName" placeholder="房屋名"style="width:300px"
+                   id="houseName"
+                   placeholder="密码"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">户型<span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input type="text" name="layout" required lay-verify="required" placeholder="户型"style="width:300px"
+                   autocomplete="off" class="layui-input" id="layout">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">地址<span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input type="text" name="address" required lay-verify="required" placeholder="地址"style="width:300px"
+                   autocomplete="off" class="layui-input" id="address">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">面积<span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input type="text" name="space" required lay-verify="required" placeholder="面积"style="width:300px"
+                   autocomplete="off" class="layui-input" id="space">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">月租金<span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input type="text" name="monthRent" required lay-verify="required"style="width:300px"
+                   placeholder="月租金" autocomplete="off"
+                   class="layui-input" id="monthRent">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">租赁状态<span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input type="text" name="rentalStatus" required lay-verify="required"style="width:300px"
+                   placeholder="租赁状态" autocomplete="off" class="layui-input" id="rentalStatus">
+        </div>
+    </div>
+</div>
 </html>
