@@ -57,7 +57,7 @@ public class HouseDaoImplTest {
     @Test
     public void queryHouseById() {
         HouseDao houseDao = new HouseDaoImpl();
-        System.out.println(houseDao.queryHouseById(40));
+        System.out.println(houseDao.queryHouseById(5));
     }
 
     @Test
