@@ -2,6 +2,8 @@ package com.renhouse.dao;
 
 import com.renhouse.pojo.House;
 
+import java.util.List;
+
 public interface HouseDao {
 
     /**
@@ -25,5 +27,39 @@ public interface HouseDao {
      * @return
      */
     public int saveHouse(House house);
+
+    /**
+     * 添加房屋信息
+     * @param house
+     * @return
+     */
+    public int addHouse(House house);
+
+    /**
+     * 通过ID删除房屋信息
+     * @param id
+     * @return
+     */
+    public int deleteHouseById(Integer id);
+
+    /**
+     * 更新房屋信息
+     * @param house
+     * @return
+     */
+    public int updateHouse(House house);
+
+    /**
+     * 通过房屋ID查询房屋
+     * @param id
+     * @return
+     */
+    public House queryHouseById(Integer id);
+
+    /**
+     * 返回整个房屋信息
+     * @return
+     */
+    public List<House> queryHouses();
 
 }
