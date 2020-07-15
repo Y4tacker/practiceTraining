@@ -27,26 +27,31 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
 
     @Override
     public int addHouse(House house) {
-        return 0;
+        String sql = "INSERT INTO t_house(landlord,tenant,monthRent,space,rentalStatus,address,layout,endTime,startTime,houseName) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        return update(sql,house.getLandlord(),house.getTenant(),house.getMonthRent(),house.getSpace(),house.getRentalStatus(),house.getAddress(),house.getLayout(),house.getEndTime(),house.getStartTime(),house.getHouseName());
     }
 
     @Override
     public int deleteHouseById(Integer id) {
-        return 0;
+        String sql = "DELETE FROM t_house WHERE id = ?";
+        return update(sql,id);
     }
 
     @Override
     public int updateHouse(House house) {
-        return 0;
+        String sql = "UPDATE t_house SET landlord = ?,tenant = ?,monthRent = ?,space = ?,rentalStatus = ?,address = ?,layout = ?,endTime = ?，startTime = ?,houseName =? WHERE id = ?";
+        return update(sql, house.getLandlord(), house.getTenant(), house.getMonthRent(), house.getSpace(), house.getRentalStatus(), house.getAddress(), house.getLayout(), house.getEndTime(), house.getStartTime(), house.getHouseName(), house.getId());
     }
 
     @Override
     public House queryHouseById(Integer id) {
-        return null;
+        String sql = "select `id`,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName` from t_house where landlord = ?";
+        return queryForOne(House.class, sql,id);
     }
 
     @Override
     public List<House> queryHouses() {
-        return null;
+        String sql = "select * from t_house";
+        return queryForList(House.class,sql);
     }
 }
