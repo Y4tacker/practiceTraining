@@ -27,7 +27,7 @@ public class HouseDaoImplTest {
         String landlord = "admin";
         for (int i = 21; i <= 40; i++) {
             String address = "四川省成都市人民南路" + i + "号";
-            House house = new House(null,landlord,"xxy",new BigDecimal(500),50,0,address,"三室一厅",
+            House house = new House(null,landlord,"xxy",new BigDecimal(500),50,"未租赁",address,"三室一厅",
                     null,null,"夏哥花园");
             houseDao.addHouse(house);
         }
@@ -44,7 +44,7 @@ public class HouseDaoImplTest {
     public void updateHouse() {
         HouseDao houseDao = new HouseDaoImpl();
         String landlord = "admin";
-        House house = new House(43,landlord,"xxy",new BigDecimal(500),50,0,"四川省成都市人民南路39号"
+        House house = new House(43,landlord,"xxy",new BigDecimal(500),50,"已租赁","四川省成都市人民南路39号"
                 ,"三室一厅",
                 "2020-7-15","2020-7-17","夏哥花园");
         houseDao.updateHouse(house);
