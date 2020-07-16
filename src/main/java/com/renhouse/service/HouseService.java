@@ -27,8 +27,6 @@ public interface HouseService {
      */
     public List<HouseStatus> queryHouseByLandlordAndStatus_Already(String landlord);
 
-    public List<Bill> queryHouseByLandlordAndStatusToCreateBill_Already(String landlord);
-
     /**
      * 根据房东名字查询已经租赁的客户信息
      * @param username
