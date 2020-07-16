@@ -2,15 +2,15 @@ package com.renhouse.pojo.vo;
 
 /**
  * @ClassName RnetBill
- * @Description TODO
+ * @Description Bill的vo
  * @Author 1TreeForest
  * @Date 2020/7/16 16:05
  * @Version 1.0
  */
-public class RentBill {
+public class Bill {
     private String tenantName;
     private String houseName;
-    private int monthlyRent;
+    private int monthRent;
     private String start;
     private String end;
     private int maintenance;
@@ -32,11 +32,11 @@ public class RentBill {
     }
 
     public int getMonthlyRent() {
-        return monthlyRent;
+        return monthRent;
     }
 
     public void setMonthlyRent(int monthlyRent) {
-        this.monthlyRent = monthlyRent;
+        this.monthRent = monthlyRent;
     }
 
     public String getStart() {
@@ -68,7 +68,7 @@ public class RentBill {
         return "RentBill{" +
                 "tenantName='" + tenantName + '\'' +
                 ", houseName='" + houseName + '\'' +
-                ", monthlyRent=" + monthlyRent +
+                ", monthlyRent=" + monthRent +
                 ", start='" + start + '\'' +
                 ", end='" + end + '\'' +
                 ", maintenance=" + maintenance +

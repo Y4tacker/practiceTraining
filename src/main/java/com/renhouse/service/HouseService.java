@@ -2,6 +2,7 @@ package com.renhouse.service;
 
 import com.renhouse.pojo.House;
 import com.renhouse.pojo.Page;
+import com.renhouse.pojo.vo.Bill;
 import com.renhouse.pojo.vo.HouseStatus;
 import com.renhouse.pojo.vo.TenantMaintenanceFee;
 
@@ -25,6 +26,8 @@ public interface HouseService {
      * @return
      */
     public List<HouseStatus> queryHouseByLandlordAndStatus_Already(String landlord);
+
+    public List<Bill> queryHouseByLandlordAndStatusToCreateBill_Already(String landlord);
 
     /**
      * 根据房东名字查询已经租赁的客户信息

@@ -3,6 +3,7 @@ package com.renhouse.dao.impl;
 import com.renhouse.dao.BaseDao;
 import com.renhouse.dao.HouseDao;
 import com.renhouse.pojo.House;
+import com.renhouse.pojo.vo.Bill;
 import com.renhouse.pojo.vo.HouseStatus;
 import com.renhouse.pojo.vo.TenantMaintenanceFee;
 
@@ -68,6 +69,12 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
     public List<HouseStatus> queryHouseByLandlordAndStatus_Already(String landlord) {
         String sql = "select tenantName,realName,address,houseName,phoneNumber,email from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁'";
         return queryForList(HouseStatus.class,sql,landlord);
+    }
+
+    @Override
+    public List<Bill> queryHouseByLandlordAndStatusToCreateBill_Already(String landlord) {
+        String sql = "select tenantName,houseName,monthRent,start,end,maintenance from t_house where t_tenant.landlord = ? and t_house.rentalStatus = '已租赁'";
+        return queryForList(Bill.class,sql,landlord);
     }
 
     @Override

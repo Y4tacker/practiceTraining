@@ -4,6 +4,7 @@ import com.renhouse.dao.HouseDao;
 import com.renhouse.dao.impl.HouseDaoImpl;
 import com.renhouse.pojo.House;
 import com.renhouse.pojo.Page;
+import com.renhouse.pojo.vo.Bill;
 import com.renhouse.pojo.vo.HouseStatus;
 import com.renhouse.pojo.vo.TenantMaintenanceFee;
 import com.renhouse.service.HouseService;
@@ -73,6 +74,11 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public List<HouseStatus> queryHouseByLandlordAndStatus_Already(String landlord) {
         return  houseDao.queryHouseByLandlordAndStatus_Already(landlord);
+    }
+
+    @Override
+    public List<Bill> queryHouseByLandlordAndStatusToCreateBill_Already(String landlord) {
+        return houseDao.queryHouseByLandlordAndStatusToCreateBill_Already(landlord);
     }
 
     @Override
