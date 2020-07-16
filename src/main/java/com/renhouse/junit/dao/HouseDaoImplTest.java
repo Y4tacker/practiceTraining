@@ -4,6 +4,7 @@ import com.renhouse.dao.HouseDao;
 import com.renhouse.dao.impl.HouseDaoImpl;
 import com.renhouse.pojo.House;
 import com.renhouse.pojo.vo.HouseStatus;
+import com.renhouse.pojo.vo.TenantMaintenanceFee;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -105,5 +106,21 @@ public class HouseDaoImplTest {
         HouseDao houseDao = new HouseDaoImpl();
         Integer admin = houseDao.queryHouseByLandlordAndStatusAlreadyCount("admin");
         System.out.println(admin.intValue());
+    }
+
+    @Test
+    public void queryMaintenanceFeeByLandlordCount() {
+        HouseDao houseDao = new HouseDaoImpl();
+        Integer integer = houseDao.queryMaintenanceFeeByLandlordCount("admin", "mh");
+        System.out.println(integer.intValue());
+    }
+
+    @Test
+    public void queryPagesForMaintenanceFeeByLandlordAndTenant() {
+        HouseDao houseDao = new HouseDaoImpl();
+        List<TenantMaintenanceFee> tenantMaintenanceFees = houseDao.queryPagesForMaintenanceFeeByLandlordAndTenant(1, 6, "admin", "mh");
+        for (TenantMaintenanceFee tenantMaintenanceFee: tenantMaintenanceFees) {
+            System.out.println(tenantMaintenanceFee);
+        }
     }
 }

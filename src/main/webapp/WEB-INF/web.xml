@@ -56,4 +56,13 @@
     <servlet-name>OrderServlet</servlet-name>
     <url-pattern>/orderServlet</url-pattern>
   </servlet-mapping>
+  <!-- 金钱计算相关操作 -->
+  <servlet>
+    <servlet-name>BillServlet</servlet-name>
+    <servlet-class>com.renhouse.servlet.BillServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BillServlet</servlet-name>
+    <url-pattern>/billServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

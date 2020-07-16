@@ -93,8 +93,8 @@ public interface HouseDao {
 
     public List<HouseStatus> queryForPageItemsByRentedStatus(int begin, int pageSize, String username);
 
-    public Integer queryMaintenanceFeeByLandlordCount(String username);
+    public Integer queryMaintenanceFeeByLandlordCount(String username, String tenant);
 
-    public List<TenantMaintenanceFee> queryPagesForMaintenanceFeeByLandlord(int begin, int pageSize, String username);
+    public List<TenantMaintenanceFee> queryPagesForMaintenanceFeeByLandlordAndTenant(int begin, int pageSize, String username,String tenant);
 
 }
