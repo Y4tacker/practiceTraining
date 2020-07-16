@@ -48,4 +48,13 @@ public interface HouseService {
      */
     public Page<TenantMaintenanceFee> pageForMaintenanceFee(String username, String tenant,int pageNo, int pageSize);
 
+    /**
+     * 通过房东名查询记录
+     * @param username
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public Page<TenantMaintenanceFee> pageForMaintenanceFee(String username,int pageNo, int pageSize);
+
 }
