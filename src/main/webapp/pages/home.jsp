@@ -16,7 +16,7 @@
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
+                <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">${sessionScope.user.username}</a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;">修改信息</a></dd>
                     <dd><a href="javascript:;">安全管理</a></dd>
