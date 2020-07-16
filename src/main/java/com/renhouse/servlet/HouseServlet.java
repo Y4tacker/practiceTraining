@@ -53,6 +53,7 @@ public class HouseServlet extends BaseServlet {
             try{
                 Integer.parseInt(monthRent);
                 house = WebUtils.copyParamToBean(request.getParameterMap(), new House());
+                System.out.println(house);
                 if (house.getSpace() == 0) {
                     String result = "{" +
                             "  \"code\": 1," +
@@ -75,7 +76,7 @@ public class HouseServlet extends BaseServlet {
             try {
                 House houseInfo = houseService.queryHouseById(house.getId());
                 house.setLandlord(houseInfo.getLandlord());
-                house.setTenant(houseInfo.getTenant());
+                house.setTenant(request.getParameter("tenant"));
                 house.setStartTime(houseInfo.getStartTime());
                 house.setEndTime(houseInfo.getEndTime());
                 house.setMaintenanceFee(houseInfo.getMaintenanceFee());
@@ -142,8 +143,8 @@ public class HouseServlet extends BaseServlet {
 
     /**
      * 得到已租赁房屋用户信息
-     * @param request
-     * @param response
+     * @param req
+     * @param resp
      * @throws ServletException
      * @throws IOException
      */
