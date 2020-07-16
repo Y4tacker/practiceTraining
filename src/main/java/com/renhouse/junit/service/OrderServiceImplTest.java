@@ -1,4 +1,4 @@
-package com.renhouse.junit;
+package com.renhouse.junit.service;
 
 import com.renhouse.service.OrderService;
 import com.renhouse.service.impl.OrderServiceImpl;

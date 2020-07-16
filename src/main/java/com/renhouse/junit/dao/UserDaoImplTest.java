@@ -1,4 +1,4 @@
-package com.renhouse.junit;
+package com.renhouse.junit.dao;
 
 import com.renhouse.dao.UserDao;
 import com.renhouse.dao.impl.UserDaoImpl;
