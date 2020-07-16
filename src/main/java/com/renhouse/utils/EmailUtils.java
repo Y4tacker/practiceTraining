@@ -1,4 +1,4 @@
-package Send;
+package com.renhouse.utils;
 
 import com.sun.mail.util.MailSSLSocketFactory;
 
@@ -27,7 +27,7 @@ public class EmailUtils {
 		debugmodel=dbg;
 	}
     public void SendEmail() throws MessagingException, GeneralSecurityException {
-        //´´½¨Ò»¸öÅäÖÃÎÄ¼ş²¢±£´æ
+        //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         Properties properties = new Properties();
 
         properties.setProperty("mail.host","smtp.qq.com");
@@ -37,13 +37,13 @@ public class EmailUtils {
         properties.setProperty("mail.smtp.auth","true");
 
 
-        //QQ´æÔÚÒ»¸öÌØĞÔÉèÖÃSSL¼ÓÃÜ
+        //QQï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SSLï¿½ï¿½ï¿½ï¿½
         MailSSLSocketFactory sf = new MailSSLSocketFactory();
         sf.setTrustAllHosts(true);
         properties.put("mail.smtp.ssl.enable", "true");
         properties.put("mail.smtp.ssl.socketFactory", sf);
 
-        //´´½¨Ò»¸ösession¶ÔÏó
+        //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½sessionï¿½ï¿½ï¿½ï¿½
         Session session = Session.getDefaultInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -51,34 +51,34 @@ public class EmailUtils {
             }
         });
 
-        //¿ªÆôdebugÄ£Ê½
+        //ï¿½ï¿½ï¿½ï¿½debugÄ£Ê½
         session.setDebug(debugmodel);
 
-        //»ñÈ¡Á¬½Ó¶ÔÏó
+        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½
         Transport transport = session.getTransport();
 
-        //Á¬½Ó·şÎñÆ÷
+        //ï¿½ï¿½ï¿½Ó·ï¿½ï¿½ï¿½ï¿½ï¿½
         transport.connect("smtp.qq.com",hostemail,author);
 
-        //´´½¨ÓÊ¼ş¶ÔÏó
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½
         MimeMessage mimeMessage = new MimeMessage(session);
 
-        //ÓÊ¼ş·¢ËÍÈË
+        //ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         mimeMessage.setFrom(new InternetAddress(hostemail));
 
-        //ÓÊ¼ş½ÓÊÕÈË
+        //ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress(t_to));
 
-        //ÓÊ¼ş±êÌâ
+        //ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½
         mimeMessage.setSubject(t_title);
 
-        //ÓÊ¼şÄÚÈİ
+        //ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½
         mimeMessage.setContent(t_message,"text/html;charset=UTF-8");
 
-        //·¢ËÍÓÊ¼ş
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½
         transport.sendMessage(mimeMessage,mimeMessage.getAllRecipients());
 
-        //¹Ø±ÕÁ¬½Ó
+        //ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½
         transport.close();
     }
 	public void SendEmail(String to,String title,String message) throws MessagingException, GeneralSecurityException
