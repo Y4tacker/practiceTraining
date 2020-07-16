@@ -12,11 +12,6 @@
     <title>预定订单管理</title>
 </head>
 <body>
-<script type="text/html" id="toolbaradd">
-    <div class="layui-btn-container">
-        <div class="layui-inline" lay-event="add"><i class="layui-icon layui-icon-add-1"></i></div>
-    </div>
-</script>
 <table class="layui-hide" id="houseinfo-table" lay-filter="houseinfo-table"></table>
 <script type="text/html" id="operation">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -34,10 +29,9 @@
             url: 'houseServlet?action=pageForRented',
             height: 'auto',
             title: '订单信息',
-            toolbar: '#toolbaradd',
+            toolbar: 'true',
             page: true,
             limit:15,
-            defaultToolbar: ['filter', 'print', 'exports'],
             cols: [
                 [
 
@@ -46,13 +40,10 @@
                     {field: 'address', title: '租房地址'},
                     {field: 'houseName', title: '租赁房屋'},
                     {field: 'phoneNumber', title: '联系电话'},
-                    {field: 'email', title: '邮箱'},
+                    {field: 'email', title: '邮箱'}
                 ],
             ]
         });
-        $(function(){
-            $("body > div.layui-form.layui-border-box.layui-table-view > div.layui-table-tool > div.layui-table-tool-temp").hide()
-        })
     });
 </script>
 </body>
