@@ -41,7 +41,7 @@
 
         var houseinfo_table = table.render({
             elem: '#houseinfo-table',
-            url: 'houseServlet?action=page',
+            url: 'billServlet?action=pageForFee&tenantName=mh',
             height: 'auto',
             title: '房源信息',
             toolbar: '#toolbaradd',
@@ -63,13 +63,13 @@
         });
         $('#do_search').on('click', function () {
             // 搜索条件
-            var cont = $('#searchgr').val();
+            var tenantName = $('#searchgr').val();
             table.reload('houseinfo-table', {
                 method: 'post',
-                url: 'billServlet',
+                url: 'billServlet'
                 , where: {
-                    'cont': cont,
-                    'action': ,
+                    'tenantName': tenantName,
+                    'action': 'pageForFee',
                 }
                 , page: {
                     curr: 1
