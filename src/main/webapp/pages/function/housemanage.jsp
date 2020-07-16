@@ -10,10 +10,8 @@
 <head>
     <%@include file="../common/head.jsp"%>
     <title>房屋管理</title>
-    <style>
-        .layui-form-selected dl {
-            width: 20px;
-        }
+    <style type="text/css">
+        div.layui-unselect{width:300px;pxvertical-align: middle;float:left;} div.layui-form-select{width:300px;pxvertical-align: middle;float:left;} div.layui-form-selected{width:300px;pxvertical-align: middle;float:left;}
     </style>
 </head>
 <body>
@@ -34,46 +32,8 @@
             , table = layui.table
             , $ = layui.jquery
             , layer = layui.layer
-        form.on('submit(setting)', function (data) {
-            var finish = false;
-            var loading = layer.msg("正在添加", {
-                icon: 16,
-                shade: 0.3,
-                time: 0
-            });
-            $.ajax({
-                url: '/account_add',
-                method: 'POST',
-                data: data.field,
-                async: false,
-                dataType: 'json',
-                success: function (res) {
-                    layer.close(loading);
-                    if (res.code === 0) {
-                        layer.msg(res.msg, {
-                            title: '成功'
-                        });
-                        account_table.reload({
-                            elem: "#houseinfo-table"
-                        });
-                        finish = true;
-                    } else {
-                        layer.msg(res.msg, {
-                            title: '失败'
-                        });
-                    }
-                },
-                error: function (err) {
-                    layer.close(loading);
-                    layer.msg('出错了！！', {
-                        title: '错误'
-                    });
-                }
-            });
-            return finish;
-        });
 
-        var account_table = table.render({
+        var houseinfo_table = table.render({
             elem: '#houseinfo-table',
             url: 'houseServlet?action=page',
             height: 'auto',
@@ -105,7 +65,6 @@
                     shade: 0.8,
                     btnAlign: 'l',
                     btn: ['确认', '取消'],
-                    area: '700px',
                     offset: '120px',
                     yes: function (index, obj) {
                         var id = obj.find('#id').val();
@@ -114,7 +73,7 @@
                         var address = obj.find('#address').val();
                         var space = obj.find('#space').val();
                         var monthRent = obj.find('#monthRent').val();
-                        var rentalStatus = obj.find('#rentalStatus').val();
+                        var rentalStatus = obj.find('#rentalStatus').val()==0?"租赁":"未租赁";
                         var loading = layer.msg("正在添加", {
                             icon: 16,
                             shade: 0.3,
@@ -143,7 +102,7 @@
                                     layer.msg(res.msg, {
                                         title: '成功'
                                     });
-                                    account_table.reload({
+                                    houseinfo_table.reload({
                                         elem: "#houseinfo-table"
                                     });
                                 } else {
@@ -195,19 +154,19 @@
                 });
             } else if (obj.event === 'edit') {
                 $('#form_houseinfo').find('#id_edit').val(house.id);
-                $('#form_houseinfo').find('#houseNam_edite').val(house.houseName);
+                $('#form_houseinfo').find('#houseName_edit').val(house.houseName);
                 $('#form_houseinfo').find('#layout_edit').val(house.layout);
                 $('#form_houseinfo').find('#address_edit').val(house.address);
                 $('#form_houseinfo').find('#space_edit').val(house.space);
                 $('#form_houseinfo').find('#monthRent_edit').val(house.monthRent);
-                $('#form_houseinfo').find('#rentalStatus_edit').val(house.rentalStatus);
+                $('#form_houseinfo').find('#rentalStatus_edit').val(house.rentalStatus=="租赁"?0:1);
+                form.render();
                 layer.prompt({
-                    title: "编辑账户：ID" ,
+                    title: "编辑房源信息：ID"+house.id ,
                     shadeClose: true,
                     shade: 0.8,
                     btnAlign: 'l',
                     btn: ['确认', '取消'],
-                    area: '700px',
                     offset: '120px',
                     yes: function (index, obj) {
                         var id = obj.find('#id_edit').val();
@@ -216,7 +175,7 @@
                         var address = obj.find('#address_edit').val();
                         var space = obj.find('#space_edit').val();
                         var monthRent = obj.find('#monthRent_edit').val();
-                        var rentalStatus = obj.find('#rentalStatus_edit').val();
+                        var rentalStatus = obj.find('#rentalStatus_edit').val()==0?"租赁":"未租赁";
                         var loading = layer.msg("正在添加", {
                             icon: 16,
                             shade: 0.3,
@@ -245,7 +204,7 @@
                                     layer.msg(res.msg, {
                                         title: '成功'
                                     });
-                                    account_table.reload({
+                                    houseinfo_table.reload({
                                         elem: "#houseinfo-table"
                                     });
                                 } else {
@@ -271,7 +230,7 @@
     });
 </script>
 </body>
-<div class="layui-form" id="form_houseinfo" style="width:500px;display:none">
+<div class="layui-form" id="form_houseinfo" style="width:500px;height:400px;display:none">
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">ID <span style="color: #ff0000">*</span></label>
         <div class="layui-input-block">
@@ -291,8 +250,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">户型<span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <input type="text" name="layout_edit" required lay-verify="required" placeholder="户型"style="width:300px"
-                   autocomplete="off" class="layui-input" id="layout_edit">
+            <input type="text" name="layout_edit" lay-verify="required" placeholder="户型"style="width:300px"
+                    class="layui-input" id="layout_edit">
         </div>
     </div>
     <div class="layui-form-item">
@@ -320,7 +279,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">租赁状态<span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <select name="rentalStatus" lay-verify="required" id="rentalStatus_edit">
+            <select name="rentalStatus_edit" lay-verify="required" id="rentalStatus_edit">
                 <option value="">租赁状态</option>
                 <option value="0">租赁</option>
                 <option value="1">未租赁</option>
@@ -328,7 +287,7 @@
         </div>
     </div>
 </div>
-<div class="layui-form" id="form_houseinfo_add" style="width:500px;display:none">
+<div class="layui-form" id="form_houseinfo_add" style="width:500px;height:350px;display:none">
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">房屋名 <span style="color: red">*</span></label>
         <div class="layui-input-block">
