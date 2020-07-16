@@ -65,7 +65,6 @@
                     shade: 0.8,
                     btnAlign: 'l',
                     btn: ['确认', '取消'],
-                    area: '700px',
                     offset: '120px',
                     yes: function (index, obj) {
                         var id = obj.find('#id').val();
@@ -168,7 +167,6 @@
                     shade: 0.8,
                     btnAlign: 'l',
                     btn: ['确认', '取消'],
-                    area: '700px',
                     offset: '120px',
                     yes: function (index, obj) {
                         var id = obj.find('#id_edit').val();
@@ -232,7 +230,7 @@
     });
 </script>
 </body>
-<div class="layui-form" id="form_houseinfo" style="width:500px;display:none">
+<div class="layui-form" id="form_houseinfo" style="width:500px;height:400px;display:none">
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">ID <span style="color: #ff0000">*</span></label>
         <div class="layui-input-block">
@@ -289,7 +287,7 @@
         </div>
     </div>
 </div>
-<div class="layui-form" id="form_houseinfo_add" style="width:500px;display:none">
+<div class="layui-form" id="form_houseinfo_add" style="width:500px;height:350px;display:none">
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">房屋名 <span style="color: red">*</span></label>
         <div class="layui-input-block">

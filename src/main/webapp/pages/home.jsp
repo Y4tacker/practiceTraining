@@ -44,7 +44,7 @@
         <div class="layui-tab layui-tab-card" lay-allowClose="true" lay-filter="tabs">
             <ul class="layui-tab-title">
             </ul>
-            <div class="layui-tab-content" style="height: 700px">
+            <div class="layui-tab-content" style="height: 750px">
 
             </div>
         </div>
