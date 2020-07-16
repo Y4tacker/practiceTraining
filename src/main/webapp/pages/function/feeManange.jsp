@@ -21,6 +21,7 @@
     </div>
     <div style="text-align: center;float:top" id='searchgr'>
         <div class="layui-inline">
+            <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">用户名搜索</label>
             <input class="layui-input" name="searchtxt" id="searchtxt" autocomplete="off" style="width: 200px">
         </div>
         <button class="layui-btn" data-type="reload" id="do_search"><i class="layui-icon layui-icon-search"></i></button>
