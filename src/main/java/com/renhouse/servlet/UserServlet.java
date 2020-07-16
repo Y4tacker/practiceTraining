@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.renhouse.pojo.User;
 import com.renhouse.service.UserService;
 import com.renhouse.service.impl.UserServiceImpl;
+import com.renhouse.utils.MD5Utils;
 import com.renhouse.utils.WebUtils;
 
 import javax.servlet.ServletException;
@@ -32,6 +33,7 @@ public class UserServlet extends BaseServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String code = request.getParameter("captcha");
+
         //获取前端生成的验证码
         String token = (String) request.getSession().getAttribute(KAPTCHA_SESSION_KEY);
         request.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
@@ -147,5 +149,27 @@ public class UserServlet extends BaseServlet {
     protected void notice(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute("noticeStatus","false");
 
+    }
+
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void modifyPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String password = request.getParameter("password");
+        String repassword = request.getParameter("repassword");
+
+        if (password!=null && password.length()>0 && repassword!=null && repassword.length()>0){
+
+        }else {
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": " + "\"参数不能为空！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }
     }
 }
