@@ -77,11 +77,6 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public List<Bill> queryHouseByLandlordAndStatusToCreateBill_Already(String landlord) {
-        return houseDao.queryHouseByLandlordAndStatusToCreateBill_Already(landlord);
-    }
-
-    @Override
     public Page<HouseStatus> pageForRentedHouse(String username, int pageNo, int pageSize) {
         Page<HouseStatus> page = new Page<HouseStatus>();
 

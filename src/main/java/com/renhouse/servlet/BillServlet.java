@@ -19,14 +19,20 @@ import java.util.List;
 public class BillServlet extends BaseServlet {
     private HouseService houseService = new HouseServiceImpl();
     protected void getMonthBill(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String landlord=request.getParameter("username");
+
 
     }
 
     protected void getYearBill(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String landlord=request.getParameter("username");
+
 
     }
 
     protected void getTotalBill(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String landlord=request.getParameter("username");
+
 
     }
 
