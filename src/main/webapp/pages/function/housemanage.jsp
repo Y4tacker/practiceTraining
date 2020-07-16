@@ -73,7 +73,7 @@
                         var address = obj.find('#address').val();
                         var space = obj.find('#space').val();
                         var monthRent = obj.find('#monthRent').val();
-                        var rentalStatus = obj.find('#rentalStatus').val()==0?"租赁":"未租赁";
+                        var rentalStatus = obj.find('#rentalStatus').val()==0?"已租赁":"未租赁";
                         var loading = layer.msg("正在添加", {
                             icon: 16,
                             shade: 0.3,
@@ -159,7 +159,7 @@
                 $('#form_houseinfo').find('#address_edit').val(house.address);
                 $('#form_houseinfo').find('#space_edit').val(house.space);
                 $('#form_houseinfo').find('#monthRent_edit').val(house.monthRent);
-                $('#form_houseinfo').find('#rentalStatus_edit').val(house.rentalStatus=="租赁"?0:1);
+                $('#form_houseinfo').find('#rentalStatus_edit').val(house.rentalStatus=="已租赁"?0:1);
                 form.render();
                 layer.prompt({
                     title: "编辑房源信息：ID"+house.id ,
@@ -175,7 +175,7 @@
                         var address = obj.find('#address_edit').val();
                         var space = obj.find('#space_edit').val();
                         var monthRent = obj.find('#monthRent_edit').val();
-                        var rentalStatus = obj.find('#rentalStatus_edit').val()==0?"租赁":"未租赁";
+                        var rentalStatus = obj.find('#rentalStatus_edit').val()==0?"已租赁":"未租赁";
                         var loading = layer.msg("正在添加", {
                             icon: 16,
                             shade: 0.3,
@@ -281,7 +281,7 @@
         <div class="layui-input-block">
             <select name="rentalStatus_edit" lay-verify="required" id="rentalStatus_edit">
                 <option value="">租赁状态</option>
-                <option value="0">租赁</option>
+                <option value="0">已租赁</option>
                 <option value="1">未租赁</option>
             </select>
         </div>
@@ -330,7 +330,7 @@
         <div class="layui-input-block">
             <select name="rentalStatus" lay-verify="required" id="rentalStatus">
                 <option value="">租赁状态</option>
-                <option value="0">租赁</option>
+                <option value="0">已租赁</option>
                 <option value="1">未租赁</option>
             </select>
         </div>
