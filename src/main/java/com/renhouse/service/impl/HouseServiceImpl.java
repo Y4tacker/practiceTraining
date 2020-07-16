@@ -5,6 +5,7 @@ import com.renhouse.dao.impl.HouseDaoImpl;
 import com.renhouse.pojo.House;
 import com.renhouse.pojo.Page;
 import com.renhouse.pojo.vo.HouseStatus;
+import com.renhouse.pojo.vo.TenantMaintenanceFee;
 import com.renhouse.service.HouseService;
 
 import java.util.List;
@@ -100,6 +101,25 @@ public class HouseServiceImpl implements HouseService {
         // 求当前页数据
         List<HouseStatus> items = houseDao.queryForPageItemsByRentedStatus(begin, pageSize,username);
         // 设置当前页数据
+        page.setItems(items);
+
+        return page;
+    }
+
+    @Override
+    public Page<TenantMaintenanceFee> pageForMaintenanceFee(String username, int pageNo, int pageSize) {
+        Page<TenantMaintenanceFee> page = new Page<TenantMaintenanceFee>();
+        page.setPageSize(pageSize);
+        Integer pageTotalCount = houseDao.queryMaintenanceFeeByLandlordCount(username);
+        page.setPageTotalCount(pageTotalCount);
+        Integer pageTotal = pageTotalCount / pageSize;
+        if (pageTotalCount % pageSize > 0) {
+            pageTotal+=1;
+        }
+        page.setPageTotal(pageTotal);
+        page.setPageNo(pageNo);
+        int begin = (page.getPageNo() - 1) * pageSize;
+        List<TenantMaintenanceFee> items = houseDao.queryPagesForMaintenanceFeeByLandlord(begin, pageSize,username);
         page.setItems(items);
 
         return page;
