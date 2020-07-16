@@ -40,14 +40,15 @@
             defaultToolbar: ['filter', 'print', 'exports'],
             cols: [
                 [
-                    {field: 'id', title: "ID", sort: true,},
+
                     {field: 'orderNo', title: '订单编号', sort: true,},
                     {field: 'orderHouse', title: '预定参观房屋'},
                     {field: 'landlord', title: '所属房东'},
                     {field: 'tenantName', title: '预定客户'},
+                    {field: 'phoneNumber', title: '联系电话'},
                     {field: 'orderTime', title: '上门查看时间'},
                     {field: 'operation', fixed:'right',title: '操作', toolbar: '#operation', width: 120}
-                ]
+                ],
             ]
         });
         table.on('tool(houseinfo-table)', function (obj) {
@@ -99,6 +100,7 @@
                         var landlord = obj.find('#landlord').val();
                         var tenantName = obj.find('#tenantName').val();
                         var orderTime = obj.find('#orderTime').val();
+                        var phoneNumber = obj.find('#phoneNumber').val();
                         var loading = layer.msg("正在添加", {
                             icon: 16,
                             shade: 0.3,
@@ -118,6 +120,7 @@
                                 'landlord': landlord,
                                 'tenantName': tenantName,
                                 'orderTime': orderTime,
+                                'phoneNumber': phoneNumber
                             },
                             success: function (res) {
                                 layer.close(loading);
@@ -149,6 +152,9 @@
                 });
             }
         });
+        $(function(){
+            $("body > div.layui-form.layui-border-box.layui-table-view > div.layui-table-tool > div.layui-table-tool-temp").hide()
+        })
     });
 </script>
 </body>
@@ -187,6 +193,13 @@
         <div class="layui-input-block">
             <input type="text" name="tenantName" required lay-verify="required" placeholder="预定客户"style="width:300px"
                    autocomplete="off" class="layui-input" id="tenantName">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">联系电话<span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input type="text" name="phoneNumber" required lay-verify="required" placeholder="联系电话"style="width:300px"
+                   autocomplete="off" class="layui-input" id="phoneNumber">
         </div>
     </div>
     <div class="layui-form-item">

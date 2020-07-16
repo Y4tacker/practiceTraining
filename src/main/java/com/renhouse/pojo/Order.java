@@ -8,17 +8,20 @@ public class Order {
    private String landlord;
    private String tenantName;
    private String orderTime;
+   private String phoneNumber;
 
     public Order() {
     }
 
-    public Order(Integer id, String orderNo, String orderHouse, String landlord, String tenantName, String orderTime) {
+
+    public Order(Integer id, String orderNo, String orderHouse, String landlord, String tenantName, String orderTime, String phoneNumber) {
         this.id = id;
         this.orderNo = orderNo;
         this.orderHouse = orderHouse;
         this.landlord = landlord;
         this.tenantName = tenantName;
         this.orderTime = orderTime;
+        this.phoneNumber = phoneNumber;
     }
 
     public Integer getId() {
@@ -67,6 +70,14 @@ public class Order {
 
     public void setOrderTime(String orderTime) {
         this.orderTime = orderTime;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override

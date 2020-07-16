@@ -52,19 +52,20 @@ public class OrderDaoImplTest {
     @Test
     public void addOrder() {
         OrderDao orderDao = new OrderDaoImpl();
-        String orderNo = "ajdo";
+        String orderNo = "123457";
         String orderHouse = "双流区哈哈路1号";
-        String landlord = "大猩猩";
+        String landlord = "admin";
         String tenantName = "小猴子";
         String orderTime = "2020-5-20";
-        Order order = new Order(null,orderNo,orderHouse,landlord,tenantName,orderTime);
+        String phoneNumber = "17745485474";
+        Order order = new Order(null,orderNo,orderHouse,landlord,tenantName,orderTime,phoneNumber);
         orderDao.addOrder(order);
     }
 
     @Test
     public void deleterOrderById() {
         OrderDao orderDao = new OrderDaoImpl();
-        System.out.println(orderDao.deleterOrderById(3));
+        System.out.println(orderDao.deleterOrderById(5));
     }
 
     @Test
@@ -75,7 +76,8 @@ public class OrderDaoImplTest {
         String landlord = "大猩猩";
         String tenantName = "小猴子";
         String orderTime = "2020-6-20";
-        Order order = new Order(4,orderNo,orderHouse,landlord,tenantName,orderTime);
+        String phoneNumber = "17745485474";
+        Order order = new Order(4,orderNo,orderHouse,landlord,tenantName,orderTime,phoneNumber);
         orderDao.updateOrder(order);
     }
 
