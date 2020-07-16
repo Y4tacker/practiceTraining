@@ -74,4 +74,25 @@ public class BillServlet extends BaseServlet {
 
 
     }
+
+    protected void editFee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        House house = WebUtils.copyParamToBean(request.getParameterMap(), new House());
+        House houseInfo = houseService.queryHouseById(house.getId());
+        house.setLandlord(houseInfo.getLandlord());
+        house.setTenant(houseInfo.getTenant());
+        house.setMonthRent(houseInfo.getMonthRent());
+        house.setSpace(houseInfo.getSpace());
+        house.setRentalStatus(houseInfo.getRentalStatus());
+        house.setAddress(houseInfo.getAddress());
+        house.setLayout(houseInfo.getLayout());
+        house.setStartTime(houseInfo.getStartTime());
+        house.setEndTime(houseInfo.getEndTime());
+        house.setHouseName(houseInfo.getHouseName());
+        houseService.updateHouse(house);
+        String result = "{" +
+                "  \"code\": 0," +
+                "  \"msg\": " + "\"修改成功！\"" +
+                "} ";
+        response.getWriter().write(result);
+    }
 }

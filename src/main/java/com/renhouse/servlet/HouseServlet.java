@@ -53,7 +53,6 @@ public class HouseServlet extends BaseServlet {
             try{
                 Integer.parseInt(monthRent);
                 house = WebUtils.copyParamToBean(request.getParameterMap(), new House());
-                System.out.println(house);
                 if (house.getSpace() == 0) {
                     String result = "{" +
                             "  \"code\": 1," +
