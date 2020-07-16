@@ -35,12 +35,11 @@
                 <li class="layui-nav-item leftdaohang" mytitle="统计报表" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="2">统计报表</a></li>
                 <li class="layui-nav-item leftdaohang" mytitle="我的账单" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="3">我的账单</a></li>
                 <li class="layui-nav-item leftdaohang" mytitle="系统公告" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="4">系统公告</a></li>
-                <li class="layui-nav-item leftdaohang" mytitle="快捷操作" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="5">快捷操作</a></li>
-                <li class="layui-nav-item">
+                <li class="layui-nav-item" mytitle="快捷操作" >
                     <a href="javascript:;">快捷操作</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="pages/function/rentedHouseManage.jsp">租赁房屋客户信息</a></dd>
-                        <dd><a href="javascript:;">维护费记录</a></dd>
+                        <dd><a data-url="pages/function/rentedHouseManage.jsp" data-type="tabAdd" data-id="5" class="leftdaohangson" mytitle="租赁房屋客户信息">租赁房屋客户信息</a></dd>
+                        <dd><a data-type="tabAdd" data-id="6">维护费记录</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -156,6 +155,37 @@
             var type = "tabAdd";
             var othis = $(this);
             active[type] ? active[type].call(this, othis) : '';
+        });
+        var activee = {
+            tabAdd: function () {
+                //新增一个Tab项
+                var htmlurl = $(this).attr('data-url');
+                var mytitle = $(this).attr('mytitle');
+                var arrayObj = new Array();　//创建一个数组  
+                $(".layui-tab-title").find('li').each(function () {
+                    var y = $(this).attr("lay-id");
+                    arrayObj.push(y);
+                });
+                var have = $.inArray(mytitle, arrayObj);  //返回 3,
+                if (have >= 0) {
+                    element.tabChange('tabs', mytitle); //切换到当前点击的页面
+                } else {
+                    element.tabAdd('tabs', {
+                        title: mytitle //用于演示
+                        ,
+                        content: '<iframe style="width: 100%;height: 100%;" scrolling="auto" src=' + htmlurl + ' ></iframe>'
+                        ,
+                        id: mytitle //实际使用一般是规定好的id，这里以时间戳模拟下
+                    })
+                    element.tabChange('tabs', mytitle); //切换到当前点击的页面
+                }
+            }
+
+        };
+        $(".leftdaohangson").click(function () {
+            var type = "tabAdd";
+            var othis = $(this);
+            activee[type] ? activee[type].call(this, othis) : '';
         });
 
         $(function(){
