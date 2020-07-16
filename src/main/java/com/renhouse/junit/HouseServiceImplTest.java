@@ -14,7 +14,7 @@ public class HouseServiceImplTest {
     @Test
     public void addHouse() {
         House house = new House(null,"admin","xxy",new BigDecimal(500),50,"未租赁","四川省成都市人民南路40号","三室一厅",
-                null,null,"夏哥花园");
+                null,null,"夏哥花园",new BigDecimal(100));
         houseService.addHouse(house);
     }
 

@@ -36,6 +36,13 @@
                 <li class="layui-nav-item leftdaohang" mytitle="我的账单" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="3">我的账单</a></li>
                 <li class="layui-nav-item leftdaohang" mytitle="系统公告" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="4">系统公告</a></li>
                 <li class="layui-nav-item leftdaohang" mytitle="快捷操作" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="5">快捷操作</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">快捷操作</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">租赁房屋客户信息</a></dd>
+                        <dd><a href="javascript:;">维护费记录</a></dd>
+                    </dl>
+                </li>
             </ul>
         </div>
     </div>

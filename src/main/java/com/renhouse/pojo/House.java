@@ -14,11 +14,12 @@ public class House {
     private String endTime;
     private String startTime;
     private String houseName;
+    private BigDecimal maintenanceFee;
 
     public House() {
     }
 
-    public House(Integer id, String landlord, String tenant, BigDecimal monthRent, Integer space, String rentalStatus, String address, String layout, String startTime, String endTime, String houseName) {
+    public House(Integer id, String landlord, String tenant, BigDecimal monthRent, Integer space, String rentalStatus, String address, String layout, String endTime, String startTime, String houseName, BigDecimal maintenanceFee) {
         this.id = id;
         this.landlord = landlord;
         this.tenant = tenant;
@@ -30,6 +31,7 @@ public class House {
         this.endTime = endTime;
         this.startTime = startTime;
         this.houseName = houseName;
+        this.maintenanceFee = maintenanceFee;
     }
 
     public Integer getId() {
@@ -120,6 +122,14 @@ public class House {
         this.houseName = houseName;
     }
 
+    public BigDecimal getMaintenanceFee() {
+        return maintenanceFee;
+    }
+
+    public void setMaintenanceFee(BigDecimal maintenanceFee) {
+        this.maintenanceFee = maintenanceFee;
+    }
+
     @Override
     public String toString() {
         return "House{" +
@@ -128,12 +138,13 @@ public class House {
                 ", tenant='" + tenant + '\'' +
                 ", monthRent=" + monthRent +
                 ", space=" + space +
-                ", rentalStatus=" + rentalStatus +
+                ", rentalStatus='" + rentalStatus + '\'' +
                 ", address='" + address + '\'' +
                 ", layout='" + layout + '\'' +
                 ", endTime='" + endTime + '\'' +
                 ", startTime='" + startTime + '\'' +
                 ", houseName='" + houseName + '\'' +
+                ", maintenanceFee='" + maintenanceFee + '\'' +
                 '}';
     }
 }

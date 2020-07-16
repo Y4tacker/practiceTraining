@@ -18,10 +18,10 @@ public class HouseServlet extends BaseServlet {
     private HouseService houseService = new HouseServiceImpl();
 
     protected void addHouse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        House house = WebUtils.copyParamToBean(request.getParameterMap(),new House());
+        House house = WebUtils.copyParamToBean(request.getParameterMap(), new House());
         house.setId(null);
         house.setLandlord((String) request.getSession().getAttribute("landlordName"));
-
+        house.setMaintenanceFee(null);
         try {
             houseService.addHouse(house);
             String result = "{" +
@@ -29,7 +29,7 @@ public class HouseServlet extends BaseServlet {
                     "  \"msg\": " + "\"添加成功！\"" +
                     "} ";
             response.getWriter().write(result);
-        }catch (Exception e){
+        } catch (Exception e) {
             String result = "{" +
                     "  \"code\": 1," +
                     "  \"msg\": " + "\"添加失败！\"" +
@@ -39,30 +39,63 @@ public class HouseServlet extends BaseServlet {
     }
 
     protected void editHouse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        House house = WebUtils.copyParamToBean(request.getParameterMap(),new House());
-        try {
-            House houseInfo = houseService.queryHouseById(house.getId());
-            house.setLandlord(houseInfo.getLandlord());
-            house.setTenant(houseInfo.getTenant());
-            house.setStartTime(houseInfo.getStartTime());
-            house.setEndTime(houseInfo.getEndTime());
-            houseService.updateHouse(house);
-            String result = "{" +
-                    "  \"code\": 0," +
-                    "  \"msg\": " + "\"修改成功！\"" +
-                    "} ";
-            response.getWriter().write(result);
-        }catch (Exception e){
+        Boolean status = false;
+        House house = null;
+        String monthRent = request.getParameter("monthRent");
+        if (monthRent == null){
             String result = "{" +
                     "  \"code\": 1," +
-                    "  \"msg\": " + "\"修改失败！\"" +
+                    "  \"msg\": " + "\"租金只能为数字！\"" +
                     "} ";
             response.getWriter().write(result);
+        }else {
+            try{
+                Integer.parseInt(monthRent);
+                house = WebUtils.copyParamToBean(request.getParameterMap(), new House());
+                if (house.getSpace() == 0) {
+                    String result = "{" +
+                            "  \"code\": 1," +
+                            "  \"msg\": " + "\"面积只能为数字！\"" +
+                            "} ";
+                    response.getWriter().write(result);
+                } else {
+                    status = true;
+                }
+            }catch (Exception e){
+                String result = "{" +
+                        "  \"code\": 1," +
+                        "  \"msg\": " + "\"租金只能为数字！\"" +
+                        "} ";
+                response.getWriter().write(result);
+            }
+        }
+
+        if (status) {
+            try {
+                House houseInfo = houseService.queryHouseById(house.getId());
+                house.setLandlord(houseInfo.getLandlord());
+                house.setTenant(houseInfo.getTenant());
+                house.setStartTime(houseInfo.getStartTime());
+                house.setEndTime(houseInfo.getEndTime());
+                house.setMaintenanceFee(houseInfo.getMaintenanceFee());
+                houseService.updateHouse(house);
+                String result = "{" +
+                        "  \"code\": 0," +
+                        "  \"msg\": " + "\"修改成功！\"" +
+                        "} ";
+                response.getWriter().write(result);
+            } catch (Exception e) {
+                String result = "{" +
+                        "  \"code\": 1," +
+                        "  \"msg\": " + "\"修改失败！\"" +
+                        "} ";
+                response.getWriter().write(result);
+            }
         }
     }
 
     protected void deleteHouse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try{
+        try {
             String temp = request.getParameter("id");
             Integer id = Integer.valueOf(temp);
             houseService.deleteHouseById(id);
@@ -71,7 +104,7 @@ public class HouseServlet extends BaseServlet {
                     "  \"msg\": " + "\"删除成功！\"" +
                     "} ";
             response.getWriter().write(result);
-        }catch (Exception e){
+        } catch (Exception e) {
             String result = "{" +
                     "  \"code\": 0," +
                     "  \"msg\": " + "\"删除失败！\"" +
@@ -82,6 +115,7 @@ public class HouseServlet extends BaseServlet {
 
     /**
      * 处理分页功能
+     *
      * @param req
      * @param resp
      * @throws ServletException
@@ -92,15 +126,15 @@ public class HouseServlet extends BaseServlet {
         int pageNo = WebUtils.parseInt(req.getParameter("page"), 1);
         int pageSize = WebUtils.parseInt(req.getParameter("limit"), Page.PAGE_SIZE);
 
-        Page<House> page = houseService.page((String) req.getSession().getAttribute("landlordName"),pageNo,pageSize);
+        Page<House> page = houseService.page((String) req.getSession().getAttribute("landlordName"), pageNo, pageSize);
         List<House> items = page.getItems();
         Gson gson = new Gson();
         String toJson = gson.toJson(items);
         String result = "{" +
                 "  \"code\": 0," +
                 "  \"msg\": \"\"," +
-                "  \"count\": "+page.getPageTotalCount()+"," +
-                "  \"data\": "+toJson +
+                "  \"count\": " + page.getPageTotalCount() + "," +
+                "  \"data\": " + toJson +
                 "} ";
         resp.getWriter().write(result);
     }

@@ -9,20 +9,20 @@ import java.util.List;
 public class HouseDaoImpl extends BaseDao implements HouseDao {
     @Override
     public List<House> queryHouseByLandlord(String landlord) {
-        String sql = "select `id`,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName` from t_house where landlord = ?";
+        String sql = "select `id`,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName`,`maintenanceFee` from t_house where landlord = ?";
         return queryForList(House.class, sql,landlord);
     }
 
     @Override
     public List<House> queryHouseByLandlordAndTenant(String landlord, String tenant) {
-        String sql = "select `id`,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName` from t_house where landlord = ? and tenant = ?";
+        String sql = "select `id`,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName`,`maintenanceFee` from t_house where landlord = ? and tenant = ?";
         return queryForList(House.class, sql,landlord,tenant);
     }
 
     @Override
     public int addHouse(House house) {
-        String sql = "INSERT INTO t_house(landlord,tenant,monthRent,space,rentalStatus,address,layout,endTime,startTime,houseName) VALUES (?,?,?,?,?,?,?,?,?,?)";
-        return update(sql,house.getLandlord(),house.getTenant(),house.getMonthRent(),house.getSpace(),house.getRentalStatus(),house.getAddress(),house.getLayout(),house.getEndTime(),house.getStartTime(),house.getHouseName());
+        String sql = "INSERT INTO t_house(landlord,tenant,monthRent,space,rentalStatus,address,layout,endTime,startTime,houseName,`maintenanceFee`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        return update(sql,house.getLandlord(),house.getTenant(),house.getMonthRent(),house.getSpace(),house.getRentalStatus(),house.getAddress(),house.getLayout(),house.getEndTime(),house.getStartTime(),house.getHouseName(),house.getMaintenanceFee());
     }
 
     @Override
@@ -33,13 +33,13 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
 
     @Override
     public int updateHouse(House house) {
-        String sql = "UPDATE t_house SET landlord = ?,tenant = ?,monthRent = ?,space = ?,rentalStatus = ?,address = ?,layout = ?,startTime = ?,endTime = ?,houseName =? WHERE id = ?";
-        return update(sql, house.getLandlord(), house.getTenant(), house.getMonthRent(), house.getSpace(), house.getRentalStatus(), house.getAddress(), house.getLayout(), house.getStartTime(), house.getEndTime(), house.getHouseName(), house.getId());
+        String sql = "UPDATE t_house SET landlord = ?,tenant = ?,monthRent = ?,space = ?,rentalStatus = ?,address = ?,layout = ?,startTime = ?,endTime = ?,houseName =?,maintenanceFee=? WHERE id = ?";
+        return update(sql, house.getLandlord(), house.getTenant(), house.getMonthRent(), house.getSpace(), house.getRentalStatus(), house.getAddress(), house.getLayout(), house.getStartTime(), house.getEndTime(), house.getHouseName(), house.getMaintenanceFee(), house.getId());
     }
 
     @Override
     public House queryHouseById(Integer id) {
-        String sql = "select `id`,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName` from t_house where id = ?";
+        String sql = "select `id`,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName`,`maintenanceFee` from t_house where id = ?";
         return queryForOne(House.class, sql,id);
     }
 
@@ -58,7 +58,7 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
 
     @Override
     public List<House> queryForPageItems(int begin, int pageSize) {
-        String sql = "select `id` ,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName` from t_house limit ?,?";
+        String sql = "select `id` ,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName`,`maintenanceFee` from t_house limit ?,?";
         return queryForList(House.class,sql,begin,pageSize);
     }
 
@@ -76,7 +76,7 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
 
     @Override
     public List<House> queryForPageItemsByLandlord(int begin, int pageSize, String username) {
-        String sql = "select `id` ,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName` from t_house  where landlord=? limit ?,?";
+        String sql = "select `id` ,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName`,`maintenanceFee` from t_house  where landlord=? limit ?,?";
         return queryForList(House.class,sql,username, begin,pageSize);
 
 

@@ -89,6 +89,7 @@ public class Order {
                 ", landlord='" + landlord + '\'' +
                 ", tenantName='" + tenantName + '\'' +
                 ", orderTime='" + orderTime + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }
