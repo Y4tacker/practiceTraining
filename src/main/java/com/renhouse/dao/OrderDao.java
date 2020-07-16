@@ -1,6 +1,5 @@
 package com.renhouse.dao;
 
-import com.renhouse.pojo.House;
 import com.renhouse.pojo.Order;
 import java.util.List;
 

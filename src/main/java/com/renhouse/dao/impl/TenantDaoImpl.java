@@ -10,20 +10,20 @@ public class TenantDaoImpl extends BaseDao implements TenantDao {
 
     @Override
     public Tenant queryTenantByTenantName(String tenantName) {
-        String sql = "select `id`,`tenantName`,`tenantPassword`,`landlord` from t_tenant where tenantName = ?";
-        return queryForOne(Tenant.class, sql, tenantName);
+        String sql = "select id,tenantName,tenantPassword,landlord,realName,phoneNumber,email from t_tenant where tenantName = ?";
+        return queryForOne(Tenant.class,sql,tenantName);
     }
 
     @Override
-    public Tenant queryTenantByTenantNameAndPassword(String tenantName, String tenantPassword) {
-        String sql = "select `id`,`tenantName`,`tenantPassword`,`landlord` from t_tenant where tenantName = ? and tenantPassword =?";
-        return queryForOne(Tenant.class, sql, tenantName,tenantPassword);
+    public List<Tenant> queryTenantByRealName(String realName) {
+        String sql = "select id,tenantName,tenantPassword,landlord,realName,phoneNumber,email from t_tenant where realName = ?";
+        return queryForList(Tenant.class,sql,realName);
     }
 
     @Override
     public int addTenant(Tenant tenant) {
-        String sql = "insert into t_tenant(`tenantName`,`tenantPassword`,`landlord`) values(?,?,?)";
-        return update(sql,tenant.getTenantName(),tenant.getTenantPassword(),tenant.getLandlord());
+        String sql = "insert into t_tenant(tenantName,tenantPassword,landlord,realName,phoneNumber,email)values(?,?,?,?,?,?)";
+        return update(sql,tenant.getTenantName(),tenant.getTenantPassword(),tenant.getLandlord(),tenant.getRealName(),tenant.getPhoneNumber(),tenant.getEmail());
     }
 
     @Override
@@ -34,22 +34,23 @@ public class TenantDaoImpl extends BaseDao implements TenantDao {
 
     @Override
     public int updateTenant(Tenant tenant) {
-        String sql = "update t_tenant set tenantName = ?,tenantPassword = ?,landlord = ? where id = ?";
-        return update(sql,tenant.getTenantName(),tenant.getTenantPassword(),tenant.getLandlord(),tenant.getId());
+        String sql = "update t_tenant set tenantName=?,tenantPassword=?,landlord=?,realName=?,phoneNumber=?,email=? where id = ?";
+        return update(sql,tenant.getTenantName(),tenant.getTenantPassword(),tenant.getLandlord(),tenant.getRealName(),tenant.getPhoneNumber(),tenant.getEmail(),tenant.getId());
     }
 
     @Override
     public Tenant queryTenantById(Integer id) {
-        String sql = "select `id`,`tenantName`,`tenantPassword`,`landlord` from t_tenant where id = ?";
+        String sql = "select * from t_tenant where id = ?";
         return queryForOne(Tenant.class,sql,id);
     }
 
     @Override
     public List<Tenant> queryTenants() {
-        String sql = "select `id`,`tenantName`,`tenantPassword`,`landlord` from t_tenant";
+        String sql = "select * from t_tenant";
         return queryForList(Tenant.class,sql);
     }
-/*
+
+    /*
     @Override
     public Integer queryForPageTotalCount() {
         String sql = "select count(id) from t_tenant";
