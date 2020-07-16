@@ -205,12 +205,12 @@
                         });
                         var finish = false;
                         $.ajax({
-                            url: 'houseServlet',
+                            url: 'billServlet',
                             method: 'POST',
                             async: false,
                             dataType: 'json',
                             data: {
-                                'action': 'editHouse',
+                                'action': 'editFee',
                                 'id': id,
                                 'tenantName':tenantName,
                                 'houseName': houseName,

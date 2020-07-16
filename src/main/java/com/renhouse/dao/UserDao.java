@@ -28,6 +28,8 @@ public interface UserDao {
      */
     public int addUser(User user);
 
+    public int modifyPassword(String username,String password);
+
 //    Integer queryForPageTotalCount();
 
 //    List<User> queryForPageItems(int begin, int pageSize);

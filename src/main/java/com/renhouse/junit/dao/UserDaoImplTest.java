@@ -3,6 +3,7 @@ package com.renhouse.junit.dao;
 import com.renhouse.dao.UserDao;
 import com.renhouse.dao.impl.UserDaoImpl;
 import com.renhouse.pojo.User;
+import com.renhouse.utils.MD5Utils;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -39,5 +40,13 @@ public class UserDaoImplTest {
         }else {
             System.out.println("保存成功");
         }
+    }
+
+    @Test
+    public void modifyPassword() {
+        UserDao userDao = new UserDaoImpl();
+        String password = "wclwcl";
+        String toMD5 = MD5Utils.toMD5(password);
+        userDao.modifyPassword("wclwcl",toMD5);
     }
 }
