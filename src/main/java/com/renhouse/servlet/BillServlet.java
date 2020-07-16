@@ -37,17 +37,35 @@ public class BillServlet extends BaseServlet {
 
         String tenantName = req.getParameter("tenantName");
 
-        Page<TenantMaintenanceFee> page = houseService.pageForMaintenanceFee((String) req.getSession().getAttribute("landlordName"),
-                tenantName,pageNo, pageSize);
-        List<TenantMaintenanceFee> items = page.getItems();
-        Gson gson = new Gson();
-        String toJson = gson.toJson(items);
-        String result = "{" +
-                "  \"code\": 0," +
-                "  \"msg\": \"\"," +
-                "  \"count\": " + page.getPageTotalCount() + "," +
-                "  \"data\": " + toJson +
-                "} ";
-        resp.getWriter().write(result);
+        if (tenantName==null || tenantName.length() ==0){
+            Page<TenantMaintenanceFee> page = houseService.pageForMaintenanceFee((String) req.getSession().getAttribute("landlordName"),
+                    pageNo, pageSize);
+            List<TenantMaintenanceFee> items = page.getItems();
+            Gson gson = new Gson();
+            String toJson = gson.toJson(items);
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": \"\"," +
+                    "  \"count\": " + page.getPageTotalCount() + "," +
+                    "  \"data\": " + toJson +
+                    "} ";
+            resp.getWriter().write(result);
+
+        }else {
+            Page<TenantMaintenanceFee> page = houseService.pageForMaintenanceFee((String) req.getSession().getAttribute("landlordName"),
+                    tenantName,pageNo, pageSize);
+            List<TenantMaintenanceFee> items = page.getItems();
+            Gson gson = new Gson();
+            String toJson = gson.toJson(items);
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": \"\"," +
+                    "  \"count\": " + page.getPageTotalCount() + "," +
+                    "  \"data\": " + toJson +
+                    "} ";
+            resp.getWriter().write(result);
+        }
+
+
     }
 }
