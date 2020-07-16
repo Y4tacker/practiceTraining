@@ -2,6 +2,7 @@ package com.renhouse.dao;
 
 import com.renhouse.pojo.House;
 import com.renhouse.pojo.vo.HouseStatus;
+import com.renhouse.pojo.vo.TenantMaintenanceFee;
 
 import java.util.List;
 
@@ -88,5 +89,9 @@ public interface HouseDao {
     public List<House> queryForPageItemsByLandlord(int begin, int pageSize, String username);
 
     public List<HouseStatus> queryForPageItemsByRentedStatus(int begin, int pageSize, String username);
+
+    public Integer queryMaintenanceFeeByLandlordCount(String username);
+
+    public List<TenantMaintenanceFee> queryPagesForMaintenanceFeeByLandlord(int begin, int pageSize, String username);
 
 }
