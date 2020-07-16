@@ -1,4 +1,4 @@
-package com.renhouse.junit;
+package com.renhouse.junit.service;
 
 import com.renhouse.pojo.User;
 import com.renhouse.service.UserService;

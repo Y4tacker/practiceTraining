@@ -3,6 +3,7 @@ package com.renhouse.dao.impl;
 import com.renhouse.dao.BaseDao;
 import com.renhouse.dao.HouseDao;
 import com.renhouse.pojo.House;
+import com.renhouse.pojo.vo.Bill;
 import com.renhouse.pojo.vo.HouseStatus;
 import com.renhouse.pojo.vo.TenantMaintenanceFee;
 
@@ -71,6 +72,12 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
     }
 
     @Override
+    public List<Bill> queryHouseByLandlordAndStatusToCreateBill_Already(String landlord) {
+        String sql = "select tenantName,houseName,monthRent,start,end,maintenance from t_house where t_tenant.landlord = ? and t_house.rentalStatus = '已租赁'";
+        return queryForList(Bill.class,sql,landlord);
+    }
+
+    @Override
     public Integer queryHouseByLandlordAndStatusAlreadyCount(String landlord) {
         String sql = "select count(*) from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁'";
         Number count = (Number) queryForSingleValue(sql,landlord);
@@ -96,15 +103,15 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
     }
 
     @Override
-    public Integer queryMaintenanceFeeByLandlordCount(String username) {
-        String sql = "select count(*) where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁'";
-        Number count = (Number) queryForSingleValue(sql,username);
+    public Integer queryMaintenanceFeeByLandlordCount(String username, String tenant) {
+        String sql = "select count(*) from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁' and tenantName = ?";
+        Number count = (Number) queryForSingleValue(sql,username, tenant);
         return count.intValue();
     }
 
     @Override
-    public List<TenantMaintenanceFee> queryPagesForMaintenanceFeeByLandlord(int begin, int pageSize, String username) {
-        String sql = "select t_house.id,tenantName,realName,address,houseName,phoneNumber,maintenanceFee from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁' limit ?,?";
-        return queryForList(TenantMaintenanceFee.class,sql,username, begin,pageSize);
+    public List<TenantMaintenanceFee> queryPagesForMaintenanceFeeByLandlordAndTenant(int begin, int pageSize, String username, String tenant) {
+        String sql = "select t_house.id,tenantName,realName,address,houseName,phoneNumber,maintenanceFee from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁' and tenantName = ? limit ?,?";
+        return queryForList(TenantMaintenanceFee.class,sql,username, tenant, begin,pageSize);
     }
 }

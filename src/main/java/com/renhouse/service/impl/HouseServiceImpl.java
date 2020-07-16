@@ -4,6 +4,7 @@ import com.renhouse.dao.HouseDao;
 import com.renhouse.dao.impl.HouseDaoImpl;
 import com.renhouse.pojo.House;
 import com.renhouse.pojo.Page;
+import com.renhouse.pojo.vo.Bill;
 import com.renhouse.pojo.vo.HouseStatus;
 import com.renhouse.pojo.vo.TenantMaintenanceFee;
 import com.renhouse.service.HouseService;
@@ -76,6 +77,11 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
+    public List<Bill> queryHouseByLandlordAndStatusToCreateBill_Already(String landlord) {
+        return houseDao.queryHouseByLandlordAndStatusToCreateBill_Already(landlord);
+    }
+
+    @Override
     public Page<HouseStatus> pageForRentedHouse(String username, int pageNo, int pageSize) {
         Page<HouseStatus> page = new Page<HouseStatus>();
 
@@ -107,19 +113,31 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public Page<TenantMaintenanceFee> pageForMaintenanceFee(String username, int pageNo, int pageSize) {
+    public Page<TenantMaintenanceFee> pageForMaintenanceFee(String username, String tenant,int pageNo, int pageSize) {
         Page<TenantMaintenanceFee> page = new Page<TenantMaintenanceFee>();
+
+        // 设置每页显示的数量
         page.setPageSize(pageSize);
-        Integer pageTotalCount = houseDao.queryMaintenanceFeeByLandlordCount(username);
+        // 求总记录数
+        Integer pageTotalCount = houseDao.queryMaintenanceFeeByLandlordCount(username,tenant);
+        // 设置总记录数
         page.setPageTotalCount(pageTotalCount);
+        // 求总页码
         Integer pageTotal = pageTotalCount / pageSize;
         if (pageTotalCount % pageSize > 0) {
             pageTotal+=1;
         }
+        // 设置总页码
         page.setPageTotal(pageTotal);
+
+        // 设置当前页码
         page.setPageNo(pageNo);
+
+        // 求当前页数据的开始索引
         int begin = (page.getPageNo() - 1) * pageSize;
-        List<TenantMaintenanceFee> items = houseDao.queryPagesForMaintenanceFeeByLandlord(begin, pageSize,username);
+        // 求当前页数据
+        List<TenantMaintenanceFee> items = houseDao.queryPagesForMaintenanceFeeByLandlordAndTenant(begin, pageSize,username,tenant);
+        // 设置当前页数据
         page.setItems(items);
 
         return page;

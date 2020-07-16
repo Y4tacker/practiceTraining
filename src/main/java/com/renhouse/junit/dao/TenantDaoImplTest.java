@@ -1,4 +1,4 @@
-package com.renhouse.junit;
+package com.renhouse.junit.dao;
 
 import com.renhouse.dao.HouseDao;
 import com.renhouse.dao.TenantDao;

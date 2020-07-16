@@ -1,8 +1,9 @@
-package com.renhouse.junit;
+package com.renhouse.junit.service;
 
 import com.renhouse.pojo.House;
 import com.renhouse.pojo.Page;
 import com.renhouse.pojo.vo.HouseStatus;
+import com.renhouse.pojo.vo.TenantMaintenanceFee;
 import com.renhouse.service.HouseService;
 import com.renhouse.service.impl.HouseServiceImpl;
 import org.junit.Test;
@@ -50,6 +51,15 @@ public class HouseServiceImplTest {
         List<HouseStatus> items = admin.getItems();
         for (HouseStatus houseStatus: items) {
             System.out.println(houseStatus);
+        }
+    }
+
+    @Test
+    public void pageForMaintenanceFee() {
+        Page<TenantMaintenanceFee> tenantMaintenanceFeePage = houseService.pageForMaintenanceFee("admin", "tenant", 1, 15);
+        List<TenantMaintenanceFee> items = tenantMaintenanceFeePage.getItems();
+        for (TenantMaintenanceFee tenantMaintenanceFee: items) {
+            System.out.println(tenantMaintenanceFee);
         }
     }
 }
