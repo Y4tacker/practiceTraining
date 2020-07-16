@@ -16,10 +16,7 @@
 </head>
 <body>
 <script type="text/html" id="toolbaradd">
-    <div class="layui-btn-container" style="float: left">
-        <div class="layui-inline" lay-event="add"><i class="layui-icon layui-icon-add-1"></i></div>
-    </div>
-    <div style="text-align: center;float:top" id='searchgr'>
+    <div style="text-align: left;float:top" id='searchgr'>
         <div class="layui-inline">
             <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">用户名搜索</label>
             <input class="layui-input" name="searchtxt" id="searchtxt" autocomplete="off" style="width: 200px">
@@ -30,7 +27,6 @@
 <table class="layui-hide" id="houseinfo-table" lay-filter="houseinfo-table"></table>
 <script type="text/html" id="operation">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
 </script>
 <script type="text/javascript">
     layui.use(['form', 'element', 'jquery', 'table', 'layer'], function () {
@@ -78,76 +74,7 @@
             });
             //location.replace('');
         });
-        table.on('toolbar(houseinfo-table)',function (obj) {
-            if(obj.event === 'add'){
-                var house = obj.data;
-                console.log(house);
-                layer.prompt({
-                    title: "维护费记录",
-                    shadeClose: true,
-                    shade: 0.8,
-                    btnAlign: 'l',
-                    btn: ['确认', '取消'],
-                    offset: '120px',
-                    yes: function (index, obj) {
-                        var id = obj.find('#id').val();
-                        var tenantName = obj.find('#tenantName').val();
-                        var houseName = obj.find('#houseName').val();
-                        var realName = obj.find('#realName').val();
-                        var address = obj.find('#address').val();
-                        var phoneNumber = obj.find('#phoneNumber').val();
-                        var maintenanceFee = obj.find('#maintenanceFee').val();
-                        var loading = layer.msg("正在添加", {
-                            icon: 16,
-                            shade: 0.3,
-                            time: 0
-                        });
-                        var finish = false;
-                        $.ajax({
-                            url: 'houseServlet',
-                            method: 'POST',
-                            async: false,
-                            dataType: 'json',
-                            data: {
-                                'action': 'addHouse',
-                                'id': id,
-                                'tenantName':tenantName,
-                                'houseName': houseName,
-                                'realName': realName,
-                                'address': address,
-                                'phoneNumber': phoneNumber,
-                                'maintenanceFee': maintenanceFee,
-                            },
-                            success: function (res) {
-                                layer.close(loading);
-                                if (res.code == 0) {
-                                    finish = true;
-                                    layer.msg(res.msg, {
-                                        title: '成功'
-                                    });
-                                    houseinfo_table.reload({
-                                        elem: "#houseinfo-table"
-                                    });
-                                } else {
-                                    layer.msg(res.msg, {
-                                        title: '失败'
-                                    });
-                                }
-                                layer.close(index);
-                            },
-                            error: function (err) {
-                                layer.close(loading);
-                                layer.msg("修改失败", {icon: 5});
-                                layer.close(index);
-                            }
-                        });
-                        layer.close(index);
-                        return finish;
-                    },
-                    content: $('#form_houseinfo_add')
-                });
-            }
-        })
+
         table.on('tool(houseinfo-table)', function (obj) {
             var house = obj.data;
             if (obj.event === 'delete') {

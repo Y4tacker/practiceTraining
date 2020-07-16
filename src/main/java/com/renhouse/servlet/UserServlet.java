@@ -162,12 +162,23 @@ public class UserServlet extends BaseServlet {
         String password = request.getParameter("password");
         String repassword = request.getParameter("repassword");
 
-        if (password!=null && password.length()>0 && repassword!=null && repassword.length()>0){
-
-        }else {
+        if (password==null || password.length()==0 || repassword==null || repassword.length()==0 ){
+            String result = "{" +
+                    "  \"code\": 1," +
+                    "  \"msg\": " + "\"参数不能为空！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }else if (password.equals(repassword)){
+            userService.modifyPassword((String) request.getSession().getAttribute("landlordName"),password);
             String result = "{" +
                     "  \"code\": 0," +
-                    "  \"msg\": " + "\"参数不能为空！\"" +
+                    "  \"msg\": " + "\"修改成功！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }else {
+            String result = "{" +
+                    "  \"code\": 1," +
+                    "  \"msg\": " + "\"前后输入密码不一致！\"" +
                     "} ";
             response.getWriter().write(result);
         }

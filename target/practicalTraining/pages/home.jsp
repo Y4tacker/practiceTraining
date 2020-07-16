@@ -18,8 +18,8 @@
             <li class="layui-nav-item">
                 <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">${sessionScope.user.username}</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;">修改信息</a></dd>
-                    <dd><a href="javascript:;">安全管理</a></dd>
+                    <dd><a href="javascript:;" id="changepass">修改密码</a></dd>
+                    <dd><a href="javascript:;">头像更改</a></dd>
                     <dd><a href="userServlet?action=logout">安全退出</a></dd>
                 </dl>
             </li>
@@ -187,7 +187,62 @@
             var othis = $(this);
             activee[type] ? activee[type].call(this, othis) : '';
         });
-
+        $('#changepass').click(function () {
+            layer.prompt({
+                title: "修改密码",
+                shadeClose: true,
+                shade: 0.8,
+                btnAlign: 'l',
+                btn: ['确认', '取消'],
+                offset: '120px',
+                yes: function (index, obj) {
+                    var firstpass = obj.find('#firstpass').val();
+                    var secondpass = obj.find('#secondpass').val();
+                    var loading = layer.msg("正在修改", {
+                        icon: 16,
+                        shade: 0.3,
+                        time: 0
+                    });
+                    var finish = false;
+                    $.ajax({
+                        url: 'userServlet',
+                        method: 'POST',
+                        async: false,
+                        dataType: 'json',
+                        data: {
+                            'action': 'modifyPassword',
+                            'password':firstpass,
+                            'repassword': secondpass,
+                        },
+                        success: function (res) {
+                            layer.close(loading);
+                            if (res.code == 0) {
+                                finish = true;
+                                layer.msg(res.msg, {
+                                    title: '成功'
+                                });
+                                houseinfo_table.reload({
+                                    elem: "#houseinfo-table"
+                                });
+                            } else {
+                                layer.msg(res.msg, {
+                                    title: '失败'
+                                });
+                            }
+                            layer.close(index);
+                        },
+                        error: function (err) {
+                            layer.close(loading);
+                            layer.msg("修改失败", {icon: 5});
+                            layer.close(index);
+                        }
+                    });
+                    layer.close(index);
+                    return finish;
+                },
+                content: $('#changepassform')
+            });
+        })
         $(function(){
             var status = document.getElementById('status').value;
             if(status === 'true'){
@@ -207,3 +262,20 @@
     });
 </script>
 </body>
+<div class="layui-form" id="changepassform" style="width:500px;display:none">
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">新密码<span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input type="password" name="firstpass" required lay-verify="required" style="width:300px"
+                   autocomplete="off" class="layui-input" id="firstpass">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">确认密码<span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input type="password" name="secondpass" required lay-verify="required" style="width:300px"
+                   autocomplete="off" class="layui-input" id="secondpass">
+        </div>
+    </div>
+</div>
+</html>
