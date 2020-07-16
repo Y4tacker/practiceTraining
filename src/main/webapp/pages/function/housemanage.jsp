@@ -45,6 +45,7 @@
             cols: [
                 [
                     {field: 'id', title: "ID", sort: true,},
+                    {field: 'tenant', title: '租赁人', sort: true,},
                     {field: 'houseName', title: '房屋名', sort: true,},
                     {field: 'layout', title: '户型'},
                     {field: 'address', title: '地址'},
@@ -68,6 +69,7 @@
                     offset: '120px',
                     yes: function (index, obj) {
                         var id = obj.find('#id').val();
+                        var tenant = obj.find('#tenant').val();
                         var houseName = obj.find('#houseName').val();
                         var layout = obj.find('#layout').val();
                         var address = obj.find('#address').val();
@@ -88,6 +90,7 @@
                             data: {
                                 'action': 'addHouse',
                                 'id': id,
+                                'tenant':tenant,
                                 'houseName': houseName,
                                 'layout': layout,
                                 'address': address,
@@ -154,6 +157,7 @@
                 });
             } else if (obj.event === 'edit') {
                 $('#form_houseinfo').find('#id_edit').val(house.id);
+                $('#form_houseinfo').find('#tenant_edit').val(house.tenant);
                 $('#form_houseinfo').find('#houseName_edit').val(house.houseName);
                 $('#form_houseinfo').find('#layout_edit').val(house.layout);
                 $('#form_houseinfo').find('#address_edit').val(house.address);
@@ -170,6 +174,7 @@
                     offset: '120px',
                     yes: function (index, obj) {
                         var id = obj.find('#id_edit').val();
+                        var tenant = obj.find('#tenant_edit').val();
                         var houseName = obj.find('#houseName_edit').val();
                         var layout = obj.find('#layout_edit').val();
                         var address = obj.find('#address_edit').val();
@@ -190,6 +195,7 @@
                             data: {
                                 'action': 'editHouse',
                                 'id': id,
+                                'tenant':tenant,
                                 'houseName': houseName,
                                 'layout': layout,
                                 'address': address,
@@ -237,6 +243,14 @@
             <input class="layui-input" lay-verify="required" type="text" name="id" placeholder="id"style="width:300px"
                    id="id_edit" disabled="disabled"
                    placeholder="账号"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">租赁人 <span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input class="layui-input" lay-verify="required" type="text" name="tenant_edit" placeholder="租赁人"style="width:300px"
+                   id="tenant_edit"
+                   placeholder="租赁人"/>
         </div>
     </div>
     <div class="layui-form-item">
