@@ -3,6 +3,7 @@ package com.renhouse.junit;
 import com.renhouse.dao.HouseDao;
 import com.renhouse.dao.impl.HouseDaoImpl;
 import com.renhouse.pojo.House;
+import com.renhouse.pojo.vo.HouseStatus;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -87,12 +88,22 @@ public class HouseDaoImplTest {
     @Test
     public void queryHouseByLandlordAndStatus_Already() {
         HouseDao houseDao = new HouseDaoImpl();
-        System.out.println(houseDao.queryHouseByLandlordAndStatus_Already("admin"));
+        List<HouseStatus> admin = houseDao.queryHouseByLandlordAndStatus_Already("admin");
+        for (HouseStatus houseStatus:admin) {
+            System.out.println(admin);
+        }
     }
 
     @Test
     public void queryHouseByLandlordAndStatus_Still() {
         HouseDao houseDao = new HouseDaoImpl();
         System.out.println(houseDao.queryHouseByLandlordAndStatus_Still("admin"));
+    }
+
+    @Test
+    public void queryHouseByLandlordAndStatusAlreadyCount() {
+        HouseDao houseDao = new HouseDaoImpl();
+        Integer admin = houseDao.queryHouseByLandlordAndStatusAlreadyCount("admin");
+        System.out.println(admin.intValue());
     }
 }

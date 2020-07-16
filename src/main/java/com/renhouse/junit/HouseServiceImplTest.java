@@ -1,11 +1,14 @@
 package com.renhouse.junit;
 
 import com.renhouse.pojo.House;
+import com.renhouse.pojo.Page;
+import com.renhouse.pojo.vo.HouseStatus;
 import com.renhouse.service.HouseService;
 import com.renhouse.service.impl.HouseServiceImpl;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -38,5 +41,15 @@ public class HouseServiceImplTest {
 
     @Test
     public void page() {
+    }
+
+
+    @Test
+    public void pageForRentedHouse() {
+        Page<HouseStatus> admin = houseService.pageForRentedHouse("admin", 1, 15);
+        List<HouseStatus> items = admin.getItems();
+        for (HouseStatus houseStatus: items) {
+            System.out.println(houseStatus);
+        }
     }
 }

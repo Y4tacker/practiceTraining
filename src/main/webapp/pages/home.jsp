@@ -39,7 +39,7 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">快捷操作</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">租赁房屋客户信息</a></dd>
+                        <dd><a href="pages/function/rentedHouseManage.jsp">租赁房屋客户信息</a></dd>
                         <dd><a href="javascript:;">维护费记录</a></dd>
                     </dl>
                 </li>

@@ -3,6 +3,7 @@ package com.renhouse.servlet;
 import com.google.gson.Gson;
 import com.renhouse.pojo.House;
 import com.renhouse.pojo.Page;
+import com.renhouse.pojo.vo.HouseStatus;
 import com.renhouse.service.HouseService;
 import com.renhouse.service.impl.HouseServiceImpl;
 import com.renhouse.utils.WebUtils;
@@ -128,6 +129,31 @@ public class HouseServlet extends BaseServlet {
 
         Page<House> page = houseService.page((String) req.getSession().getAttribute("landlordName"), pageNo, pageSize);
         List<House> items = page.getItems();
+        Gson gson = new Gson();
+        String toJson = gson.toJson(items);
+        String result = "{" +
+                "  \"code\": 0," +
+                "  \"msg\": \"\"," +
+                "  \"count\": " + page.getPageTotalCount() + "," +
+                "  \"data\": " + toJson +
+                "} ";
+        resp.getWriter().write(result);
+    }
+
+    /**
+     * 得到已租赁房屋用户信息
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void pageForRented(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //1 获取请求的参数 pageNo 和 pageSize
+        int pageNo = WebUtils.parseInt(req.getParameter("page"), 1);
+        int pageSize = WebUtils.parseInt(req.getParameter("limit"), Page.PAGE_SIZE);
+
+        Page<HouseStatus> page = houseService.pageForRentedHouse((String) req.getSession().getAttribute("landlordName"), pageNo, pageSize);
+        List<HouseStatus> items = page.getItems();
         Gson gson = new Gson();
         String toJson = gson.toJson(items);
         String result = "{" +

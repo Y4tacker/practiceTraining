@@ -1,6 +1,7 @@
 package com.renhouse.dao;
 
 import com.renhouse.pojo.House;
+import com.renhouse.pojo.vo.HouseStatus;
 
 import java.util.List;
 
@@ -65,7 +66,9 @@ public interface HouseDao {
      * 根据房东信息查询已经出租的房子
      * @return
      */
-    public List<House>queryHouseByLandlordAndStatus_Already(String landlord);
+    public List<HouseStatus> queryHouseByLandlordAndStatus_Already(String landlord);
+
+    public Integer queryHouseByLandlordAndStatusAlreadyCount(String landlord);
 
     /**
      * 根据房东信息查询未出租的房子
@@ -84,5 +87,6 @@ public interface HouseDao {
 
     public List<House> queryForPageItemsByLandlord(int begin, int pageSize, String username);
 
+    public List<HouseStatus> queryForPageItemsByRentedStatus(int begin, int pageSize, String username);
 
 }
