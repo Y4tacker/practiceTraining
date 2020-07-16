@@ -83,4 +83,16 @@ public class HouseDaoImplTest {
             System.out.println(house);
         }
     }
+
+    @Test
+    public void queryHouseByLandlordAndStatus_Already() {
+        HouseDao houseDao = new HouseDaoImpl();
+        System.out.println(houseDao.queryHouseByLandlordAndStatus_Already("admin"));
+    }
+
+    @Test
+    public void queryHouseByLandlordAndStatus_Still() {
+        HouseDao houseDao = new HouseDaoImpl();
+        System.out.println(houseDao.queryHouseByLandlordAndStatus_Still("admin"));
+    }
 }

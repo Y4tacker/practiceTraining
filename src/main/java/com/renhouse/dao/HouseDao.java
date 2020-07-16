@@ -62,6 +62,19 @@ public interface HouseDao {
     Integer queryForPageTotalCount();
 
     /**
+     * 根据房东信息查询已经出租的房子
+     * @return
+     */
+    public List<House>queryHouseByLandlordAndStatus_Already(String landlord);
+
+    /**
+     * 根据房东信息查询未出租的房子
+     * @return
+     */
+    public List<House>queryHouseByLandlordAndStatus_Still(String landlord);
+
+
+    /**
      * 查询分页信息
      * @param begin
      * @param pageSize

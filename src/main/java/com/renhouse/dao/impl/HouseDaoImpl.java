@@ -62,8 +62,25 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
         return queryForList(House.class,sql,begin,pageSize);
     }
 
+    @Override
+    public List<House> queryHouseByLandlordAndStatus_Already(String landlord) {
+        String sql = "select * from t_house where landlord = ? and rentalStatus = \"已租赁\"";
+        return queryForList(House.class,sql,landlord);
+    }
+
+    @Override
+    public List<House> queryHouseByLandlordAndStatus_Still(String landlord) {
+        String sql = "select * from t_house where landlord = ? and rentalStatus = \"未租赁\"";
+        return queryForList(House.class,sql,landlord);
+    }
+
+    @Override
     public List<House> queryForPageItemsByLandlord(int begin, int pageSize, String username) {
         String sql = "select `id` ,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName` from t_house  where landlord=? limit ?,?";
         return queryForList(House.class,sql,username, begin,pageSize);
+
+
+
+
     }
 }
