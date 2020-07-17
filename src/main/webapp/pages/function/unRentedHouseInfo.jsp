@@ -89,7 +89,7 @@
                             async: false,
                             dataType: 'json',
                             data: {
-                                'action': 'editHouse',
+                                'action': 'editUnRentedHose',
                                 'id': id,
                                 'landlord': landlord,
                                 'monthRent': monthRent,

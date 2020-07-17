@@ -3,6 +3,7 @@ package com.renhouse.dao;
 import com.renhouse.pojo.House;
 import com.renhouse.pojo.vo.Bill;
 import com.renhouse.pojo.vo.HouseStatus;
+import com.renhouse.pojo.vo.NearDateHouse;
 import com.renhouse.pojo.vo.TenantMaintenanceFee;
 
 import java.util.List;
@@ -160,6 +161,6 @@ public interface HouseDao {
 
     public Integer queryForNearDateCount(String username);
 
-    public List<HouseStatus> queryForNearDateItems(int begin,int  pageSize,String username);
+    public List<NearDateHouse> queryForNearDateItems(int begin, int  pageSize, String username);
 
 }

@@ -3,6 +3,7 @@ package com.renhouse.junit.service;
 import com.renhouse.pojo.House;
 import com.renhouse.pojo.Page;
 import com.renhouse.pojo.vo.HouseStatus;
+import com.renhouse.pojo.vo.NearDateHouse;
 import com.renhouse.pojo.vo.TenantMaintenanceFee;
 import com.renhouse.service.HouseService;
 import com.renhouse.service.impl.HouseServiceImpl;
@@ -76,9 +77,9 @@ public class HouseServiceImplTest {
 
     @Test
     public void pageForNearDate() {
-        Page<HouseStatus> housePage = houseService.pageForNearDate("admin", 1, 15);
-        List<HouseStatus> items = housePage.getItems();
-        for (HouseStatus house:items) {
+        Page<NearDateHouse> housePage = houseService.pageForNearDate("admin", 1, 15);
+        List<NearDateHouse> items = housePage.getItems();
+        for (NearDateHouse house:items) {
             System.out.println(items);
         }
     }

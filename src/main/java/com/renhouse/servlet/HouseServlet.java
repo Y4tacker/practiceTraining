@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.renhouse.pojo.House;
 import com.renhouse.pojo.Page;
 import com.renhouse.pojo.vo.HouseStatus;
+import com.renhouse.pojo.vo.NearDateHouse;
 import com.renhouse.service.HouseService;
 import com.renhouse.service.impl.HouseServiceImpl;
 import com.renhouse.utils.WebUtils;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class HouseServlet extends BaseServlet {
@@ -24,6 +26,10 @@ public class HouseServlet extends BaseServlet {
         house.setLandlord((String) request.getSession().getAttribute("landlordName"));
         house.setMaintenanceFee(null);
         try {
+            house.setStartTime(null);
+            house.setEndTime(null);
+            house.setTenant(null);
+            house.setMaintenanceFee(null);
             houseService.addHouse(house);
             String result = "{" +
                     "  \"code\": 0," +
@@ -75,10 +81,17 @@ public class HouseServlet extends BaseServlet {
             try {
                 House houseInfo = houseService.queryHouseById(house.getId());
                 house.setLandlord(houseInfo.getLandlord());
-                house.setTenant(request.getParameter("tenant"));
-                house.setStartTime(houseInfo.getStartTime());
-                house.setEndTime(houseInfo.getEndTime());
                 house.setMaintenanceFee(houseInfo.getMaintenanceFee());
+                if ("未租赁".equals(request.getParameter("rentalStatus"))){
+                    house.setTenant("暂无");
+                    house.setStartTime(null);
+                    house.setEndTime(null);
+                    house.setMaintenanceFee(null);
+                }else {
+                    house.setTenant(request.getParameter("tenant"));
+                    house.setStartTime(houseInfo.getStartTime());
+                    house.setEndTime(houseInfo.getEndTime());
+                }
                 houseService.updateHouse(house);
                 String result = "{" +
                         "  \"code\": 0," +
@@ -201,8 +214,8 @@ public class HouseServlet extends BaseServlet {
         //1 获取请求的参数 pageNo 和 pageSize
         int pageNo = WebUtils.parseInt(request.getParameter("page"), 1);
         int pageSize = WebUtils.parseInt(request.getParameter("limit"), Page.PAGE_SIZE);
-        Page<HouseStatus> page = houseService.pageForNearDate((String) request.getSession().getAttribute("landlordName"), pageNo, pageSize);
-        List<HouseStatus> items = page.getItems();
+        Page<NearDateHouse> page = houseService.pageForNearDate((String) request.getSession().getAttribute("landlordName"), pageNo, pageSize);
+        List<NearDateHouse> items = page.getItems();
         Gson gson = new Gson();
         String toJson = gson.toJson(items);
         String result = "{" +
@@ -212,5 +225,58 @@ public class HouseServlet extends BaseServlet {
                 "  \"data\": " + toJson +
                 "} ";
         response.getWriter().write(result);
+    }
+
+
+    protected void editUnRentedHose(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        House house = houseService.queryHouseById(WebUtils.parseInt(id, 0));
+        String monthRent = request.getParameter("monthRent");
+        String space = request.getParameter("space");
+        String address = request.getParameter("address");
+        String layout = request.getParameter("layout");
+        String houseName = request.getParameter("houseName");
+        if (monthRent.length()<=0 || monthRent == null){
+            String result = "{" +
+                    "  \"code\": 1," +
+                    "  \"msg\": " + "\"月租金不能为空！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }else  if (space.length()<=0 || space==null){
+            String result = "{" +
+                    "  \"code\": 1," +
+                    "  \"msg\": " + "\"面积不能为空！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }else {
+            try {
+                house.setMonthRent(new BigDecimal(monthRent));
+            }catch (Exception e){
+                String result = "{" +
+                        "  \"code\": 1," +
+                        "  \"msg\": " + "\"月租金只能为数字！\"" +
+                        "} ";
+                response.getWriter().write(result);
+            }
+            try {
+                house.setSpace(WebUtils.parseInt(space,0));
+            }catch (Exception e){
+                String result = "{" +
+                        "  \"code\": 1," +
+                        "  \"msg\": " + "\"面积只能为数字！\"" +
+                        "} ";
+                response.getWriter().write(result);
+            }
+            house.setAddress(address);
+            house.setLayout(layout);
+            house.setHouseName(houseName);
+            houseService.updateHouse(house);
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": " + "\"修改成功！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }
+
     }
 }

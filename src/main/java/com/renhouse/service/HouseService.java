@@ -4,6 +4,7 @@ import com.renhouse.pojo.House;
 import com.renhouse.pojo.Page;
 import com.renhouse.pojo.vo.Bill;
 import com.renhouse.pojo.vo.HouseStatus;
+import com.renhouse.pojo.vo.NearDateHouse;
 import com.renhouse.pojo.vo.TenantMaintenanceFee;
 
 import java.util.List;
@@ -92,7 +93,7 @@ public interface HouseService {
      */
     public Page<TenantMaintenanceFee> pageForMaintenanceFee(String username,int pageNo, int pageSize);
 
-    public Page<HouseStatus> pageForNearDate(String username,int pageNo, int pageSize);
+    public Page<NearDateHouse> pageForNearDate(String username, int pageNo, int pageSize);
 
 
 

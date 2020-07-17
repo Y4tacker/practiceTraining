@@ -5,6 +5,7 @@ import com.renhouse.dao.HouseDao;
 import com.renhouse.pojo.House;
 import com.renhouse.pojo.vo.Bill;
 import com.renhouse.pojo.vo.HouseStatus;
+import com.renhouse.pojo.vo.NearDateHouse;
 import com.renhouse.pojo.vo.TenantMaintenanceFee;
 
 import java.util.List;
@@ -19,13 +20,13 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
     @Override
     public List<House> queryHouseByLandlordAndTenant(String landlord, String tenant) {
         String sql = "select `id`,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName`,`maintenanceFee` from t_house where landlord = ? and tenant = ?";
-        return queryForList(House.class, sql, landlord, tenant);
+        return queryForList(House.class, sql,landlord,tenant);
     }
 
     @Override
     public int addHouse(House house) {
         String sql = "INSERT INTO t_house(landlord,tenant,monthRent,space,rentalStatus,address,layout,endTime,startTime,houseName,`maintenanceFee`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-        return update(sql, house.getLandlord(), house.getTenant(), house.getMonthRent(), house.getSpace(), house.getRentalStatus(), house.getAddress(), house.getLayout(), house.getEndTime(), house.getStartTime(), house.getHouseName(), house.getMaintenanceFee());
+        return update(sql,house.getLandlord(),house.getTenant(),house.getMonthRent(),house.getSpace(),house.getRentalStatus(),house.getAddress(),house.getLayout(),house.getEndTime(),house.getStartTime(),house.getHouseName(),house.getMaintenanceFee());
     }
 
     @Override
@@ -144,8 +145,8 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
     }
 
     @Override
-    public List<HouseStatus> queryForNearDateItems(int begin, int pageSize, String username) {
-        String sql = "select t_house.id,t_house.endTime,realName,address,houseName,phoneNumber,email from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁' and datediff(CURRENT_DATE(),endTime)<16 limit ?,?";
-        return queryForList(HouseStatus.class, sql, username, begin, pageSize);
+    public List<NearDateHouse> queryForNearDateItems(int begin, int pageSize, String username) {
+        String sql = "select t_house.id,endTime,realName,address,houseName,phoneNumber,email from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁' and datediff(CURRENT_DATE(),endTime)<16 limit ?,?";
+        return queryForList(NearDateHouse.class,sql,username, begin,pageSize);
     }
 }
