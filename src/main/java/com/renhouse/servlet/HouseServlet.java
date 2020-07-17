@@ -292,6 +292,7 @@ public class HouseServlet extends BaseServlet {
             String id = request.getParameter("id");
             House house = houseService.queryHouseById(WebUtils.parseInt(id, 0));
             house.setEndTime(endTime);
+            houseService.updateHouse(house);
             String result = "{" +
                     "  \"code\": 0," +
                     "  \"msg\": " + "\"续租成功！\"" +
