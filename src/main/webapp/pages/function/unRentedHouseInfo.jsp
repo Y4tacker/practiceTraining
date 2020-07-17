@@ -45,7 +45,7 @@
                     {field: 'space', title: '面积'},
                     {field: 'address', title: '地址'},
                     {field: 'layout', title: '户型'},
-                    {field: 'houseName,',title:'房屋名'},
+                    {field: 'houseName',title:'房屋名'},
                     {field: 'operation', fixed:'right',title: '操作', toolbar: '#operation', width: 70}
                 ]
             ]
