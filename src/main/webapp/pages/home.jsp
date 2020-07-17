@@ -68,7 +68,7 @@
     <div class="layui-footer">
         © layui.com - 底部固定区域
     </div>
-    <input type="hidden" name="ps" id="ipt_password" value="${sessionScope.user.password}">
+    <input type="hidden" name="ps" id="ipt_password"  value="${sessionScope.user.password}">
 </div>
 <script>
     function notice(status){
@@ -278,12 +278,12 @@
             layer.open({
                 title : false,
                 type : 1,
-                content : '<div class="admin-header-lock" id="lock-box">'+
+                content : '<div class="admin-header-lock" id="lock-box" >'+
                     '<p></p>'+
-                    '<button class="layui-btn"  style="width:190px;disabled:true;display:block;margin:0 auto">请输入用户密码解锁</button>'+
+                    '<button class="layui-btn"  style="background: black;color:white;width:190px;disabled:true;display:block;margin:0 auto">请输入用户密码解锁</button>'+
                     '<div class="input_btn">'+
                     '<input type="password" class="admin-header-lock-input layui-input" autocomplete="off" placeholder="请输入密码解锁.." name="lockPwd" id="lockPwd" />'+
-                    '<button class="layui-btn" id="unlock" style="display:block;margin:0 auto">解锁</button>'+
+                    '<button class="layui-btn" id="unlock" style="background: black;color:white;display:block;margin:0 auto">解锁</button>'+
                     '</div>'+
                     '<p> </p>'+
                     '</div>',
@@ -312,7 +312,7 @@
                 layer.msg("请输入解锁密码！");
                 $(this).siblings(".admin-header-lock-input").focus();
             }else{
-                if($(this).siblings(".admin-header-lock-input").val() == hex_md5($('#ipt_password').val())){
+                if(hex_md5($(this).siblings(".admin-header-lock-input").val()) == $("#ipt_password").val()){
                     window.sessionStorage.setItem("lockcms",false);
                     $(this).siblings(".admin-header-lock-input").val('');
                     layer.closeAll("page");
