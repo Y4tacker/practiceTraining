@@ -79,28 +79,16 @@
                     title: '成功'
                 });
             }
-            if (obj.event === 'edit') {
-                $('#form_houseinfo').find('#realName_edit').val(house.id);
-                $('#form_houseinfo').find('#email_edit').val(house.email);
-                $('#form_houseinfo').find('#phoneNumber_edit').val(house.phoneNumber);
-                $('#form_houseinfo').find('#address_edit').val(house.address);
-                $('#form_houseinfo').find('#endTime_edit').val(house.endTime);
-                $('#form_houseinfo').find('#houseName_edit').val(house.houseName);
-                form.render();
+            if (obj.event === 'renewal') {
                 layer.prompt({
-                    title: "编辑房源信息：ID"+house.id ,
+                    title: "续租",
                     shadeClose: true,
                     shade: 0.8,
                     btnAlign: 'l',
                     btn: ['确认', '取消'],
                     offset: '120px',
                     yes: function (index, obj) {
-                        var realName = obj.find('#realName_edit').val();
-                        var email = obj.find('#email_edit').val();
-                        var phoneNumber = obj.find('#phoneNumber_edit').val();
-                        var address = obj.find('#address_edit').val();
-                        var endTime = obj.find('#endTime_edit').val();
-                        var houseName = obj.find('#houseName_edit').val();
+                        var endTime = obj.find('#endTime').val();
                         var loading = layer.msg("正在添加", {
                             icon: 16,
                             shade: 0.3,
@@ -108,18 +96,14 @@
                         });
                         var finish = false;
                         $.ajax({
-                            url: 'billServlet',
+                            url: 'houseServlet',
                             method: 'POST',
                             async: false,
                             dataType: 'json',
                             data: {
-                                'action': 'editFee',
-                                'realName':realName,
-                                'email': email,
-                                'phoneNumber': phoneNumber,
-                                'address': address,
-                                'endTime': endTime,
-                                'houseName': houseName,
+                                'action': 'release',
+                                'id':house.id,
+                                'endTime':endTime,
                             },
                             success: function (res) {
                                 layer.close(loading);
@@ -140,7 +124,7 @@
                             },
                             error: function (err) {
                                 layer.close(loading);
-                                layer.msg("修改失败", {icon: 5});
+                                layer.msg("续租失败", {icon: 5});
                                 layer.close(index);
                             }
                         });
@@ -154,47 +138,12 @@
     });
 </script>
 </body>
-<div class="layui-form" id="form_houseinfo" style="width:500px;height:400px;display:none">
+<div class="layui-form" id="form_houseinfo" style="width:500px;display:none">
     <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">真实姓名 <span style="color: #ff0000">*</span></label>
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">续租日期 <span style="color: #ff0000">*</span></label>
         <div class="layui-input-block">
-            <input class="layui-input" lay-verify="required" type="text" name="realName" placeholder="realName"style="width:300px"
-                   id="irealNameedit" disabled="disabled"/>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">电子邮箱<span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input type="text" name="email_edit" lay-verify="required" placeholder="电子邮箱"style="width:300px"
-                   class="layui-input" id="email_edit">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">地址<span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input type="text" name="address_edit" required lay-verify="required" placeholder="地址"style="width:300px"
-                   autocomplete="off" class="layui-input" id="address_edit">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">截止日期<span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input type="text" name="endTime_edit" required lay-verify="required" placeholder="截止日期"style="width:300px"
-                   autocomplete="off" class="layui-input" id="endTime_edit">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">电话号码<span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input type="text" name="phoneNumber_edit" required lay-verify="required" placeholder="电话号码"style="width:300px"
-                   autocomplete="off" class="layui-input" id="phoneNumber_edit">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">房屋名<span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input type="text" name="houseName_edit" required lay-verify="required" placeholder="房屋名"style="width:300px"
-                   autocomplete="off" class="layui-input" id="houseName_edit">
+            <input class="layui-input" lay-verify="required" type="text" name="endTime" placeholder="输入格式：xxxx-xx-xx"style="width:300px"
+                   id="endTime"/>
         </div>
     </div>
 </div>
