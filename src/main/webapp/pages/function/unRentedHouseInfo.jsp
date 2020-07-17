@@ -39,18 +39,13 @@
             cols: [
                 [
                     {field: 'id', title: "ID", sort: true,},
-
                     {field: 'landlord', title: '所属房东'},
-
-                    {field: 'landlord', title: "所属房东"},
-
                     {field: 'tenant', title: '所属房客'},
                     {field: 'monthRent', title: '月租金'},
                     {field: 'space', title: '面积'},
                     {field: 'address', title: '地址'},
                     {field: 'layout', title: '户型'},
                     {field: 'houseName,',title:"房屋名"},
-                    {field: 'maintenanceFee,',title:"维护费"},
                     {field: 'operation', fixed:'right',title: '操作', toolbar: '#operation', width: 70}
                 ]
             ]
@@ -222,13 +217,6 @@
         <div class="layui-input-block">
             <input type="text" name="houseName" required lay-verify="required" placeholder="房屋名"style="width:300px"
                    autocomplete="off" class="layui-input" id="houseName_edit">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">维护费<span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input type="text" name="maintenanceFee" required lay-verify="required" placeholder="维护费"style="width:300px"
-                   autocomplete="off" class="layui-input" id="maintenanceFee_edit">
         </div>
     </div>
 </div>
