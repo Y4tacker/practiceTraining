@@ -72,9 +72,9 @@ public interface HouseDao {
     public List<HouseStatus> queryHouseByLandlordAndStatus_Already(String landlord);
 
     /**
-     * 根据房东信息查询其名下还没有出租的房子
+     * 根据房东信息查询其名下已经出租的房子来创建账单
      * @param landlord
-     * @return
+     * @return List<Bill>
      */
     public List<Bill> queryHouseByLandlordAndStatusToCreateBill_Already(String landlord);
 

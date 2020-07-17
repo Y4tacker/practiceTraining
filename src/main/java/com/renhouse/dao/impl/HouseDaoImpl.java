@@ -14,7 +14,7 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
     @Override
     public List<House> queryHouseByLandlord(String landlord) {
         String sql = "select `id`,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName`,`maintenanceFee` from t_house where landlord = ?";
-        return queryForList(House.class, sql,landlord);
+        return queryForList(House.class, sql, landlord);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
     @Override
     public int deleteHouseById(Integer id) {
         String sql = "DELETE FROM t_house WHERE id = ?";
-        return update(sql,id);
+        return update(sql, id);
     }
 
     @Override
@@ -44,13 +44,13 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
     @Override
     public House queryHouseById(Integer id) {
         String sql = "select `id`,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName`,`maintenanceFee` from t_house where id = ?";
-        return queryForOne(House.class, sql,id);
+        return queryForOne(House.class, sql, id);
     }
 
     @Override
     public List<House> queryHouses() {
         String sql = "select * from t_house";
-        return queryForList(House.class,sql);
+        return queryForList(House.class, sql);
     }
 
     @Override
@@ -63,25 +63,25 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
     @Override
     public List<House> queryForPageItems(int begin, int pageSize) {
         String sql = "select `id` ,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName`,`maintenanceFee` from t_house limit ?,?";
-        return queryForList(House.class,sql,begin,pageSize);
+        return queryForList(House.class, sql, begin, pageSize);
     }
 
     @Override
     public List<HouseStatus> queryHouseByLandlordAndStatus_Already(String landlord) {
         String sql = "select tenantName,realName,address,houseName,phoneNumber,email from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁'";
-        return queryForList(HouseStatus.class,sql,landlord);
+        return queryForList(HouseStatus.class, sql, landlord);
     }
 
     @Override
     public List<Bill> queryHouseByLandlordAndStatusToCreateBill_Already(String landlord) {
-        String sql = "select tenant,houseName,monthRent,startTime,endTime,maintenanceFee from t_house,t_tenant where t_tenant.landlord = ? and startTime is not NULL and t_house.rentalStatus = '已租赁'";
-        return queryForList(Bill.class,sql,landlord);
+        String sql = "select tenant,houseName,monthRent,startTime,endTime,maintenanceFee from t_house where t_house.landlord = ? and startTime is not NULL and t_house.rentalStatus = '已租赁'";
+        return queryForList(Bill.class, sql, landlord);
     }
 
     @Override
     public Integer queryHouseByLandlordAndStatusAlreadyCount(String landlord) {
         String sql = "select count(*) from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁'";
-        Number count = (Number) queryForSingleValue(sql,landlord);
+        Number count = (Number) queryForSingleValue(sql, landlord);
         return count.intValue();
     }
 
@@ -89,58 +89,58 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
     @Override
     public List<House> queryForPageItemsByLandlord(int begin, int pageSize, String username) {
         String sql = "select `id` ,`landlord`,`tenant`,`monthRent`,`space`,`rentalStatus`,`address`,`layout`,`endTime`,`startTime`,`houseName`,`maintenanceFee` from t_house  where landlord=? limit ?,?";
-        return queryForList(House.class,sql,username, begin,pageSize);
+        return queryForList(House.class, sql, username, begin, pageSize);
     }
 
     @Override
     public List<HouseStatus> queryForPageItemsByRentedStatus(int begin, int pageSize, String username) {
         String sql = "select tenantName,realName,address,houseName,phoneNumber,email from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁' limit ?,?";
-        return queryForList(HouseStatus.class,sql,username, begin,pageSize);
+        return queryForList(HouseStatus.class, sql, username, begin, pageSize);
     }
 
     @Override
     public Integer queryMaintenanceFeeByLandlordCount(String username) {
         String sql = "select count(*) from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁'";
-        Number count = (Number) queryForSingleValue(sql,username);
+        Number count = (Number) queryForSingleValue(sql, username);
         return count.intValue();
     }
 
     @Override
     public Integer queryMaintenanceFeeByLandlordCount(String username, String tenant) {
         String sql = "select count(*) from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁' and tenantName = ?";
-        Number count = (Number) queryForSingleValue(sql,username, tenant);
+        Number count = (Number) queryForSingleValue(sql, username, tenant);
         return count.intValue();
     }
 
     @Override
     public List<TenantMaintenanceFee> queryPagesForMaintenanceFeeByLandlordAndTenant(int begin, int pageSize, String username) {
         String sql = "select t_house.id,tenantName,realName,address,houseName,phoneNumber,maintenanceFee from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁'  limit ?,?";
-        return queryForList(TenantMaintenanceFee.class,sql,username, begin,pageSize);
+        return queryForList(TenantMaintenanceFee.class, sql, username, begin, pageSize);
     }
 
     @Override
     public List<TenantMaintenanceFee> queryPagesForMaintenanceFeeByLandlordAndTenant(int begin, int pageSize, String username, String tenant) {
         String sql = "select t_house.id,tenantName,realName,address,houseName,phoneNumber,maintenanceFee from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁' and tenantName = ? limit ?,?";
-        return queryForList(TenantMaintenanceFee.class,sql,username, tenant, begin,pageSize);
+        return queryForList(TenantMaintenanceFee.class, sql, username, tenant, begin, pageSize);
     }
 
     @Override
     public Integer queryForUnRentedHouseCount(String username) {
         String sql = "select count(*) from t_house  where landlord=? and rentalStatus = '未租赁'";
-        Number count = (Number) queryForSingleValue(sql,username);
+        Number count = (Number) queryForSingleValue(sql, username);
         return count.intValue();
     }
 
     @Override
     public List<House> queryForUnRentedHouseItems(int begin, int pageSize, String username) {
         String sql = "select `id` ,`landlord`,`tenant`,`monthRent`,`space`,`address`,`layout`,`endTime`,`startTime`,`houseName`,`maintenanceFee` from t_house  where landlord=? and rentalStatus = '未租赁' limit ?,?";
-        return queryForList(House.class,sql,username, begin,pageSize);
+        return queryForList(House.class, sql, username, begin, pageSize);
     }
 
     @Override
     public Integer queryForNearDateCount(String username) {
         String sql = "select count(*) from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁' and datediff(CURRENT_DATE(),endTime)<16";
-        Number count = (Number) queryForSingleValue(sql,username);
+        Number count = (Number) queryForSingleValue(sql, username);
         return count.intValue();
     }
 

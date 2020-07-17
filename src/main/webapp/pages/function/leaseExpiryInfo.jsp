@@ -15,15 +15,10 @@
     </style>
 </head>
 <body>
-<script type="text/html" id="toolbaradd">
-    <div style="text-align: left;float:top" id='searchgr'>
-        <button class="layui-btn" data-type="reload" id="renewal">续约</button>
-        <button class="layui-btn" data-type="reload" id="remind">提醒</button>
-    </div>
-</script>
 <table class="layui-hide" id="houseinfo-table" lay-filter="houseinfo-table"></table>
 <script type="text/html" id="operation">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="renewal">续约</a>
+    <a class="layui-btn layui-btn-xs" lay-event="call">提醒</a>
 </script>
 <script type="text/javascript">
     layui.use(['form', 'element', 'jquery', 'table', 'layer'], function () {
@@ -35,22 +30,21 @@
 
         var houseinfo_table = table.render({
             elem: '#houseinfo-table',
-            url: 'houseServlet?action=pageForUnRented',
+            url: 'houseServlet?action=pageForNearDate',
             height: 'auto',
             title: '房源信息',
-            toolbar: '#toolbaradd',
+            toolbar: 'true',
             page: true,
             limit:15,
-            defaultToolbar: ['filter', 'print', 'exports'],
             cols: [
                 [
                     {field: 'realName', title: '真实姓名'},
-                    {field: 'tenant', title: '所属房客'},
                     {field: 'email', title: '电子邮箱'},
                     {field: 'address', title: '地址'},
+                    {field: 'endTime', title: '截止日期'},
                     {field: 'phoneNumber', title: '电话号码'},
                     {field: 'houseName',title:'房屋名'},
-                    {field: 'operation', fixed:'right',title: '操作', toolbar: '#operation', width: 70}
+                    {field: 'operation', fixed:'right',title: '操作', toolbar: '#operation', width: 120}
                 ]
             ]
         });
@@ -64,13 +58,42 @@
 
         table.on('tool(houseinfo-table)', function (obj) {
             var house = obj.data;
-            console.log(house);
+            if (obj.event === 'call') {
+                $.ajax({
+                    url:'utilsServlet',
+                    method:'POST',
+                    async: false,
+                    dataType: 'json',
+                    data: {
+                        'action':'sendEmail',
+                        'email': email,
+                    },
+                    success: function (res) {
+                        if (res.code == 0) {
+                            finish = true;
+                            layer.msg(res.msg, {
+                                title: '成功'
+                            });
+                            houseinfo_table.reload({
+                                elem: "#houseinfo-table"
+                            });
+                        } else {
+                            layer.msg(res.msg, {
+                                title: '失败'
+                            });
+                        }
+                    },
+                    error: function (err) {
+                        layer.msg("发送失败", {icon: 5});
+                    }
+                })
+            }
             if (obj.event === 'edit') {
                 $('#form_houseinfo').find('#realName_edit').val(house.id);
-                $('#form_houseinfo').find('#tenant_edit').val(house.tenant);
                 $('#form_houseinfo').find('#email_edit').val(house.email);
                 $('#form_houseinfo').find('#phoneNumber_edit').val(house.phoneNumber);
                 $('#form_houseinfo').find('#address_edit').val(house.address);
+                $('#form_houseinfo').find('#endTime_edit').val(house.endTime);
                 $('#form_houseinfo').find('#houseName_edit').val(house.houseName);
                 form.render();
                 layer.prompt({
@@ -82,10 +105,10 @@
                     offset: '120px',
                     yes: function (index, obj) {
                         var realName = obj.find('#realName_edit').val();
-                        var tenant = obj.find('#tenant_edit').val();
                         var email = obj.find('#email_edit').val();
                         var phoneNumber = obj.find('#phoneNumber_edit').val();
                         var address = obj.find('#address_edit').val();
+                        var endTime = obj.find('#endTime_edit').val();
                         var houseName = obj.find('#houseName_edit').val();
                         var loading = layer.msg("正在添加", {
                             icon: 16,
@@ -101,10 +124,10 @@
                             data: {
                                 'action': 'editFee',
                                 'realName':realName,
-                                'tenant': tenant,
                                 'email': email,
                                 'phoneNumber': phoneNumber,
                                 'address': address,
+                                'endTime': endTime,
                                 'houseName': houseName,
                             },
                             success: function (res) {
@@ -149,13 +172,6 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">所属房客 <span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input class="layui-input" lay-verify="required" type="text" name="tenant_edit" placeholder="所属房客"style="width:300px"
-                   id="tenant_edit"/>
-        </div>
-    </div>
-    <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">电子邮箱<span style="color: red">*</span></label>
         <div class="layui-input-block">
             <input type="text" name="email_edit" lay-verify="required" placeholder="电子邮箱"style="width:300px"
@@ -167,6 +183,13 @@
         <div class="layui-input-block">
             <input type="text" name="address_edit" required lay-verify="required" placeholder="地址"style="width:300px"
                    autocomplete="off" class="layui-input" id="address_edit">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">截止日期<span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input type="text" name="endTime_edit" required lay-verify="required" placeholder="截止日期"style="width:300px"
+                   autocomplete="off" class="layui-input" id="endTime_edit">
         </div>
     </div>
     <div class="layui-form-item">
