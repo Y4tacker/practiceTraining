@@ -73,7 +73,7 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
 
     @Override
     public List<Bill> queryHouseByLandlordAndStatusToCreateBill_Already(String landlord) {
-        String sql = "select tenantName,houseName,monthRent,start,end,maintenance from t_house where t_tenant.landlord = ? and t_house.rentalStatus = '已租赁'";
+        String sql = "select tenant,houseName,monthRent,startTime,endTime,maintenanceFee from t_house,t_tenant where t_tenant.landlord = ? and startTime is not NULL and t_house.rentalStatus = '已租赁'";
         return queryForList(Bill.class,sql,landlord);
     }
 
