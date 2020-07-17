@@ -15,6 +15,18 @@ public class Bill {
     private String end;
     private int maintenance;
 
+    public Bill() {
+    }
+
+    public Bill(String tenantName, String houseName, int monthRent, String start, String end, int maintenance) {
+        this.tenantName = tenantName;
+        this.houseName = houseName;
+        this.monthRent = monthRent;
+        this.start = start;
+        this.end = end;
+        this.maintenance = maintenance;
+    }
+
     public String getTenantName() {
         return tenantName;
     }

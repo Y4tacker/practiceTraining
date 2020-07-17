@@ -3,6 +3,7 @@ package com.renhouse.junit.dao;
 import com.renhouse.dao.HouseDao;
 import com.renhouse.dao.impl.HouseDaoImpl;
 import com.renhouse.pojo.House;
+import com.renhouse.pojo.vo.Bill;
 import com.renhouse.pojo.vo.HouseStatus;
 import com.renhouse.pojo.vo.TenantMaintenanceFee;
 import org.junit.Test;
@@ -148,5 +149,12 @@ public class HouseDaoImplTest {
         for (HouseStatus houseStatus:houseStatuses) {
             System.out.println(houseStatus);
         }
+    }
+
+    @Test
+    public void queryHouseByLandlordAndStatusToCreateBill_Already() {
+        HouseDao houseDao = new HouseDaoImpl();
+        List<Bill> t1 = houseDao.queryHouseByLandlordAndStatusToCreateBill_Already("admin");
+        System.out.println(t1);
     }
 }
