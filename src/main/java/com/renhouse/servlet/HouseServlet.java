@@ -164,4 +164,29 @@ public class HouseServlet extends BaseServlet {
                 "} ";
         resp.getWriter().write(result);
     }
+
+    /**
+     * 未租赁房屋信息
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void pageForUnRented(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //1 获取请求的参数 pageNo 和 pageSize
+        int pageNo = WebUtils.parseInt(request.getParameter("page"), 1);
+        int pageSize = WebUtils.parseInt(request.getParameter("limit"), Page.PAGE_SIZE);
+
+        Page<House> page = houseService.pageForUnRentedHouse((String) request.getSession().getAttribute("landlordName"), pageNo, pageSize);
+        List<House> items = page.getItems();
+        Gson gson = new Gson();
+        String toJson = gson.toJson(items);
+        String result = "{" +
+                "  \"code\": 0," +
+                "  \"msg\": \"\"," +
+                "  \"count\": " + page.getPageTotalCount() + "," +
+                "  \"data\": " + toJson +
+                "} ";
+        response.getWriter().write(result);
+    }
 }

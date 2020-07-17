@@ -95,11 +95,6 @@ public class HouseDaoImplTest {
         }
     }
 
-    @Test
-    public void queryHouseByLandlordAndStatus_Still() {
-        HouseDao houseDao = new HouseDaoImpl();
-        System.out.println(houseDao.queryHouseByLandlordAndStatus_Still("admin"));
-    }
 
     @Test
     public void queryHouseByLandlordAndStatusAlreadyCount() {
@@ -121,6 +116,21 @@ public class HouseDaoImplTest {
         List<TenantMaintenanceFee> tenantMaintenanceFees = houseDao.queryPagesForMaintenanceFeeByLandlordAndTenant(1, 6, "admin", "mh");
         for (TenantMaintenanceFee tenantMaintenanceFee: tenantMaintenanceFees) {
             System.out.println(tenantMaintenanceFee);
+        }
+    }
+
+    @Test
+    public void queryForUnRentedHouseCount() {
+        HouseDao houseDao = new HouseDaoImpl();
+        System.out.println(houseDao.queryForUnRentedHouseCount("admin"));
+    }
+
+    @Test
+    public void queryForUnRentedHouseItems() {
+        HouseDao houseDao = new HouseDaoImpl();
+        List<House> houses = houseDao.queryForUnRentedHouseItems(1, 15, "admin");
+        for (House house:houses) {
+            System.out.println(house);
         }
     }
 }

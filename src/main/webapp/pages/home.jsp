@@ -40,6 +40,7 @@
                     <dl class="layui-nav-child">
                         <dd><a data-url="pages/function/rentedHouseManage.jsp" data-type="tabAdd" data-id="5" class="leftdaohangson" mytitle="租赁房屋客户信息">租赁房屋客户信息</a></dd>
                         <dd><a data-url="pages/function/feeManange.jsp" data-type="tabAdd" data-id="6" class="leftdaohangson" mytitle="维护费记录">维护费记录</a></dd>
+                        <dd><a data-url="pages/function/unRentedHouseInfo.jsp" data-type="tabAdd" data-id="6" class="leftdaohangson" mytitle="维护费记录">维护费记录</a></dd>
                     </dl>
                 </li>
             </ul>

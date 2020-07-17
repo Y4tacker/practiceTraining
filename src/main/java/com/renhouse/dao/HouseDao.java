@@ -75,13 +75,6 @@ public interface HouseDao {
     public Integer queryHouseByLandlordAndStatusAlreadyCount(String landlord);
 
     /**
-     * 根据房东信息查询未出租的房子
-     * @return
-     */
-    public List<House>queryHouseByLandlordAndStatus_Still(String landlord);
-
-
-    /**
      * 查询分页信息
      * @param begin
      * @param pageSize
@@ -93,12 +86,52 @@ public interface HouseDao {
 
     public List<HouseStatus> queryForPageItemsByRentedStatus(int begin, int pageSize, String username);
 
+    /**
+     * 通过房东查询所有已租赁房屋相关信息
+     * @param username
+     * @return
+     */
     public Integer queryMaintenanceFeeByLandlordCount(String username);
 
+    /**
+     * 通过房东和客户查询已租赁房屋订单数
+     * @param username
+     * @param tenant
+     * @return
+     */
     public Integer queryMaintenanceFeeByLandlordCount(String username, String tenant);
 
+    /**
+     * 通过房东查询已租赁房屋相关信息
+     * @param begin
+     * @param pageSize
+     * @param username
+     * @return
+     */
     public List<TenantMaintenanceFee> queryPagesForMaintenanceFeeByLandlordAndTenant(int begin, int pageSize, String username);
-
+    /**
+     * 通过房东和客户查询已租赁房屋相关信息
+     * @param begin
+     * @param pageSize
+     * @param username
+     * @return
+     */
     public List<TenantMaintenanceFee> queryPagesForMaintenanceFeeByLandlordAndTenant(int begin, int pageSize, String username,String tenant);
+
+    /**
+     * 通过房东名字查询未租赁房屋信息
+     * @param username
+     * @return
+     */
+    public Integer queryForUnRentedHouseCount(String username);
+
+    /**
+     * 未租赁房屋分页模型
+     * @param begin
+     * @param pageSize
+     * @param username
+     * @return
+     */
+    public List<House> queryForUnRentedHouseItems(int begin,int  pageSize,String username);
 
 }

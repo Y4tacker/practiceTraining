@@ -108,6 +108,37 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
+    public Page<House> pageForUnRentedHouse(String username, int pageNo, int pageSize) {
+        Page<House> page = new Page<House>();
+
+        // 设置每页显示的数量
+        page.setPageSize(pageSize);
+        // 求总记录数
+        Integer pageTotalCount = houseDao.queryForUnRentedHouseCount(username);
+        // 设置总记录数
+        page.setPageTotalCount(pageTotalCount);
+        // 求总页码
+        Integer pageTotal = pageTotalCount / pageSize;
+        if (pageTotalCount % pageSize > 0) {
+            pageTotal+=1;
+        }
+        // 设置总页码
+        page.setPageTotal(pageTotal);
+
+        // 设置当前页码
+        page.setPageNo(pageNo);
+
+        // 求当前页数据的开始索引
+        int begin = (page.getPageNo() - 1) * pageSize;
+        // 求当前页数据
+        List<House> items = houseDao.queryForUnRentedHouseItems(begin, pageSize,username);
+        // 设置当前页数据
+        page.setItems(items);
+
+        return page;
+    }
+
+    @Override
     public Page<TenantMaintenanceFee> pageForMaintenanceFee(String username, String tenant,int pageNo, int pageSize) {
         Page<TenantMaintenanceFee> page = new Page<TenantMaintenanceFee>();
 

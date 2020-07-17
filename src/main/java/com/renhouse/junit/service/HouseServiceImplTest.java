@@ -9,6 +9,7 @@ import com.renhouse.service.impl.HouseServiceImpl;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -55,11 +56,21 @@ public class HouseServiceImplTest {
     }
 
     @Test
-    public void pageForMaintenanceFee() {
-        Page<TenantMaintenanceFee> tenantMaintenanceFeePage = houseService.pageForMaintenanceFee("admin", "tenant", 1, 15);
+    public void pageForMaintenanceFee() throws SQLException {
+        Page<TenantMaintenanceFee> tenantMaintenanceFeePage = houseService.pageForMaintenanceFee("admin", "aaa", 1, 15);
         List<TenantMaintenanceFee> items = tenantMaintenanceFeePage.getItems();
         for (TenantMaintenanceFee tenantMaintenanceFee: items) {
             System.out.println(tenantMaintenanceFee);
         }
+    }
+
+    @Test
+    public void pageForUnRentedHouse() {
+        Page<House> housePage = houseService.pageForUnRentedHouse("admin", 1, 15);
+        List<House> items = housePage.getItems();
+        for (House house:items) {
+            System.out.println(items);
+        }
+
     }
 }

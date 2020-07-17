@@ -37,6 +37,15 @@ public interface HouseService {
     public Page<HouseStatus> pageForRentedHouse(String username, int pageNo, int pageSize);
 
     /**
+     * 根据房东名字查询未租赁的房屋信息
+     * @param username
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public Page<House> pageForUnRentedHouse(String username, int pageNo, int pageSize);
+
+    /**
      * 通过房东名和租客名查询记录
      * @param username
      * @param tenant
@@ -54,5 +63,7 @@ public interface HouseService {
      * @return
      */
     public Page<TenantMaintenanceFee> pageForMaintenanceFee(String username,int pageNo, int pageSize);
+
+
 
 }

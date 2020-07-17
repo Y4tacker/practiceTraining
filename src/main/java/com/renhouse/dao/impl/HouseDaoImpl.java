@@ -84,11 +84,6 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
         return count.intValue();
     }
 
-    @Override
-    public List<House> queryHouseByLandlordAndStatus_Still(String landlord) {
-        String sql = "select * from t_house where landlord = ? and rentalStatus = \"未租赁\"";
-        return queryForList(House.class,sql,landlord);
-    }
 
     @Override
     public List<House> queryForPageItemsByLandlord(int begin, int pageSize, String username) {
@@ -126,5 +121,18 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
     public List<TenantMaintenanceFee> queryPagesForMaintenanceFeeByLandlordAndTenant(int begin, int pageSize, String username, String tenant) {
         String sql = "select t_house.id,tenantName,realName,address,houseName,phoneNumber,maintenanceFee from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁' and tenantName = ? limit ?,?";
         return queryForList(TenantMaintenanceFee.class,sql,username, tenant, begin,pageSize);
+    }
+
+    @Override
+    public Integer queryForUnRentedHouseCount(String username) {
+        String sql = "select count(*) from t_house  where landlord=? and rentalStatus = '未租赁'";
+        Number count = (Number) queryForSingleValue(sql,username);
+        return count.intValue();
+    }
+
+    @Override
+    public List<House> queryForUnRentedHouseItems(int begin, int pageSize, String username) {
+        String sql = "select `id` ,`landlord`,`tenant`,`monthRent`,`space`,`address`,`layout`,`endTime`,`startTime`,`houseName`,`maintenanceFee` from t_house  where landlord=? and rentalStatus = '未租赁' limit ?,?";
+        return queryForList(House.class,sql,username, begin,pageSize);
     }
 }
