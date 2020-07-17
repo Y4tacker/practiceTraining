@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.renhouse.pojo.House;
 import com.renhouse.pojo.Page;
 import com.renhouse.pojo.vo.HouseStatus;
+import com.renhouse.pojo.vo.NearDateHouse;
 import com.renhouse.service.HouseService;
 import com.renhouse.service.impl.HouseServiceImpl;
 import com.renhouse.utils.WebUtils;
@@ -25,6 +26,10 @@ public class HouseServlet extends BaseServlet {
         house.setLandlord((String) request.getSession().getAttribute("landlordName"));
         house.setMaintenanceFee(null);
         try {
+            house.setStartTime(null);
+            house.setEndTime(null);
+            house.setTenant(null);
+            house.setMaintenanceFee(null);
             houseService.addHouse(house);
             String result = "{" +
                     "  \"code\": 0," +
@@ -76,10 +81,17 @@ public class HouseServlet extends BaseServlet {
             try {
                 House houseInfo = houseService.queryHouseById(house.getId());
                 house.setLandlord(houseInfo.getLandlord());
-                house.setTenant(request.getParameter("tenant"));
-                house.setStartTime(houseInfo.getStartTime());
-                house.setEndTime(houseInfo.getEndTime());
                 house.setMaintenanceFee(houseInfo.getMaintenanceFee());
+                if ("未租赁".equals(request.getParameter("rentalStatus"))){
+                    house.setTenant("暂无");
+                    house.setStartTime(null);
+                    house.setEndTime(null);
+                    house.setMaintenanceFee(null);
+                }else {
+                    house.setTenant(request.getParameter("tenant"));
+                    house.setStartTime(houseInfo.getStartTime());
+                    house.setEndTime(houseInfo.getEndTime());
+                }
                 houseService.updateHouse(house);
                 String result = "{" +
                         "  \"code\": 0," +
@@ -202,8 +214,8 @@ public class HouseServlet extends BaseServlet {
         //1 获取请求的参数 pageNo 和 pageSize
         int pageNo = WebUtils.parseInt(request.getParameter("page"), 1);
         int pageSize = WebUtils.parseInt(request.getParameter("limit"), Page.PAGE_SIZE);
-        Page<HouseStatus> page = houseService.pageForNearDate((String) request.getSession().getAttribute("landlordName"), pageNo, pageSize);
-        List<HouseStatus> items = page.getItems();
+        Page<NearDateHouse> page = houseService.pageForNearDate((String) request.getSession().getAttribute("landlordName"), pageNo, pageSize);
+        List<NearDateHouse> items = page.getItems();
         Gson gson = new Gson();
         String toJson = gson.toJson(items);
         String result = "{" +

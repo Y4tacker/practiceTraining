@@ -4,6 +4,7 @@ import com.renhouse.dao.HouseDao;
 import com.renhouse.dao.impl.HouseDaoImpl;
 import com.renhouse.pojo.House;
 import com.renhouse.pojo.vo.HouseStatus;
+import com.renhouse.pojo.vo.NearDateHouse;
 import com.renhouse.pojo.vo.TenantMaintenanceFee;
 import org.junit.Test;
 
@@ -143,10 +144,9 @@ public class HouseDaoImplTest {
     @Test
     public void queryForNearDateItems() {
         HouseDao houseDao = new HouseDaoImpl();
-        List<HouseStatus> houseStatuses = houseDao.queryForNearDateItems(1, 15, "admin");
-        System.out.println(houseStatuses);
-        for (HouseStatus houseStatus:houseStatuses) {
-            System.out.println(houseStatus);
+        List<NearDateHouse> a = houseDao.queryForNearDateItems(1, 15, "admin");
+        for (NearDateHouse nearDateHouse:a) {
+            System.out.println(nearDateHouse);
         }
     }
 }
