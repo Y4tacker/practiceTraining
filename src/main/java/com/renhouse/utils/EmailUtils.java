@@ -2,90 +2,129 @@ package com.renhouse.utils;
 
 import com.sun.mail.util.MailSSLSocketFactory;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import java.security.GeneralSecurityException;
 import java.util.Properties;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class EmailUtils {
-	private String t_to;
-	private String t_message;
-	private String t_title;
-	static boolean debugmodel=false;
-	
-	
-	private String hostemail;
-	private String author;
-	public void LoginEmail(String email,String auth)
-	{
-		hostemail=email;
-		author=auth;
-	}
-	public void setdebugmodel(boolean dbg)
-	{
-		debugmodel=dbg;
-	}
-    public void SendEmail() throws MessagingException, GeneralSecurityException {
-        //����һ�������ļ�������
-        Properties properties = new Properties();
+    private String to;
+    private String SendMessage;
+    private String Subject;
+    private String username;
+    private String password;
 
-        properties.setProperty("mail.host","smtp.qq.com");
+    public EmailUtils(String to, String Subject, String SendMessage, String username, String password){
+        setTo(to);
+        setSubject(Subject);
+        setSendMessage(SendMessage);
+        setUsername(username);
+        setPassword(password);
+    }
 
-        properties.setProperty("mail.transport.protocol","smtp");
+    /**
+     * 发送邮件的方法
+     * @throws GeneralSecurityException
+     */
+    public void Send() throws GeneralSecurityException{
+        // 收件人电子邮箱
+        String to = getTo();
 
-        properties.setProperty("mail.smtp.auth","true");
+        // 发件人电子邮箱
+        String from = MyConstant.SEND_USER;
 
+        // 指定发送邮件的主机为 smtp.qq.com
+        String host = "smtp.qq.com";  //QQ 邮件服务器
 
-        //QQ����һ����������SSL����
-        MailSSLSocketFactory sf = new MailSSLSocketFactory();
-        sf.setTrustAllHosts(true);
+        // 获取系统属性
+        Properties properties = System.getProperties();
+
+        // 设置邮件服务器
+        properties.setProperty("mail.smtp.host", host);
+
+        properties.put("mail.smtp.auth", "true");
+        MailSSLSocketFactory mailSSLSocketFactory = new MailSSLSocketFactory();
+        mailSSLSocketFactory.setTrustAllHosts(true);
         properties.put("mail.smtp.ssl.enable", "true");
-        properties.put("mail.smtp.ssl.socketFactory", sf);
+        properties.put("mail.smtp.ssl.socketFactory", mailSSLSocketFactory);
 
-        //����һ��session����
-        Session session = Session.getDefaultInstance(properties, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(hostemail,author);
+        // 获取默认session对象
+        Session session = Session.getDefaultInstance(properties,new Authenticator(){
+            public PasswordAuthentication getPasswordAuthentication()
+            {
+                return new PasswordAuthentication(MyConstant.SEND_USER, MyConstant.AUTH_CODE); //发件人邮件用户名、密码
             }
         });
 
-        //����debugģʽ
-        session.setDebug(debugmodel);
+        try{
+            // 创建默认的 MimeMessage 对象
+            MimeMessage message = new MimeMessage(session);
 
-        //��ȡ���Ӷ���
-        Transport transport = session.getTransport();
+            // Set From: 头部头字段
+            message.setFrom(new InternetAddress(from));
 
-        //���ӷ�����
-        transport.connect("smtp.qq.com",hostemail,author);
+            // Set To: 头部头字段
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
-        //�����ʼ�����
-        MimeMessage mimeMessage = new MimeMessage(session);
+            // Set Subject: 头部头字段
+            message.setSubject(this.Subject);
 
-        //�ʼ�������
-        mimeMessage.setFrom(new InternetAddress(hostemail));
+            // 设置消息体
+            message.setText(this.SendMessage);
 
-        //�ʼ�������
-        mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress(t_to));
-
-        //�ʼ�����
-        mimeMessage.setSubject(t_title);
-
-        //�ʼ�����
-        mimeMessage.setContent(t_message,"text/html;charset=UTF-8");
-
-        //�����ʼ�
-        transport.sendMessage(mimeMessage,mimeMessage.getAllRecipients());
-
-        //�ر�����
-        transport.close();
+            // 发送消息
+            Transport.send(message);
+        }catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
     }
-	public void SendEmail(String to,String title,String message) throws MessagingException, GeneralSecurityException
-	{
-		t_to=to;
-		t_title=title;
-		t_message=message;
-		SendEmail();
-	}
+
+    // 一系列setter和getter方法
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public String getSendMessage() {
+        return SendMessage;
+    }
+
+    public void setSendMessage(String sendMessage) {
+        SendMessage = sendMessage;
+    }
+
+    public String getSubject() {
+        return Subject;
+    }
+
+    public void setSubject(String subject) {
+        Subject = subject;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
 }
