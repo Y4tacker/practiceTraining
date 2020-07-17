@@ -4,8 +4,6 @@ import com.renhouse.pojo.User;
 
 public interface UserDao {
 
-
-
     /**
      * 根据用户名查询用户信息
      * @param username 用户名
@@ -28,6 +26,12 @@ public interface UserDao {
      */
     public int addUser(User user);
 
+    /**
+     * 修改用户密码
+     * @param username
+     * @param password
+     * @return
+     */
     public int modifyPassword(String username,String password);
 
 //    Integer queryForPageTotalCount();
