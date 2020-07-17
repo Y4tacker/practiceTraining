@@ -87,12 +87,12 @@
                         });
                         var finish = false;
                         $.ajax({
-                            url: 'billServlet',
+                            url: 'houseServlet',
                             method: 'POST',
                             async: false,
                             dataType: 'json',
                             data: {
-                                'action': 'editFee',
+                                'action': 'editHouse',
                                 'id': id,
                                 'landlord':landlord,
                                 'tenant': tenant,
