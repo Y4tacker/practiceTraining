@@ -18,8 +18,9 @@ public class UtilsServlet extends BaseServlet {
      */
     protected void sendEmail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
+        String realName = request.getParameter("realName");
         String Subject = "房东消息";
-        String SendMessage = "您的房屋即将到期，请及时联系房东续租，或处理退房手续";
+        String SendMessage = "尊敬的："+realName+"\n您的房屋即将到期，请及时联系房东续租，或处理退房手续";
         EmailUtils emailUtils = new EmailUtils(email,Subject,SendMessage,"1078433422@qq.com","mixhkqoqgsziiaib");
         String result = null;
         try {
