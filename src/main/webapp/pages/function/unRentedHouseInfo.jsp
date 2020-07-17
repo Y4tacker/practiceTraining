@@ -29,7 +29,7 @@
 
         var houseinfo_table = table.render({
             elem: '#houseinfo-table',
-            url: 'billServlet?action=pageForFee',
+            url: 'houseServlet?action=pageForUnRented',
             height: 'auto',
             title: '房源信息',
             toolbar: '#toolbaradd',
@@ -39,7 +39,6 @@
             cols: [
                 [
                     {field: 'id', title: "ID", sort: true,},
-                    {field: 'landlord', title: "所属房东"},
                     {field: 'tenant', title: '所属房客'},
                     {field: 'monthRent', title: '月租金'},
                     {field: 'space', title: '面积'},
@@ -49,7 +48,7 @@
                     {field: 'startTime',title: '起住时间'},
                     {field: 'endTime,',title:"收房时间"},
                     {field: 'houseName,',title:"房屋名"},
-                    {field: 'maintenanceFee,',title:"维护费"}
+                    {field: 'operation', fixed:'right',title: '操作', toolbar: '#operation', width: 120}
                 ]
             ]
         });
@@ -83,7 +82,6 @@
                 });
             } else if (obj.event === 'edit') {
                 $('#form_houseinfo').find('#id_edit').val(house.id);
-                $('#form_houseinfo').find('#landlord_edit').val(house.landlord);
                 $('#form_houseinfo').find('#tenant_edit').val(house.tenant);
                 $('#form_houseinfo').find('#monthRent_edit').val(house.monthRent);
                 $('#form_houseinfo').find('#space_edit').val(house.space);
@@ -103,7 +101,6 @@
                     offset: '120px',
                     yes: function (index, obj) {
                         var id = obj.find('#id_edit').val();
-                        var landlord = obj.find('#landlord_edit').val();
                         var tenant = obj.find('#tenant_edit').val();
                         var monthRent = obj.find('#monthRent_edit').val();
                         var space = obj.find('#space_edit').val();
@@ -127,7 +124,6 @@
                             data: {
                                 'action': 'editFee',
                                 'id': id,
-                                'landlord':landlord,
                                 'tenant': tenant,
                                 'monthRent': monthRent,
                                 'space': space,
@@ -178,14 +174,6 @@
             <input class="layui-input" lay-verify="required" type="text" name="id" placeholder="id"style="width:300px"
                    id="id_edit" disabled="disabled"
                    placeholder="账号"/>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">所属房东 <span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input class="layui-input" lay-verify="required" type="text" name="landlord_edit" placeholder="所属房东"style="width:300px"
-                   id="landlord_edit"
-                   placeholder="所属房东"/>
         </div>
     </div>
     <div class="layui-form-item">
@@ -255,13 +243,5 @@
                    autocomplete="off" class="layui-input" id="houseName_edit">
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">维护费<span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input type="text" name="maintenanceFee" required lay-verify="required" placeholder="维护费"style="width:300px"
-                   autocomplete="off" class="layui-input" id="maintenanceFee_edit">
-        </div>
-    </div>
-
 </div>
 </html>
