@@ -45,7 +45,7 @@
                     {field: 'space', title: '面积'},
                     {field: 'address', title: '地址'},
                     {field: 'layout', title: '户型'},
-                    {field: 'houseName,',title:"房屋名"},
+                    {field: 'houseName,',title:'房屋名'},
                     {field: 'operation', fixed:'right',title: '操作', toolbar: '#operation', width: 70}
                 ]
             ]
@@ -53,32 +53,8 @@
 
         table.on('tool(houseinfo-table)', function (obj) {
             var house = obj.data;
-            if (obj.event === 'delete') {
-                layer.confirm('确定要删除吗', function (index) {
-                    $.ajax({
-                        url: 'houseServlet',
-                        method: 'POST',
-                        async: false,
-                        dataType: 'json',
-                        data: {
-                            'action': 'deleteHouse',
-                            'id': house.id,
-                        },
-                        success: function (data) {
-                            if (data.code === 0) {
-                                obj.del();
-                                layer.msg("删除成功", {icon: 6});
-                                layer.close(index);
-                            } else {
-                                layer.msg("删除失败", {icon: 5});
-                            }
-                        },
-                        error: function () {
-                            layer.msg("删除失败", {icon: 5});
-                        }
-                    });
-                });
-            } else if (obj.event === 'edit') {
+            console.log(house);
+            if (obj.event === 'edit') {
                 $('#form_houseinfo').find('#id_edit').val(house.id);
                 $('#form_houseinfo').find('#landlord_edit').val(house.landlord);
                 $('#form_houseinfo').find('#tenant_edit').val(house.tenant);
@@ -208,7 +184,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">户型 <span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <input class="layui-input" lay-verify="required" type="text" name="layout" placeholder="户型"style="width:300px"
+            <input class="layui-input" lay-verify="required" type="text" name="layout_edit" placeholder="户型"style="width:300px"
                    id="layout_edit"/>
         </div>
     </div>
