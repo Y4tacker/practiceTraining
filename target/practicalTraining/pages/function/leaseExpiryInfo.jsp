@@ -62,30 +62,21 @@
                 $.ajax({
                     url:'utilsServlet',
                     method:'POST',
-                    async: false,
+                    async: true,
                     dataType: 'json',
                     data: {
                         'action':'sendEmail',
                         'email': house.email,
                     },
                     success: function (res) {
-                        if (res.code == 0) {
-                            layer.msg(res.msg, {
-                                title: '成功'
-                            });
-                            houseinfo_table.reload({
-                                elem: "#houseinfo-table"
-                            });
-                        } else {
-                            layer.msg(res.msg, {
-                                title: '失败'
-                            });
-                        }
                     },
                     error: function (err) {
                         layer.msg("发送失败", {icon: 5});
                     }
-                })
+                });
+                layer.msg("发送成功", {
+                    title: '成功'
+                });
             }
             if (obj.event === 'edit') {
                 $('#form_houseinfo').find('#realName_edit').val(house.id);
