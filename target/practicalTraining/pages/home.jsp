@@ -6,6 +6,7 @@
     <%@ include file="/pages/common/head.jsp"%>
     <title>成都市房屋租赁管理系统</title>
     <script src="static/script/sweetalert.min.js"></script>
+    <script src="static/script/md5.js"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -15,6 +16,12 @@
         <div class="layui-logo">房屋租赁管理系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item lockcms" pc>
+                <a href="javascript:;"><i class="seraph icon-lock"></i><cite>锁屏</cite></a>
+            </li>
+            <li class="layui-nav-item" pc>
+                <a href="javascript:;" class="clearCache"><i class="layui-icon" data-icon="&#xe640;">&#xe640;</i><cite>清除缓存</cite><span class="layui-badge-dot"></span></a>
+            </li>
             <li class="layui-nav-item">
                 <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">${sessionScope.user.username}</a>
                 <dl class="layui-nav-child">
@@ -61,6 +68,7 @@
     <div class="layui-footer">
         © layui.com - 底部固定区域
     </div>
+    <input type="hidden" name="ps" id="ipt_password"  value="${sessionScope.user.password}">
 </div>
 <script>
     function notice(status){
@@ -256,6 +264,70 @@
                 })
             }
         })
+        //清理缓存
+        $(".clearCache").click(function(){
+            window.sessionStorage.clear();
+            window.localStorage.clear();
+            var index = layer.msg('清除缓存中，请稍候',{icon: 16,time:false,shade:0.8});
+            setTimeout(function(){
+                layer.close(index);
+                layer.msg("缓存清除成功！");
+            },1000);
+        })
+        function lockPage(){
+            layer.open({
+                title : false,
+                type : 1,
+                content : '<div class="admin-header-lock" id="lock-box" >'+
+                    '<p></p>'+
+                    '<button class="layui-btn"  style="background: black;color:white;width:190px;disabled:true;display:block;margin:0 auto">请输入用户密码解锁</button>'+
+                    '<div class="input_btn">'+
+                    '<input type="password" class="admin-header-lock-input layui-input" autocomplete="off" placeholder="请输入密码解锁.." name="lockPwd" id="lockPwd" />'+
+                    '<button class="layui-btn" id="unlock" style="background: black;color:white;display:block;margin:0 auto">解锁</button>'+
+                    '</div>'+
+                    '<p> </p>'+
+                    '</div>',
+                closeBtn : 0,
+                shade : 0.9,
+                success : function(){
+                    //判断是否设置过头像，如果设置过则修改顶部、左侧和个人资料中的头像，否则使用默认头像
+                    if(window.sessionStorage.getItem('userFace') &&  $(".userAvatar").length > 0){
+                        $(".userAvatar").attr("src",$(".userAvatar").attr("src").split("images/")[0] + "images/" + window.sessionStorage.getItem('userFace').split("images/")[1]);
+                    }
+                }
+            })
+            $(".admin-header-lock-input").focus();
+        }
+        $(".lockcms").on("click",function(){
+            window.sessionStorage.setItem("lockcms",true);
+            lockPage();
+        })
+        // 判断是否显示锁屏
+        if(window.sessionStorage.getItem("lockcms") == "true"){
+            lockPage();
+        }
+        // 解锁
+        $("body").on("click","#unlock",function(){
+            if($(this).siblings(".admin-header-lock-input").val() == ''){
+                layer.msg("请输入解锁密码！");
+                $(this).siblings(".admin-header-lock-input").focus();
+            }else{
+                if(hex_md5($(this).siblings(".admin-header-lock-input").val()) == $("#ipt_password").val()){
+                    window.sessionStorage.setItem("lockcms",false);
+                    $(this).siblings(".admin-header-lock-input").val('');
+                    layer.closeAll("page");
+                }else{
+                    layer.msg("密码错误，请重新输入！");
+                    $(this).siblings(".admin-header-lock-input").val('').focus();
+                }
+            }
+        });
+        $(document).on('keydown', function(event) {
+            var event = event || window.event;
+            if(event.keyCode == 13) {
+                $("#unlock").click();
+            }
+        });
 
 
     });

@@ -20,21 +20,21 @@ public class UtilsServlet extends BaseServlet {
         String email = request.getParameter("email");
         String Subject = "房东消息";
         String SendMessage = "您的房屋即将到期，请及时联系房东续租，或处理退房手续";
-        EmailUtils emailUtils = new EmailUtils("1078433422@qq.com",Subject,SendMessage,"1078433422@qq.com","mixhkqoqgsziiaib");
+        EmailUtils emailUtils = new EmailUtils(email,Subject,SendMessage,"1078433422@qq.com","mixhkqoqgsziiaib");
+        String result = null;
         try {
             emailUtils.Send();
-            String result = "{" +
+            result = "{" +
                     "  \"code\": 0," +
                     "  \"msg\": " + "\"发送成功！\"" +
                     "} ";
-            response.getWriter().write(result);
         } catch (GeneralSecurityException e) {
             e.printStackTrace();
-            String result = "{" +
+            result = "{" +
                     "  \"code\": 1," +
                     "  \"msg\": " + "\"发送失败！\"" +
                     "} ";
-            response.getWriter().write(result);
         }
+        response.getWriter().write(result);
     }
 }

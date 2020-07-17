@@ -28,7 +28,7 @@ public class HouseServlet extends BaseServlet {
         try {
             house.setStartTime(null);
             house.setEndTime(null);
-            house.setTenant(null);
+            house.setTenant("暂无");
             house.setMaintenanceFee(null);
             houseService.addHouse(house);
             String result = "{" +
