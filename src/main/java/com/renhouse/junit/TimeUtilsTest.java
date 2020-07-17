@@ -1,11 +1,13 @@
 package com.renhouse.junit;
 
 import com.renhouse.utils.TimeUtils;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 class TimeUtilsTest {
 

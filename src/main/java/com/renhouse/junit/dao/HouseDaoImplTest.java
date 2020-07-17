@@ -133,4 +133,20 @@ public class HouseDaoImplTest {
             System.out.println(house);
         }
     }
+
+    @Test
+    public void queryForNearDateCount() {
+        HouseDao houseDao = new HouseDaoImpl();
+        System.out.println(houseDao.queryForNearDateCount("admin"));
+    }
+
+    @Test
+    public void queryForNearDateItems() {
+        HouseDao houseDao = new HouseDaoImpl();
+        List<HouseStatus> houseStatuses = houseDao.queryForNearDateItems(1, 15, "admin");
+        System.out.println(houseStatuses);
+        for (HouseStatus houseStatus:houseStatuses) {
+            System.out.println(houseStatus);
+        }
+    }
 }

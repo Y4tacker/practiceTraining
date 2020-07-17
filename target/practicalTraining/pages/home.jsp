@@ -40,12 +40,8 @@
                     <dl class="layui-nav-child">
                         <dd><a data-url="pages/function/rentedHouseManage.jsp" data-type="tabAdd" data-id="5" class="leftdaohangson" mytitle="租赁房屋客户信息">租赁房屋客户信息</a></dd>
                         <dd><a data-url="pages/function/feeManange.jsp" data-type="tabAdd" data-id="6" class="leftdaohangson" mytitle="维护费记录">维护费记录</a></dd>
-<<<<<<< HEAD
                         <dd><a data-url="pages/function/unRentedHouseInfo.jsp" data-type="tabAdd" data-id="6" class="leftdaohangson" mytitle="闲置房屋">闲置房屋</a></dd>
                         <dd><a data-url="pages/function/leaseExpiryInfo.jsp" data-type="tabAdd" data-id="6" class="leftdaohangson" mytitle="租约到期">租约到期</a></dd>
-=======
-                        <dd><a data-url="pages/function/unRentedHouseInfo.jsp" data-type="tabAdd" data-id="6" class="leftdaohangson" mytitle="维护费记录">维护费记录</a></dd>
->>>>>>> e671e4bf6954c580d5b4c4c3697d06f3991395ed
                     </dl>
                 </li>
             </ul>
@@ -227,12 +223,6 @@
                                 layer.msg(res.msg, {
                                     title: '成功'
                                 });
-<<<<<<< HEAD
-                                houseinfo_table.reload({
-                                    elem: "#houseinfo-table"
-                                });
-=======
->>>>>>> e671e4bf6954c580d5b4c4c3697d06f3991395ed
                             } else {
                                 layer.msg(res.msg, {
                                     title: '失败'

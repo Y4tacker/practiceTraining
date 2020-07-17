@@ -92,6 +92,8 @@ public interface HouseService {
      */
     public Page<TenantMaintenanceFee> pageForMaintenanceFee(String username,int pageNo, int pageSize);
 
+    public Page<HouseStatus> pageForNearDate(String username,int pageNo, int pageSize);
+
 
 
 }

@@ -73,4 +73,13 @@ public class HouseServiceImplTest {
         }
 
     }
+
+    @Test
+    public void pageForNearDate() {
+        Page<HouseStatus> housePage = houseService.pageForNearDate("admin", 1, 15);
+        List<HouseStatus> items = housePage.getItems();
+        for (HouseStatus house:items) {
+            System.out.println(items);
+        }
+    }
 }

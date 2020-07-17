@@ -158,4 +158,8 @@ public interface HouseDao {
      */
     public List<House> queryForUnRentedHouseItems(int begin,int  pageSize,String username);
 
+    public Integer queryForNearDateCount(String username);
+
+    public List<HouseStatus> queryForNearDateItems(int begin,int  pageSize,String username);
+
 }
