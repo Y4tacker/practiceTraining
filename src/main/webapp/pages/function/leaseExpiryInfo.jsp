@@ -17,7 +17,7 @@
 <body>
 <table class="layui-hide" id="houseinfo-table" lay-filter="houseinfo-table"></table>
 <script type="text/html" id="operation">
-    <a class="layui-btn layui-btn-xs" lay-event="renewal">续约</a>
+    <a class="layui-btn layui-btn-xs" lay-event="renewal">续租</a>
     <a class="layui-btn layui-btn-xs" lay-event="call">提醒</a>
 </script>
 <script type="text/javascript">
@@ -67,6 +67,7 @@
                     data: {
                         'action':'sendEmail',
                         'email': house.email,
+                        'realName': house.realName,
                     },
                     success: function (res) {
                     },
