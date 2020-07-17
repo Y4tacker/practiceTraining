@@ -37,7 +37,7 @@ public class EmailUtils {
         String to = getTo();
 
         // 发件人电子邮箱
-        String from = MyConstant.SEND_USER;
+        String from = username;
 
         // 指定发送邮件的主机为 smtp.qq.com
         String host = "smtp.qq.com";  //QQ 邮件服务器
@@ -58,7 +58,7 @@ public class EmailUtils {
         Session session = Session.getDefaultInstance(properties,new Authenticator(){
             public PasswordAuthentication getPasswordAuthentication()
             {
-                return new PasswordAuthentication(MyConstant.SEND_USER, MyConstant.AUTH_CODE); //发件人邮件用户名、密码
+                return new PasswordAuthentication(username,password); //发件人邮件用户名、密码
             }
         });
 
