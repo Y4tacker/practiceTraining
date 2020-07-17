@@ -168,7 +168,7 @@
                    placeholder="账号"/>
         </div>
     </div>
-
+    <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">所属房东 <span style="color: red">*</span></label>
         <div class="layui-input-block">
             <input class="layui-input" lay-verify="required" type="text" name="landlord_edit" placeholder="所属房东"style="width:300px"
