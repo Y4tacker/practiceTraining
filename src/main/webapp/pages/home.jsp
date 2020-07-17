@@ -15,6 +15,9 @@
         <div class="layui-logo">房屋租赁管理系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item" pc>
+                <a href="javascript:;" class="clearCache"><i class="layui-icon" data-icon="&#xe640;">&#xe640;</i><cite>清除缓存</cite><span class="layui-badge-dot"></span></a>
+            </li>
             <li class="layui-nav-item">
                 <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">${sessionScope.user.username}</a>
                 <dl class="layui-nav-child">
@@ -255,6 +258,15 @@
                     },
                 })
             }
+        })
+        $(".clearCache").click(function(){
+            window.sessionStorage.clear();
+            window.localStorage.clear();
+            var index = layer.msg('清除缓存中，请稍候',{icon: 16,time:false,shade:0.8});
+            setTimeout(function(){
+                layer.close(index);
+                layer.msg("缓存清除成功！");
+            },1000);
         })
 
 
