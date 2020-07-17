@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class HouseServlet extends BaseServlet {
@@ -212,5 +213,57 @@ public class HouseServlet extends BaseServlet {
                 "  \"data\": " + toJson +
                 "} ";
         response.getWriter().write(result);
+    }
+
+
+    protected void editUnRentedHose(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        House house = houseService.queryHouseById(WebUtils.parseInt(id, 0));
+        String monthRent = request.getParameter("monthRent");
+        String space = request.getParameter("space");
+        String address = request.getParameter("address");
+        String layout = request.getParameter("layout");
+        String houseName = request.getParameter("houseName");
+        if (monthRent.length()<=0 || monthRent == null){
+            String result = "{" +
+                    "  \"code\": 1," +
+                    "  \"msg\": " + "\"月租金不能为空！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }else  if (space.length()<=0 || space==null){
+            String result = "{" +
+                    "  \"code\": 1," +
+                    "  \"msg\": " + "\"面积不能为空！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }else {
+            try {
+                house.setMonthRent(new BigDecimal(monthRent));
+            }catch (Exception e){
+                String result = "{" +
+                        "  \"code\": 1," +
+                        "  \"msg\": " + "\"月租金只能为数字！\"" +
+                        "} ";
+                response.getWriter().write(result);
+            }
+            try {
+                house.setSpace(WebUtils.parseInt(space,0));
+            }catch (Exception e){
+                String result = "{" +
+                        "  \"code\": 1," +
+                        "  \"msg\": " + "\"面积只能为数字！\"" +
+                        "} ";
+                response.getWriter().write(result);
+            }
+            house.setAddress(address);
+            house.setLayout(layout);
+            house.setHouseName(houseName);
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": " + "\"修改成功！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }
+
     }
 }
