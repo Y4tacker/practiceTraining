@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import com.renhouse.pojo.House;
 import com.renhouse.pojo.Order;
 import com.renhouse.pojo.Page;
+import com.renhouse.service.HouseService;
 import com.renhouse.service.OrderService;
+import com.renhouse.service.impl.HouseServiceImpl;
 import com.renhouse.service.impl.OrderServiceImpl;
 import com.renhouse.utils.WebUtils;
 
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class OrderServlet extends BaseServlet {
     private OrderService orderService = new OrderServiceImpl();
@@ -65,11 +68,27 @@ public class OrderServlet extends BaseServlet {
             response.getWriter().write(result);
         }catch (Exception e){
             String result = "{" +
-                    "  \"code\": 0," +
+                    "  \"code\": 1," +
                     "  \"msg\": " + "\"删除失败！\"" +
                     "} ";
             response.getWriter().write(result);
         }
     }
 
+
+    protected void leaseAgain(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String id = request.getParameter("id");
+        String endTime = request.getParameter("endTime");
+        HouseService houseService = new HouseServiceImpl();
+        System.out.println(request.getSession().getAttribute("user"));
+        House queryHouse = houseService.queryHouseById(WebUtils.parseInt(id, 0));
+        House house = WebUtils.copyParamToBean(WebUtils.bean2map(queryHouse),new House());
+        house.setEndTime(endTime);
+        houseService.updateHouse(house);
+        String result = "{" +
+                "  \"code\": 0," +
+                "  \"msg\": " + "\"续约超过！\"" +
+                "} ";
+        response.getWriter().write(result);
+    }
 }

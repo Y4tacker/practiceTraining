@@ -145,7 +145,7 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
 
     @Override
     public List<HouseStatus> queryForNearDateItems(int begin, int pageSize, String username) {
-        String sql = "select t_house.id,tenantName,realName,address,houseName,phoneNumber,email from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁' and datediff(CURRENT_DATE(),endTime)<16 limit ?,?";
+        String sql = "select t_house.id,t_house.endTime,realName,address,houseName,phoneNumber,email from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁' and datediff(CURRENT_DATE(),endTime)<16 limit ?,?";
         return queryForList(HouseStatus.class,sql,username, begin,pageSize);
     }
 }
