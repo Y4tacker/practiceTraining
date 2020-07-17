@@ -66,11 +66,10 @@
                     dataType: 'json',
                     data: {
                         'action':'sendEmail',
-                        'email': email,
+                        'email': house.email,
                     },
                     success: function (res) {
                         if (res.code == 0) {
-                            finish = true;
                             layer.msg(res.msg, {
                                 title: '成功'
                             });
