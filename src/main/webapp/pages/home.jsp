@@ -223,9 +223,6 @@
                                 layer.msg(res.msg, {
                                     title: '成功'
                                 });
-                                houseinfo_table.reload({
-                                    elem: "#houseinfo-table"
-                                });
                             } else {
                                 layer.msg(res.msg, {
                                     title: '失败'

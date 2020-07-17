@@ -9,16 +9,44 @@ import com.renhouse.pojo.vo.TenantMaintenanceFee;
 import java.util.List;
 
 public interface HouseService {
+    /**
+     * 添加房屋
+     * @param house
+     */
     public void addHouse(House house);
 
+    /**
+     * 根据id删除房屋
+     * @param id
+     */
     public void deleteHouseById(Integer id);
 
+    /**
+     * 更新房屋信息
+     * @param book
+     */
     public void updateHouse(House book);
 
+    /**
+     * 根据id查房屋
+     * @param id
+     * @return
+     */
     public House queryHouseById(Integer id);
 
+    /**
+     * 查所有房屋
+     * @return
+     */
     public List<House> queryHouses();
 
+    /**
+     * 得到分页信息
+     * @param username
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     Page<House> page(String username, int pageNo, int pageSize);
 
     /**

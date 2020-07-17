@@ -65,13 +65,23 @@ public interface HouseDao {
     Integer queryForPageTotalCount();
 
     /**
-     * 根据房东信息查询已经出租的房子
+     * 根据房东信息查询其名下已经出租的房子
      * @return
      */
     public List<HouseStatus> queryHouseByLandlordAndStatus_Already(String landlord);
 
+    /**
+     * 根据房东信息查询其名下还没有出租的房子
+     * @param landlord
+     * @return
+     */
     public List<Bill> queryHouseByLandlordAndStatusToCreateBill_Already(String landlord);
 
+    /**
+     * 得到指定房东名下已出租房子的数量
+     * @param landlord
+     * @return 返回值为房东名下已出租房子的数量
+     */
     public Integer queryHouseByLandlordAndStatusAlreadyCount(String landlord);
 
     /**
@@ -82,8 +92,22 @@ public interface HouseDao {
      */
     List<House> queryForPageItems(int begin, int pageSize);
 
+    /**
+     * 根据房东信息查询每个分页有关的房子
+     * @param begin
+     * @param pageSize
+     * @param username
+     * @return 返回所有房东的房子
+     */
     public List<House> queryForPageItemsByLandlord(int begin, int pageSize, String username);
 
+    /**
+     * 得到分页所有房屋的出租状态
+     * @param begin
+     * @param pageSize
+     * @param username
+     * @return 分页所有房屋的出租状态
+     */
     public List<HouseStatus> queryForPageItemsByRentedStatus(int begin, int pageSize, String username);
 
     /**
