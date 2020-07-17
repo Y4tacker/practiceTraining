@@ -40,7 +40,6 @@
                 [
                     {field: 'id', title: "ID", sort: true,},
                     {field: 'landlord', title: '所属房东'},
-                    {field: 'tenant', title: '所属房客'},
                     {field: 'monthRent', title: '月租金'},
                     {field: 'space', title: '面积'},
                     {field: 'address', title: '地址'},
@@ -57,7 +56,6 @@
             if (obj.event === 'edit') {
                 $('#form_houseinfo').find('#id_edit').val(house.id);
                 $('#form_houseinfo').find('#landlord_edit').val(house.landlord);
-                $('#form_houseinfo').find('#tenant_edit').val(house.tenant);
                 $('#form_houseinfo').find('#monthRent_edit').val(house.monthRent);
                 $('#form_houseinfo').find('#space_edit').val(house.space);
                 $('#form_houseinfo').find('#address_edit').val(house.address);
@@ -74,7 +72,6 @@
                     yes: function (index, obj) {
                         var id = obj.find('#id_edit').val();
                         var landlord = obj.find('#landlord_edit').val();
-                        var tenant = obj.find('#tenant_edit').val();
                         var monthRent = obj.find('#monthRent_edit').val();
                         var space = obj.find('#space_edit').val();
                         var address = obj.find('#address_edit').val();
@@ -87,15 +84,14 @@
                         });
                         var finish = false;
                         $.ajax({
-                            url: 'billServlet',
+                            url: 'houseServlet',
                             method: 'POST',
                             async: false,
                             dataType: 'json',
                             data: {
-                                'action': 'editFee',
+                                'action': 'editUnRentedHose',
                                 'id': id,
-                                'landlord':landlord,
-                                'tenant': tenant,
+                                'landlord': landlord,
                                 'monthRent': monthRent,
                                 'space': space,
                                 'address': address,
@@ -150,14 +146,6 @@
             <input class="layui-input" lay-verify="required" type="text" name="landlord_edit" placeholder="所属房东"style="width:300px"
                    id="landlord_edit"
                    placeholder="所属房东"/>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">所属房客 <span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input class="layui-input" lay-verify="required" type="text" name="tenant_edit" placeholder="所属房客"style="width:300px"
-                   id="tenant_edit"
-                   placeholder="所属房客"/>
         </div>
     </div>
     <div class="layui-form-item">

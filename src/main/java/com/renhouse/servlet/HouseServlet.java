@@ -258,6 +258,7 @@ public class HouseServlet extends BaseServlet {
             house.setAddress(address);
             house.setLayout(layout);
             house.setHouseName(houseName);
+            houseService.updateHouse(house);
             String result = "{" +
                     "  \"code\": 0," +
                     "  \"msg\": " + "\"修改成功！\"" +
