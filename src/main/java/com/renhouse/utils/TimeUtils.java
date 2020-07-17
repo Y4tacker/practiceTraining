@@ -62,6 +62,18 @@ public class TimeUtils {
     }
 
     /**
+     * 求两个日期相差天数
+     *
+     * @param sd 起始日期，格式yyyy-MM-dd
+     * @param ed 终止日期，格式yyyy-MM-dd
+     * @return 两个日期相差天数
+     */
+    public static long getIntervalDays(String sd, String ed) {
+        return ((java.sql.Date.valueOf(ed)).getTime() - (java.sql.Date
+                .valueOf(sd)).getTime()) / (3600 * 24 * 1000);
+    }
+
+    /**
      * 起始日期yyyy-MM-dd与终止日期yyyy-MM-dd之间跨度的月数。
      *
      * @param beginDate 格式为yyyy-MM-dd
@@ -144,4 +156,6 @@ public class TimeUtils {
         cal.add(GregorianCalendar.DATE, amount);
         return getFormatDate(cal.getTime());
     }
+
+
 }

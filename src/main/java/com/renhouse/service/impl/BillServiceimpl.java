@@ -5,8 +5,11 @@ import com.renhouse.dao.impl.HouseDaoImpl;
 import com.renhouse.pojo.House;
 import com.renhouse.pojo.vo.Bill;
 import com.renhouse.service.BillService;
+import com.renhouse.servlet.UtilsServlet;
 import com.renhouse.utils.TimeUtils;
 
+import java.security.Key;
+import java.sql.Time;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,40 +24,68 @@ public class BillServiceimpl implements BillService {
     private HouseDao houseDao = new HouseDaoImpl();
 
     @Override
-    public HashMap<Integer, HashMap<Integer, Integer>> calculateBill(String landlord, String startDate, String endDate) {
+    public HashMap<String, Integer> calculateBill(String landlord, String startDate, String endDate) {
         List<Bill> bill = houseDao.queryHouseByLandlordAndStatusToCreateBill_Already(landlord);
-        HashMap<Integer, HashMap<Integer, Integer>> res = new HashMap<Integer, HashMap<Integer, Integer>>();
+        HashMap<String, Integer> res = new HashMap<String, Integer>();
+
+        startDate += "-1";
+        endDate += "-1";
 
         if (startDate.compareTo(endDate) > 0) { //起始日期大于结束日期则返回错误
             return null;
         }
 
-        String regex = "-";// 按照-来进行切割
-
-        String[] date = startDate.split(regex);
-        int year = Integer.parseInt(date[0]);
-        int month = Integer.parseInt(date[1]);
-        int interval = TimeUtils.getInterval(startDate, endDate);
         int size = bill.size();
-        String dateTemp = startDate;
 
-        for (int i = 0; i < interval; i++) {
-            int sum = 0;
-            dateTemp = TimeUtils.getFormatDateAdd(dateTemp, 30);
-            for (int j = 0; j < size; j++) {
-                Bill billItem = bill.get(j);
-                if (billItem.getStart().compareTo(dateTemp) > 0 && billItem.getEnd().compareTo(dateTemp) > 0) { //开始日期比endDate小，且结束日期比temp日期大
-                    sum += billItem.getMonthlyRent() - billItem.getMaintenance();
+        for (int i = 0; i < size; i++) {
+            Bill item = bill.get(i);
+            String st = item.getStartTime();
+            String et = item.getEndTime();
+            if (st.compareTo(startDate) < 0) { //查询的开始日期比租房的开始日期晚
+                st = startDate;
+            }
+            if (et.compareTo(endDate) > 0) { //查询的终止日期比租房的终止日期早
+                et = endDate;
+            }
+
+            int intervalDays = (int) TimeUtils.getIntervalDays(st, et);
+            int intervalMonths = intervalDays / 30;
+
+            if (intervalDays % 30 != 0) {
+                intervalMonths++;
+            }
+
+
+            String regex = "-";// 按照-来进行切割
+            String[] date1 = st.split(regex);
+            int year = Integer.parseInt(date1[0]);
+            int month = Integer.parseInt(date1[1]);
+
+            while (intervalMonths-->0) {
+                int sum = 0;
+                sum += item.getMonthRent();
+                if (item.getMaintenanceFee() != null) {
+                    sum -= item.getMaintenanceFee();
                 }
-            }
-            if (sum != 0) { //剔除所有账单为0的月
-                res.put(year, new HashMap<Integer, Integer>(month + i, sum));
-            }
-            if (month + i == 12) {
-                month = 1;
-                year++;
+                String key = year + "-" + month;
+                if(sum!=0) {
+                    if (res.containsKey(key)) {
+                        res.put(key, res.get(key) + sum);
+                    } else {
+                        res.put(key, sum);
+                    }
+                }
+                month++;
+                if(month==13) {
+                    month = 1;
+                    year++;
+                }
+//                System.out.println(intervalMonths);
+//                System.out.println(key);
             }
         }
+
         return res;
     }
 }
+

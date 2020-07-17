@@ -13,6 +13,11 @@ import java.util.List;
  * @Version 1.0
  */
 public interface BillService {
-
-    public HashMap<Integer, HashMap<Integer, Integer>> calculateBill(String landlord, String startDate, String endDate);
+    /**
+     * @param landlord
+     * @param startDate yyyy-MM-dd
+     * @param endDate   yyyy-MM-dd
+     * @return
+     */
+    public HashMap<String, Integer> calculateBill(String landlord, String startDate, String endDate);
 }

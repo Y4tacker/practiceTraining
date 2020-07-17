@@ -1,38 +1,62 @@
 package com.renhouse.pojo.vo;
 
 /**
- * @ClassName RnetBill
+ * @ClassName Bill
  * @Description Bill的vo
  * @Author 1TreeForest
  * @Date 2020/7/16 16:05
  * @Version 1.0
  */
 public class Bill {
-    private String tenantName;
+    private String tenant;
+    private Integer monthRent;
+    private String startTime;
+    private String endTime;
     private String houseName;
-    private int monthRent;
-    private String start;
-    private String end;
-    private int maintenance;
+    private Integer maintenanceFee;
 
     public Bill() {
     }
 
-    public Bill(String tenantName, String houseName, int monthRent, String start, String end, int maintenance) {
-        this.tenantName = tenantName;
-        this.houseName = houseName;
+    public Bill(String tenant, Integer monthRent, String startTime, String endTime, String houseName, Integer maintenanceFee) {
+        this.tenant = tenant;
         this.monthRent = monthRent;
-        this.start = start;
-        this.end = end;
-        this.maintenance = maintenance;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.houseName = houseName;
+        this.maintenanceFee = maintenanceFee;
     }
 
-    public String getTenantName() {
-        return tenantName;
+    public String getTenant() {
+        return tenant;
     }
 
-    public void setTenantName(String tenantName) {
-        this.tenantName = tenantName;
+    public void setTenant(String tenant) {
+        this.tenant = tenant;
+    }
+
+    public Integer getMonthRent() {
+        return monthRent;
+    }
+
+    public void setMonthRent(Integer monthRent) {
+        this.monthRent = monthRent;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public String getHouseName() {
@@ -43,47 +67,23 @@ public class Bill {
         this.houseName = houseName;
     }
 
-    public int getMonthlyRent() {
-        return monthRent;
+    public Integer getMaintenanceFee() {
+        return maintenanceFee;
     }
 
-    public void setMonthlyRent(int monthlyRent) {
-        this.monthRent = monthlyRent;
-    }
-
-    public String getStart() {
-        return start;
-    }
-
-    public void setStart(String start) {
-        this.start = start;
-    }
-
-    public String getEnd() {
-        return end;
-    }
-
-    public void setEnd(String end) {
-        this.end = end;
-    }
-
-    public int getMaintenance() {
-        return maintenance;
-    }
-
-    public void setMaintenance(int maintenance) {
-        this.maintenance = maintenance;
+    public void setMaintenanceFee(Integer maintenanceFee) {
+        this.maintenanceFee = maintenanceFee;
     }
 
     @Override
     public String toString() {
-        return "RentBill{" +
-                "tenantName='" + tenantName + '\'' +
+        return "Bill{" +
+                "tenant='" + tenant + '\'' +
+                ", monthRent=" + monthRent +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
                 ", houseName='" + houseName + '\'' +
-                ", monthlyRent=" + monthRent +
-                ", start='" + start + '\'' +
-                ", end='" + end + '\'' +
-                ", maintenance=" + maintenance +
+                ", maintenanceFee=" + maintenanceFee +
                 '}';
     }
 }
