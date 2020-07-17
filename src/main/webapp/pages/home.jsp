@@ -1,3 +1,4 @@
+<%@ page import="com.renhouse.lisentner.OnlineNumberListener" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html style="font-size: 30.7292px; min-width: 1440px;">
 <head>
@@ -67,6 +68,7 @@
 
     <div class="layui-footer">
         © layui.com - 底部固定区域
+        在线人数为：${sessionScope.online}
     </div>
     <input type="hidden" name="ps" id="ipt_password"  value="${sessionScope.user.password}">
 </div>

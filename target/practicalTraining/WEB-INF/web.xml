@@ -18,7 +18,7 @@
     <url-pattern>/pages/*</url-pattern>
     <url-pattern>/houseServlet</url-pattern>
   </filter-mapping>
-  
+
   <!-- 与用户登录注册相关 -->
   <servlet>
     <servlet-name>UserServlet</servlet-name>
@@ -75,4 +75,9 @@
     <servlet-name>UtilsServlet</servlet-name>
     <url-pattern>/utilsServlet</url-pattern>
   </servlet-mapping>
+
+  <!--监听器  -->
+  <listener>
+    <listener-class>com.renhouse.lisentner.OnlineNumberListener</listener-class>
+  </listener>
 </web-app>
