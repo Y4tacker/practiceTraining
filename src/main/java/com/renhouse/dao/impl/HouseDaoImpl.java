@@ -139,14 +139,14 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
 
     @Override
     public Integer queryForNearDateCount(String username) {
-        String sql = "select count(*) from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁' and datediff(CURRENT_DATE(),endTime)<16";
+        String sql = "select count(*) from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁' and datediff(endTime,CURRENT_DATE())<16";
         Number count = (Number) queryForSingleValue(sql, username);
         return count.intValue();
     }
 
     @Override
     public List<NearDateHouse> queryForNearDateItems(int begin, int pageSize, String username) {
-        String sql = "select t_house.id,endTime,realName,address,houseName,phoneNumber,email from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁' and datediff(CURRENT_DATE(),endTime)<16 limit ?,?";
+        String sql = "select t_house.id,endTime,realName,address,houseName,phoneNumber,email from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁' and datediff(endTime,CURRENT_DATE())<16 limit ?,?";
         return queryForList(NearDateHouse.class,sql,username, begin,pageSize);
     }
 }

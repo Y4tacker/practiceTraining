@@ -28,7 +28,7 @@ public class HouseServlet extends BaseServlet {
         try {
             house.setStartTime(null);
             house.setEndTime(null);
-            house.setTenant(null);
+            house.setTenant("暂无");
             house.setMaintenanceFee(null);
             houseService.addHouse(house);
             String result = "{" +
@@ -279,4 +279,26 @@ public class HouseServlet extends BaseServlet {
         }
 
     }
+
+    protected void release(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String endTime = request.getParameter("endTime");
+        if (endTime.length()==0 || endTime ==null){
+            String result = "{" +
+                    "  \"code\": 1," +
+                    "  \"msg\": " + "\"endTime参数不能为空！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }else {
+            String id = request.getParameter("id");
+            House house = houseService.queryHouseById(WebUtils.parseInt(id, 0));
+            house.setEndTime(endTime);
+            houseService.updateHouse(house);
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": " + "\"续租成功！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }
+    }
+
 }
