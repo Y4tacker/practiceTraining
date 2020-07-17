@@ -29,7 +29,7 @@
 
         var houseinfo_table = table.render({
             elem: '#houseinfo-table',
-            url: 'billServlet?action=pageForFee',
+            url: 'houseServlet?action=pageForUnRented',
             height: 'auto',
             title: '房源信息',
             toolbar: '#toolbaradd',
@@ -49,7 +49,8 @@
                     {field: 'startTime',title: '起住时间'},
                     {field: 'endTime,',title:"收房时间"},
                     {field: 'houseName,',title:"房屋名"},
-                    {field: 'maintenanceFee,',title:"维护费"}
+                    {field: 'maintenanceFee,',title:"维护费"},
+                    {field: 'operation', fixed:'right',title: '操作', toolbar: '#operation', width: 70}
                 ]
             ]
         });
@@ -262,6 +263,5 @@
                    autocomplete="off" class="layui-input" id="maintenanceFee_edit">
         </div>
     </div>
-
 </div>
 </html>
