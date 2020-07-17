@@ -88,13 +88,13 @@ public class TimeUtils {
     /**
      * 取得给定日期加上一定天数后的格式化日期字符串.
      *
-     * @param dateStr   给定的日期对象
-     * @param amount 需要添加的天数，如果是向前的天数，使用负数就可以，已根据需求设置为30天
+     * @param dateStr 给定的日期对象
+     * @param amount  需要添加的天数，如果是向前的天数，使用负数就可以，已根据需求设置为30天
      * @return String 加上一定天数以后的日期字符串.
      */
     public static String getDateAdd(String dateStr, int amount) {
         Calendar cal = new GregorianCalendar();
-        Date date=getDateFromString(dateStr);
+        Date date = getDateFromString(dateStr);
         cal.setTime(date);
         cal.add(GregorianCalendar.DATE, amount);
         return getFormatDate(cal.getTime());
@@ -133,13 +133,13 @@ public class TimeUtils {
     /**
      * 取得给定日期加上一定天数后的日期对象.
      *
-     * @param dateStr   给定的日期对象
-     * @param amount 需要添加的天数，如果是向前的天数，使用负数就可以.
+     * @param dateStr 给定的日期对象
+     * @param amount  需要添加的天数，如果是向前的天数，使用负数就可以.
      * @return Date 加上一定天数以后的Date对象.
      */
     public static String getFormatDateAdd(String dateStr, int amount) {
         Calendar cal = new GregorianCalendar();
-        Date date=getDateFromString(dateStr);
+        Date date = getDateFromString(dateStr);
         cal.setTime(date);
         cal.add(GregorianCalendar.DATE, amount);
         return getFormatDate(cal.getTime());

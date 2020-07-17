@@ -13,7 +13,6 @@ import java.util.List;
  * @Version 1.0
  */
 public interface BillService {
-    public HashMap<String,Integer> calculate(String startDate,int interval);
 
-    public List<Bill> queryHouseByLandlordAndStatusToCreateBill_Already(String landlord);
+    public HashMap<Integer, HashMap<Integer, Integer>> calculateBill(String landlord, String startDate, String endDate);
 }

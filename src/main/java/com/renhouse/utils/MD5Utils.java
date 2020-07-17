@@ -1,4 +1,5 @@
 package com.renhouse.utils;
+
 import java.security.MessageDigest;
 
 /**
@@ -10,7 +11,7 @@ import java.security.MessageDigest;
  */
 public class MD5Utils {
     public static String toMD5(String plainText) {
-        String encryptedStr="";
+        String encryptedStr = "";
         try {
             //生成实现指定摘要算法的 MessageDigest 对象。
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -29,11 +30,10 @@ public class MD5Utils {
                     buf.append("0");
                 buf.append(Integer.toHexString(i));
             }
-            encryptedStr =  buf.toString();
+            encryptedStr = buf.toString();
 //                System.out.println("32位: " + buf.toString());// 32位的加密
 //                System.out.println("16位: " + buf.toString().substring(8, 24));// 16位的加密，其实就是32位加密后的截取
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return encryptedStr;
