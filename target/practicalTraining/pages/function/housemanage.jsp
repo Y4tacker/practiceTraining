@@ -339,15 +339,6 @@
                    class="layui-input" id="monthRent">
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">租赁状态<span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <select name="rentalStatus" lay-verify="required" id="rentalStatus">
-                <option value="">租赁状态</option>
-                <option value="0">已租赁</option>
-                <option value="1">未租赁</option>
-            </select>
-        </div>
-    </div>
+
 </div>
 </html>

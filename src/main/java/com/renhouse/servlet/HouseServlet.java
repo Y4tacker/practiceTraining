@@ -25,6 +25,10 @@ public class HouseServlet extends BaseServlet {
         house.setLandlord((String) request.getSession().getAttribute("landlordName"));
         house.setMaintenanceFee(null);
         try {
+            house.setStartTime(null);
+            house.setEndTime(null);
+            house.setTenant(null);
+            house.setMaintenanceFee(null);
             houseService.addHouse(house);
             String result = "{" +
                     "  \"code\": 0," +
@@ -76,10 +80,17 @@ public class HouseServlet extends BaseServlet {
             try {
                 House houseInfo = houseService.queryHouseById(house.getId());
                 house.setLandlord(houseInfo.getLandlord());
-                house.setTenant(request.getParameter("tenant"));
-                house.setStartTime(houseInfo.getStartTime());
-                house.setEndTime(houseInfo.getEndTime());
                 house.setMaintenanceFee(houseInfo.getMaintenanceFee());
+                if ("未租赁".equals(request.getParameter("rentalStatus"))){
+                    house.setTenant("暂无");
+                    house.setStartTime(null);
+                    house.setEndTime(null);
+                    house.setMaintenanceFee(null);
+                }else {
+                    house.setTenant(request.getParameter("tenant"));
+                    house.setStartTime(houseInfo.getStartTime());
+                    house.setEndTime(houseInfo.getEndTime());
+                }
                 houseService.updateHouse(house);
                 String result = "{" +
                         "  \"code\": 0," +
