@@ -70,6 +70,7 @@
                     yes: function (index, obj) {
                         var id = obj.find('#id').val();
                         var tenant = obj.find('#tenant').val();
+                        var startTime = obj.find('#startTime').val();
                         var houseName = obj.find('#houseName').val();
                         var layout = obj.find('#layout').val();
                         var address = obj.find('#address').val();
@@ -158,6 +159,8 @@
             } else if (obj.event === 'edit') {
                 $('#form_houseinfo').find('#id_edit').val(house.id);
                 $('#form_houseinfo').find('#tenant_edit').val(house.tenant);
+                $('#form_houseinfo').find('#startTime_edit').val(house.startTime);
+                $('#form_houseinfo').find('#endTime_edit').val(house.endTime);
                 $('#form_houseinfo').find('#houseName_edit').val(house.houseName);
                 $('#form_houseinfo').find('#layout_edit').val(house.layout);
                 $('#form_houseinfo').find('#address_edit').val(house.address);
@@ -175,6 +178,8 @@
                     yes: function (index, obj) {
                         var id = obj.find('#id_edit').val();
                         var tenant = obj.find('#tenant_edit').val();
+                        var startTime = obj.find('#startTime_edit').val();
+                        var endTime = obj.find('#endTime_edit').val();
                         var houseName = obj.find('#houseName_edit').val();
                         var layout = obj.find('#layout_edit').val();
                         var address = obj.find('#address_edit').val();
@@ -196,6 +201,8 @@
                                 'action': 'editHouse',
                                 'id': id,
                                 'tenant':tenant,
+                                'startTime':startTime,
+                                'endTime':endTime,
                                 'houseName': houseName,
                                 'layout': layout,
                                 'address': address,
@@ -251,6 +258,22 @@
             <input class="layui-input" lay-verify="required" type="text" name="tenant_edit" placeholder="租赁人"style="width:300px"
                    id="tenant_edit"
                    placeholder="租赁人"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">起租时间 <span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input class="layui-input" lay-verify="required" type="text" name="startTime_edit" placeholder="起租时间"style="width:300px"
+                   id="startTime_edit"
+                   placeholder="起租时间"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-space:nowrap; ">到期时间 <span style="color: red">*</span></label>
+        <div class="layui-input-block">
+            <input class="layui-input" lay-verify="required" type="text" name="endTime_edit" placeholder="到期时间"style="width:300px"
+                   id="endTime_edit"
+                   placeholder="到期时间"/>
         </div>
     </div>
     <div class="layui-form-item">
