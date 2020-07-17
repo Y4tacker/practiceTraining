@@ -29,7 +29,7 @@
 
         var houseinfo_table = table.render({
             elem: '#houseinfo-table',
-            url: 'billServlet?action=pageForFee',
+            url: 'houseServlet?action=pageForUnRented',
             height: 'auto',
             title: '房源信息',
             toolbar: '#toolbaradd',
@@ -39,59 +39,27 @@
             cols: [
                 [
                     {field: 'id', title: "ID", sort: true,},
-                    {field: 'landlord', title: "所属房东"},
-                    {field: 'tenant', title: '所属房客'},
+                    {field: 'landlord', title: '所属房东'},
                     {field: 'monthRent', title: '月租金'},
                     {field: 'space', title: '面积'},
-                    {field: 'rentalStatus', title: '租赁状态', sort: true,},
                     {field: 'address', title: '地址'},
                     {field: 'layout', title: '户型'},
-                    {field: 'startTime',title: '起住时间'},
-                    {field: 'endTime,',title:"收房时间"},
-                    {field: 'houseName,',title:"房屋名"},
-                    {field: 'maintenanceFee,',title:"维护费"}
+                    {field: 'houseName',title:'房屋名'},
+                    {field: 'operation', fixed:'right',title: '操作', toolbar: '#operation', width: 70}
                 ]
             ]
         });
 
         table.on('tool(houseinfo-table)', function (obj) {
             var house = obj.data;
-            if (obj.event === 'delete') {
-                layer.confirm('确定要删除吗', function (index) {
-                    $.ajax({
-                        url: 'houseServlet',
-                        method: 'POST',
-                        async: false,
-                        dataType: 'json',
-                        data: {
-                            'action': 'deleteHouse',
-                            'id': house.id,
-                        },
-                        success: function (data) {
-                            if (data.code === 0) {
-                                obj.del();
-                                layer.msg("删除成功", {icon: 6});
-                                layer.close(index);
-                            } else {
-                                layer.msg("删除失败", {icon: 5});
-                            }
-                        },
-                        error: function () {
-                            layer.msg("删除失败", {icon: 5});
-                        }
-                    });
-                });
-            } else if (obj.event === 'edit') {
+            console.log(house);
+            if (obj.event === 'edit') {
                 $('#form_houseinfo').find('#id_edit').val(house.id);
                 $('#form_houseinfo').find('#landlord_edit').val(house.landlord);
-                $('#form_houseinfo').find('#tenant_edit').val(house.tenant);
                 $('#form_houseinfo').find('#monthRent_edit').val(house.monthRent);
                 $('#form_houseinfo').find('#space_edit').val(house.space);
                 $('#form_houseinfo').find('#address_edit').val(house.address);
-                $('#form_houseinfo').find('#rentalStatus_edit').val(house.rentalStatus);
                 $('#form_houseinfo').find('#layout_edit').val(house.layout);
-                $('#form_houseinfo').find('#startTime_edit').val(house.startTime);
-                $('#form_houseinfo').find('#endTime_edit').val(house.endTime);
                 $('#form_houseinfo').find('#houseName_edit').val(house.houseName);
                 form.render();
                 layer.prompt({
@@ -104,14 +72,10 @@
                     yes: function (index, obj) {
                         var id = obj.find('#id_edit').val();
                         var landlord = obj.find('#landlord_edit').val();
-                        var tenant = obj.find('#tenant_edit').val();
                         var monthRent = obj.find('#monthRent_edit').val();
                         var space = obj.find('#space_edit').val();
                         var address = obj.find('#address_edit').val();
-                        var rentalStatus = obj.find('#rentalStatus_edit').val();
                         var layout = obj.find('#layout_edit').val();
-                        var startTime = obj.find('#startTime_edit').val();
-                        var endTime = obj.find('#endTime_edit').val();
                         var houseName = obj.find('#houseName_edit').val();
                         var loading = layer.msg("正在添加", {
                             icon: 16,
@@ -120,22 +84,18 @@
                         });
                         var finish = false;
                         $.ajax({
-                            url: 'billServlet',
+                            url: 'houseServlet',
                             method: 'POST',
                             async: false,
                             dataType: 'json',
                             data: {
-                                'action': 'editFee',
+                                'action': 'editHouse',
                                 'id': id,
-                                'landlord':landlord,
-                                'tenant': tenant,
+                                'landlord': landlord,
                                 'monthRent': monthRent,
                                 'space': space,
                                 'address': address,
-                                'rentalStatus': rentalStatus,
                                 'layout': layout,
-                                'startTime': startTime,
-                                'endTime': endTime,
                                 'houseName': houseName,
                             },
                             success: function (res) {
@@ -189,14 +149,6 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">所属房客 <span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input class="layui-input" lay-verify="required" type="text" name="tenant_edit" placeholder="所属房客"style="width:300px"
-                   id="tenant_edit"
-                   placeholder="所属房客"/>
-        </div>
-    </div>
-    <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">月租金<span style="color: red">*</span></label>
         <div class="layui-input-block">
             <input type="text" name="realName_edit" lay-verify="required" placeholder="月租金"style="width:300px"
@@ -218,50 +170,18 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">租赁状态<span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input type="text" name="rentalStatus_edit" required lay-verify="required"style="width:300px"
-                   placeholder="租赁状态" autocomplete="off"
-                   class="layui-input" id="rentalStatus_edit">
-        </div>
-    </div>
-</div>
-<div class="layui-form" id="form_houseinfo_add" style="width:500px;height:350px;display:none">
-    <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">户型 <span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <input class="layui-input" lay-verify="required" type="text" name="layout" placeholder="户型"style="width:300px"
+            <input class="layui-input" lay-verify="required" type="text" name="layout_edit" placeholder="户型"style="width:300px"
                    id="layout_edit"/>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">起住时间<span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input type="text" name="startTime" required lay-verify="required" placeholder="起住时间"style="width:300px"
-                   autocomplete="off" class="layui-input" id="startTime_edit">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">收房时间<span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input type="text" name="endTime" required lay-verify="required" placeholder="收房时间"style="width:300px"
-                   autocomplete="off" class="layui-input" id="endTime_edit">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">房屋名<span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <input type="text" name="houseName" required lay-verify="required" placeholder="房屋名"style="width:300px"
+            <input type="text" name="houseName_edit" required lay-verify="required" placeholder="房屋名"style="width:300px"
                    autocomplete="off" class="layui-input" id="houseName_edit">
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">维护费<span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input type="text" name="maintenanceFee" required lay-verify="required" placeholder="维护费"style="width:300px"
-                   autocomplete="off" class="layui-input" id="maintenanceFee_edit">
-        </div>
-    </div>
-
 </div>
 </html>
