@@ -23,9 +23,9 @@ public interface HouseService {
 
     /**
      * 更新房屋信息
-     * @param book
+     * @param house
      */
-    public void updateHouse(House book);
+    public void updateHouse(House house);
 
     /**
      * 根据id查房屋
