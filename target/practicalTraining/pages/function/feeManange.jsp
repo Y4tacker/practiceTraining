@@ -235,43 +235,4 @@
         </div>
     </div>
 </div>
-<div class="layui-form" id="form_houseinfo_add" style="width:500px;height:350px;display:none">
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">房屋名 <span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input class="layui-input" lay-verify="required" type="text" name="houseName" placeholder="房屋名"style="width:300px"
-                   id="houseName"
-                   placeholder="密码"/>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">姓名<span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input type="text" name="realName" required lay-verify="required" placeholder="姓名"style="width:300px"
-                   autocomplete="off" class="layui-input" id="realName">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">地址<span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input type="text" name="address" required lay-verify="required" placeholder="地址"style="width:300px"
-                   autocomplete="off" class="layui-input" id="address">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">手机号<span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input type="text" name="phoneNumber" required lay-verify="required" placeholder="手机号"style="width:300px"
-                   autocomplete="off" class="layui-input" id="phoneNumber">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">维护费用<span style="color: red">*</span></label>
-        <div class="layui-input-block">
-            <input type="text" name="maintenanceFee" required lay-verify="required"style="width:300px"
-                   placeholder="维护费用" autocomplete="off"
-                   class="layui-input" id="maintenanceFee">
-        </div>
-    </div>
-</div>
 </html>
