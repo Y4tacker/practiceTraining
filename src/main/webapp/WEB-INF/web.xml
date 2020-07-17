@@ -65,4 +65,14 @@
     <servlet-name>BillServlet</servlet-name>
     <url-pattern>/billServlet</url-pattern>
   </servlet-mapping>
+
+  <!-- 工具类Servlet  -->
+  <servlet>
+    <servlet-name>UtilsServlet</servlet-name>
+    <servlet-class>com.renhouse.servlet.UtilsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UtilsServlet</servlet-name>
+    <url-pattern>/utilsServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
