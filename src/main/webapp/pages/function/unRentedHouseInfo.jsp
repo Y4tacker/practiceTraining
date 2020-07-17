@@ -215,7 +215,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">房屋名<span style="color: red">*</span></label>
         <div class="layui-input-block">
-            <input type="text" name="houseName" required lay-verify="required" placeholder="房屋名"style="width:300px"
+            <input type="text" name="houseName_edit" required lay-verify="required" placeholder="房屋名"style="width:300px"
                    autocomplete="off" class="layui-input" id="houseName_edit">
         </div>
     </div>
