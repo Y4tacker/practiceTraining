@@ -1,5 +1,6 @@
 package com.renhouse.junit.service;
 
+import com.renhouse.pojo.Page;
 import com.renhouse.pojo.vo.Bill;
 import com.renhouse.service.impl.BillServiceImpl;
 import org.junit.Test;
@@ -21,5 +22,7 @@ public class BillServiceImplTest {
     public void pageForBill() {
         BillServiceImpl test = new BillServiceImpl();
         List<Bill> t1 = test.calculateBill("admin", "2020-1", "2020-10");
+        Page<Bill> admin = test.pageForBill("admin", 0, 15, t1);
+        System.out.println(admin);
     }
 }
