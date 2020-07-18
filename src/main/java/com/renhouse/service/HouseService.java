@@ -66,6 +66,16 @@ public interface HouseService {
     public Page<HouseStatus> pageForRentedHouse(String username, int pageNo, int pageSize);
 
     /**
+     * 据房东和客户名字查询已经租赁的客户信息
+     * @param username
+     * @param realName
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public Page<HouseStatus> pageForRentedHouse(String username, String realName,int pageNo, int pageSize);
+
+    /**
      * 根据房东名字查询未租赁的房屋信息
      * @param username
      * @param pageNo

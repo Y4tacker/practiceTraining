@@ -109,6 +109,11 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
+    public Page<HouseStatus> pageForRentedHouse(String username, String realName, int pageNo, int pageSize) {
+        return null;
+    }
+
+    @Override
     public Page<House> pageForUnRentedHouse(String username, int pageNo, int pageSize) {
         Page<House> page = new Page<House>();
 
