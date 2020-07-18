@@ -1,6 +1,7 @@
 package com.renhouse.pojo.vo;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 
 /**
  * @ClassName Bill
@@ -66,4 +67,6 @@ public class Bill {
                 ", total=" + total +
                 '}';
     }
+
+
 }

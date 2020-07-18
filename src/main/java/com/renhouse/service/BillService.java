@@ -26,6 +26,13 @@ public interface BillService {
     public List<Bill> calculateBill(String landlord, String startDate, String endDate);
 
     /**
+     * 辅助排序器
+     * @param list
+     * @return
+     */
+    public List<Bill> listSort(List<Bill> list);
+
+    /**
      * 通过房东名查询记录
      * @param username
      * @param pageNo

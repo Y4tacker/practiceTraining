@@ -100,7 +100,6 @@ public class BillServiceImpl implements BillService {
                     }
 
                     if (j == billResSize) { //表中无此元素
-                        System.out.println(key+"******");
                         Bill billItem = new Bill(key, houseItem.getMonthRent(), BigDecimal.ZERO, sum);
                         if (houseItem.getMaintenanceFee() != null) {
                             billItem.setMaintenanceFee(houseItem.getMaintenanceFee());
@@ -116,7 +115,22 @@ public class BillServiceImpl implements BillService {
             }
         }
 
+        //排序
+        billRes = this.listSort(billRes);
+        billRes.add(billRes.get(0));
+        billRes.remove(0);
         return billRes;
+    }
+
+    public List<Bill> listSort(List<Bill> list) {
+        Collections.sort(list, new Comparator<Bill>() {
+            @Override
+            public int compare(Bill o1, Bill o2) {
+                //升序，o1,o2反过来则降序
+                return o1.getDate().compareTo(o2.getDate());
+            }
+        });
+        return list;
     }
 
     @Override
