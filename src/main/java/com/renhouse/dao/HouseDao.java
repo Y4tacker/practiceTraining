@@ -76,7 +76,7 @@ public interface HouseDao {
      * @param landlord
      * @return List<Bill>
      */
-    public List<Bill> queryHouseByLandlordAndStatusToCreateBill_Already(String landlord);
+    public List<House> queryHouseByLandlordAndStatusToCreateBill_Already(String landlord);
 
     /**
      * 得到指定房东名下已出租房子的数量

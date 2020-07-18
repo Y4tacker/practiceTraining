@@ -154,7 +154,7 @@ public class HouseDaoImplTest {
     @Test
     public void queryHouseByLandlordAndStatusToCreateBill_Already() {
         HouseDao houseDao = new HouseDaoImpl();
-        List<Bill> t1 = houseDao.queryHouseByLandlordAndStatusToCreateBill_Already("admin");
+        List<House> t1 = houseDao.queryHouseByLandlordAndStatusToCreateBill_Already("admin");
         System.out.println(t1);
     }
 
