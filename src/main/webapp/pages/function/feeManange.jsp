@@ -38,7 +38,7 @@
 
         var houseinfo_table = table.render({
             elem: '#houseinfo-table',
-            url: 'billServlet?action=pageForFee',
+            url: 'houseServlet?action=pageForFee',
             height: 'auto',
             title: '房源信息',
             toolbar: '#toolbaradd',
@@ -63,7 +63,7 @@
             console.log(tenantName);
             table.reload('houseinfo-table', {
                 method: 'post',
-                url: 'billServlet',
+                url: 'houseServlet',
                 where: {
                     'tenantName': tenantName,
                     'action': 'pageForFee',
@@ -133,7 +133,7 @@
                         });
                         var finish = false;
                         $.ajax({
-                            url: 'billServlet',
+                            url: 'houseServlet',
                             method: 'POST',
                             async: false,
                             dataType: 'json',

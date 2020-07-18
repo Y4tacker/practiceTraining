@@ -5,6 +5,7 @@ import com.renhouse.pojo.House;
 import com.renhouse.pojo.Page;
 import com.renhouse.pojo.vo.HouseStatus;
 import com.renhouse.pojo.vo.NearDateHouse;
+import com.renhouse.pojo.vo.TenantMaintenanceFee;
 import com.renhouse.service.HouseService;
 import com.renhouse.service.impl.HouseServiceImpl;
 import com.renhouse.utils.WebUtils;
@@ -49,14 +50,14 @@ public class HouseServlet extends BaseServlet {
         Boolean status = false;
         House house = null;
         String monthRent = request.getParameter("monthRent");
-        if (monthRent == null){
+        if (monthRent == null) {
             String result = "{" +
                     "  \"code\": 1," +
                     "  \"msg\": " + "\"租金只能为数字！\"" +
                     "} ";
             response.getWriter().write(result);
-        }else {
-            try{
+        } else {
+            try {
                 Integer.parseInt(monthRent);
                 house = WebUtils.copyParamToBean(request.getParameterMap(), new House());
                 if (house.getSpace() == 0) {
@@ -68,7 +69,7 @@ public class HouseServlet extends BaseServlet {
                 } else {
                     status = true;
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 String result = "{" +
                         "  \"code\": 1," +
                         "  \"msg\": " + "\"租金只能为数字！\"" +
@@ -82,12 +83,12 @@ public class HouseServlet extends BaseServlet {
                 House houseInfo = houseService.queryHouseById(house.getId());
                 house.setLandlord(houseInfo.getLandlord());
                 house.setMaintenanceFee(houseInfo.getMaintenanceFee());
-                if ("未租赁".equals(request.getParameter("rentalStatus"))){
+                if ("未租赁".equals(request.getParameter("rentalStatus"))) {
                     house.setTenant("暂无");
                     house.setStartTime(null);
                     house.setEndTime(null);
                     house.setMaintenanceFee(null);
-                }else {
+                } else {
                     house.setTenant(request.getParameter("tenant"));
                     house.setStartTime(houseInfo.getStartTime());
                     house.setEndTime(houseInfo.getEndTime());
@@ -155,6 +156,7 @@ public class HouseServlet extends BaseServlet {
 
     /**
      * 得到已租赁房屋用户信息
+     *
      * @param req
      * @param resp
      * @throws ServletException
@@ -180,6 +182,7 @@ public class HouseServlet extends BaseServlet {
 
     /**
      * 未租赁房屋信息
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -205,6 +208,7 @@ public class HouseServlet extends BaseServlet {
 
     /**
      * 查询还有十五天到期租赁客户信息
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -236,22 +240,22 @@ public class HouseServlet extends BaseServlet {
         String address = request.getParameter("address");
         String layout = request.getParameter("layout");
         String houseName = request.getParameter("houseName");
-        if (monthRent.length()<=0 || monthRent == null){
+        if (monthRent.length() <= 0 || monthRent == null) {
             String result = "{" +
                     "  \"code\": 1," +
                     "  \"msg\": " + "\"月租金不能为空！\"" +
                     "} ";
             response.getWriter().write(result);
-        }else  if (space.length()<=0 || space==null){
+        } else if (space.length() <= 0 || space == null) {
             String result = "{" +
                     "  \"code\": 1," +
                     "  \"msg\": " + "\"面积不能为空！\"" +
                     "} ";
             response.getWriter().write(result);
-        }else {
+        } else {
             try {
                 house.setMonthRent(new BigDecimal(monthRent));
-            }catch (Exception e){
+            } catch (Exception e) {
                 String result = "{" +
                         "  \"code\": 1," +
                         "  \"msg\": " + "\"月租金只能为数字！\"" +
@@ -259,8 +263,8 @@ public class HouseServlet extends BaseServlet {
                 response.getWriter().write(result);
             }
             try {
-                house.setSpace(WebUtils.parseInt(space,0));
-            }catch (Exception e){
+                house.setSpace(WebUtils.parseInt(space, 0));
+            } catch (Exception e) {
                 String result = "{" +
                         "  \"code\": 1," +
                         "  \"msg\": " + "\"面积只能为数字！\"" +
@@ -280,15 +284,22 @@ public class HouseServlet extends BaseServlet {
 
     }
 
+    /**
+     * 维护费记录
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void release(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String endTime = request.getParameter("endTime");
-        if (endTime.length()==0 || endTime ==null){
+        if (endTime.length() == 0 || endTime == null) {
             String result = "{" +
                     "  \"code\": 1," +
                     "  \"msg\": " + "\"endTime参数不能为空！\"" +
                     "} ";
             response.getWriter().write(result);
-        }else {
+        } else {
             String id = request.getParameter("id");
             House house = houseService.queryHouseById(WebUtils.parseInt(id, 0));
             house.setEndTime(endTime);
@@ -299,6 +310,73 @@ public class HouseServlet extends BaseServlet {
                     "} ";
             response.getWriter().write(result);
         }
+    }
+
+    /**
+     * 维护费记录
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void pageForFee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //1 获取请求的参数 pageNo 和 pageSize
+        int pageNo = WebUtils.parseInt(req.getParameter("page"), 1);
+        int pageSize = WebUtils.parseInt(req.getParameter("limit"), Page.PAGE_SIZE);
+
+        String tenantName = req.getParameter("tenantName");
+
+        if (tenantName == null || tenantName.length() == 0) {
+            Page<TenantMaintenanceFee> page = houseService.pageForMaintenanceFee((String) req.getSession().getAttribute("landlordName"),
+                    pageNo, pageSize);
+            List<TenantMaintenanceFee> items = page.getItems();
+            Gson gson = new Gson();
+            String toJson = gson.toJson(items);
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": \"\"," +
+                    "  \"count\": " + page.getPageTotalCount() + "," +
+                    "  \"data\": " + toJson +
+                    "} ";
+            resp.getWriter().write(result);
+
+        } else {
+            Page<TenantMaintenanceFee> page = houseService.pageForMaintenanceFee((String) req.getSession().getAttribute("landlordName"),
+                    tenantName, pageNo, pageSize);
+            List<TenantMaintenanceFee> items = page.getItems();
+            Gson gson = new Gson();
+            String toJson = gson.toJson(items);
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": \"\"," +
+                    "  \"count\": " + page.getPageTotalCount() + "," +
+                    "  \"data\": " + toJson +
+                    "} ";
+            resp.getWriter().write(result);
+        }
+
+
+    }
+
+    protected void editFee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        House house = WebUtils.copyParamToBean(request.getParameterMap(), new House());
+        House houseInfo = houseService.queryHouseById(house.getId());
+        house.setLandlord(houseInfo.getLandlord());
+        house.setTenant(houseInfo.getTenant());
+        house.setMonthRent(houseInfo.getMonthRent());
+        house.setSpace(houseInfo.getSpace());
+        house.setRentalStatus(houseInfo.getRentalStatus());
+        house.setAddress(houseInfo.getAddress());
+        house.setLayout(houseInfo.getLayout());
+        house.setStartTime(houseInfo.getStartTime());
+        house.setEndTime(houseInfo.getEndTime());
+        house.setHouseName(houseInfo.getHouseName());
+        houseService.updateHouse(house);
+        String result = "{" +
+                "  \"code\": 0," +
+                "  \"msg\": " + "\"修改成功！\"" +
+                "} ";
+        response.getWriter().write(result);
     }
 
 }
