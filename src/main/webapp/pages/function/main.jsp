@@ -21,7 +21,7 @@
                             <i class="layui-icon layui-icon-component" style="font-size: 70px; color: #1E9FFF; "></i>
                         </div>
                         <div class="layui-col-xs1 layui-col-md9">
-                            <p style="font-size: 20px" id="rentedHouse"></p>
+                            <p style="font-size: 30px;text-align:center;" id="rentedHouse"></p>
                         </div>
                         <div class="layui-row"></div>
                         <div class="layui-row"></div>
@@ -44,7 +44,7 @@
                             <i class="layui-icon layui-icon-rmb" style="font-size: 70px; color: #1E9FFF; "></i>
                         </div>
                         <div class="layui-col-xs1 layui-col-md9">
-                            <p style="font-size: 20px" id="income"></p>
+                            <p style="font-size: 30px;text-align:center;" id="income"></p>
                         </div>
                         <div class="layui-row"></div>
                         <div class="layui-row"></div>
@@ -67,7 +67,7 @@
                             <i class="layui-icon layui-icon-fonts-del" style="font-size: 70px; color: #1E9FFF; "></i>
                         </div>
                         <div class="layui-col-xs1 layui-col-md9">
-                            <p style="font-size: 20px" id="nearDateHouse"></p>
+                            <p style="font-size: 30px;text-align:center;" id="nearDateHouse"></p>
                         </div>
                         <div class="layui-row"></div>
                         <div class="layui-row"></div>
@@ -90,7 +90,7 @@
                             <i class="layui-icon layui-icon-home" style="font-size: 70px; color: #1E9FFF; "></i>
                         </div>
                         <div class="layui-col-xs1 layui-col-md9">
-                            <p style="font-size: 20px" id="houseNumber"></p>
+                            <p style="font-size: 30px;text-align:center;" id="houseNumber"></p>
                         </div>
                         <div class="layui-row"></div>
                         <div class="layui-row"></div>
@@ -113,7 +113,7 @@
                             <i class="layui-icon layui-icon-form" style="font-size: 70px; color: #1E9FFF; "></i>
                         </div>
                         <div class="layui-col-xs1 layui-col-md9">
-                            <p style="font-size: 20px" id="order"></p>
+                            <p style="font-size: 30px;text-align:center;" id="order"></p>
                         </div>
                         <div class="layui-row"></div>
                         <div class="layui-row"></div>
@@ -129,13 +129,25 @@
         var $=layui.jquery;
         var rentedHouse;
         $.ajax({
-
-        })
-        $('#rentedHouse').text('10');
-        $('#income').text('10000');
-        $('#nearDateHouse').text('10000');
-        $('#houseNumber').text('10000');
-        $('#order').text('10000');
+            url: 'utilsServlet',
+            method: 'POST',
+            async: false,
+            dataType: 'json',
+            data: {
+                'action': 'indexInfo',
+            },
+            success: function (data) {
+                let temp = eval(data);
+                $('#rentedHouse').text(temp.alreadyCount);
+                $('#income').text(temp.curGet);
+                $('#nearDateHouse').text(temp.nearDateCount);
+                $('#houseNumber').text(temp.houseCount);
+                $('#order').text(temp.orderCount);
+            },
+            error: function () {
+                layer.msg("数据异常请刷新", {icon: 5});
+            }
+        });
     })
 </script>
 </body>

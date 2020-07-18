@@ -173,4 +173,10 @@ public class HouseDaoImplTest {
             System.out.println(houseStatus);
         }
     }
+
+    @Test
+    public void queryAllHouseCount() {
+        HouseDao houseDao = new HouseDaoImpl();
+        System.out.println(houseDao.queryAllHouseCount("admin"));
+    }
 }

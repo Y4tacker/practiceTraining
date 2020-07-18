@@ -32,11 +32,9 @@ public class BillServlet extends BaseServlet {
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
         List<Bill> billRes = billService.calculateBill(landlord, startDate, endDate);
-        System.out.println(billRes);
 
         try {
             Page<Bill> page = billService.pageForBill(landlord, pageNo, pageSize, billRes);
-            System.out.println(page);
             List<Bill> items = page.getItems();
             Gson gson = new Gson();
             String toJson = gson.toJson(items);

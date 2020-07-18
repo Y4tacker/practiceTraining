@@ -180,4 +180,6 @@ public interface HouseDao {
 
     public List<NearDateHouse> queryForNearDateItems(int begin, int  pageSize, String username);
 
+    public Integer queryAllHouseCount(String username);
+
 }
