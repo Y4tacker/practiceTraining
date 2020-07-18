@@ -185,7 +185,7 @@
         </div>
      
 </body>
-<script>
+    <script>
         function timenow() {
             var myDate = new Date();
             var times = myDate.toLocaleString( );
