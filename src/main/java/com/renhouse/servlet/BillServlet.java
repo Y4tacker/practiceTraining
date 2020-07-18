@@ -28,13 +28,15 @@ public class BillServlet extends BaseServlet {
     protected void getBill(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int pageNo = WebUtils.parseInt(request.getParameter("page"), 1);
         int pageSize = WebUtils.parseInt(request.getParameter("limit"), Page.PAGE_SIZE);
-        String landlord = request.getParameter("landlordName");
+        String landlord = (String) request.getSession().getAttribute("landlordName");
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
         List<Bill> billRes = billService.calculateBill(landlord, startDate, endDate);
+        System.out.println(billRes);
 
         try {
             Page<Bill> page = billService.pageForBill(landlord, pageNo, pageSize, billRes);
+            System.out.println(page);
             List<Bill> items = page.getItems();
             Gson gson = new Gson();
             String toJson = gson.toJson(items);
