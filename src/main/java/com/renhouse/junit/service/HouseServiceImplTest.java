@@ -83,4 +83,13 @@ public class HouseServiceImplTest {
             System.out.println(items);
         }
     }
+
+    @Test
+    public void testPageForRentedHouse() {
+        Page<HouseStatus> admin = houseService.pageForRentedHouse("admin", "杨文豪",1, 15);
+        List<HouseStatus> items = admin.getItems();
+        for (HouseStatus houseStatus: items) {
+            System.out.println(houseStatus);
+        }
+    }
 }
