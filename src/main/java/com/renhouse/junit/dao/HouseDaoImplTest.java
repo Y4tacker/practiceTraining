@@ -154,7 +154,23 @@ public class HouseDaoImplTest {
     @Test
     public void queryHouseByLandlordAndStatusToCreateBill_Already() {
         HouseDao houseDao = new HouseDaoImpl();
-        List<Bill> t1 = houseDao.queryHouseByLandlordAndStatusToCreateBill_Already("admin");
+        List<House> t1 = houseDao.queryHouseByLandlordAndStatusToCreateBill_Already("admin");
         System.out.println(t1);
+    }
+
+    @Test
+    public void testQueryHouseByLandlordAndStatusAlreadyCount() {
+        HouseDao houseDao = new HouseDaoImpl();
+        System.out.println(houseDao.queryHouseByLandlordAndStatusAlreadyCount("admin","杨文豪"));
+    }
+
+    @Test
+    public void queryForPageItemsByRentedStatus() {
+        HouseDao houseDao = new HouseDaoImpl();
+        List<HouseStatus> houseStatuses = houseDao.queryForPageItemsByRentedStatus(0, 15, "admin", "闵海");
+        for (HouseStatus houseStatus: houseStatuses
+             ) {
+            System.out.println(houseStatus);
+        }
     }
 }

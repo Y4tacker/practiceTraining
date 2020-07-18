@@ -51,7 +51,7 @@
                     {field: 'address', title: '地址'},
                     {field: 'space', title: '面积'},
                     {field: 'monthRent', title: '月租金'},
-                    {field: 'rentalStatus', title: '租赁状态'},
+                    {field: 'rentalStatus',filter:true, title: '租赁状态'},
                     {field: 'operation', fixed:'right',title: '操作', toolbar: '#operation', width: 120}
                 ]
             ]

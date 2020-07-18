@@ -8,6 +8,7 @@
     <title>成都市房屋租赁管理系统</title>
     <script src="static/script/sweetalert.min.js"></script>
     <script src="static/script/md5.js"></script>
+    <script src="static/script/notice.js"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -17,6 +18,8 @@
         <div class="layui-logo">房屋租赁管理系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item"><a href="javascript:;" onclick="showNotice();" >系统公告</a></li>
+            <li clas
             <li class="layui-nav-item lockcms" pc>
                 <a href="javascript:;"><i class="seraph icon-lock"></i><cite>锁屏</cite></a>
             </li>
@@ -43,7 +46,6 @@
                 <li class="layui-nav-item leftdaohang" mytitle="预定订单" data-url="pages/function/ordermanage.jsp"><a data-type="tabAdd" data-id="1">预定订单</a></li>
                 <li class="layui-nav-item leftdaohang" mytitle="统计报表" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="2">统计报表</a></li>
                 <li class="layui-nav-item leftdaohang" mytitle="我的账单" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="3">我的账单</a></li>
-                <li class="layui-nav-item leftdaohang" mytitle="系统公告" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="4">系统公告</a></li>
                 <li class="layui-nav-item" mytitle="快捷操作" >
                     <a href="javascript:;">快捷操作</a>
                     <dl class="layui-nav-child">
