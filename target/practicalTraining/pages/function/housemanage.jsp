@@ -44,6 +44,7 @@
             defaultToolbar: ['filter', 'print', 'exports'],
             cols: [
                 [
+                    {type: 'numbers', fixed: 'left', rowspan: 2, title: "序号"},
                     {field: 'id', title: "ID", sort: true,},
                     {field: 'tenant', title: '租赁人', sort: true,},
                     {field: 'houseName', title: '房屋名', sort: true,},
