@@ -65,4 +65,8 @@ public class TimeUtilsTest {
         String t1 = TimeUtils.getFormatDateAdd("2000-1-1",31);
         System.out.println(t1);
     }
+    @Test
+    public void getIntervalDays(){
+        System.out.println(TimeUtils.getIntervalDays("2000-1-1","2000-2-1"));
+    }
 }
