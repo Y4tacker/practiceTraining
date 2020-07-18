@@ -76,6 +76,15 @@
     <url-pattern>/utilsServlet</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>UploadServlet</servlet-name>
+    <servlet-class>com.renhouse.servlet.UploadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadServlet</servlet-name>
+    <url-pattern>/uploadServlet</url-pattern>
+  </servlet-mapping>
+
   <!--监听器  -->
   <listener>
     <listener-class>com.renhouse.lisentner.OnlineNumberListener</listener-class>
