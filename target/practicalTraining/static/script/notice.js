@@ -12,7 +12,10 @@ function showNotice(){
             var btn = layero.find('.layui-layer-btn');
             btn.css('text-align', 'center');
             btn.on("click",function(){
-
+                layer.tips('谢谢配合！', 'body > div.layui-layout.layui-layout-admin > div.layui-header > ul > li.layui-nav-item.layui-this > a', {
+                    tips: 3,
+                    time : 1000
+                });
             });
         },
         cancel: function(index, layero){
