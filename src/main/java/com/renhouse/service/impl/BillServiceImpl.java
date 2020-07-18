@@ -28,8 +28,8 @@ public class BillServiceImpl implements BillService {
 //        HashMap<String, BigDecimal> res = new HashMap<String, BigDecimal>();
         List<Bill> billRes = new LinkedList<Bill>();
 
-        startDate += "-1";
-        endDate += "-1";
+        startDate += "-5";
+        endDate += "-5";
 
         if (startDate.compareTo(endDate) > 0) { //起始日期大于结束日期则返回错误
             return null;
@@ -65,7 +65,7 @@ public class BillServiceImpl implements BillService {
             while (intervalMonths-- > 0) {
                 BigDecimal sum = houseItem.getMonthRent();
                 if (houseItem.getMaintenanceFee() != null) {
-                    sum.subtract(houseItem.getMaintenanceFee());
+                    sum=sum.subtract(houseItem.getMaintenanceFee());
                 }
                 String key = year + "-" + month;
 
@@ -117,8 +117,6 @@ public class BillServiceImpl implements BillService {
 
         //排序
         billRes = this.listSort(billRes);
-        billRes.add(billRes.get(0));
-        billRes.remove(0);
         return billRes;
     }
 
@@ -127,7 +125,7 @@ public class BillServiceImpl implements BillService {
             @Override
             public int compare(Bill o1, Bill o2) {
                 //升序，o1,o2反过来则降序
-                return o1.getDate().compareTo(o2.getDate());
+                return (int) TimeUtils.getIntervalDays(o2.getDate()+"-1",o1.getDate()+"-1");
             }
         });
         return list;

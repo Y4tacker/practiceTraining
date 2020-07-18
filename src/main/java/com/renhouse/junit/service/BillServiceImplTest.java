@@ -12,7 +12,7 @@ public class BillServiceImplTest {
     @org.junit.Test
     public void calculateBill() {
         BillServiceImpl test = new BillServiceImpl();
-        List<Bill> t1 = test.calculateBill("admin", "2020-1", "2022-3");
+        List<Bill> t1 = test.calculateBill("admin", "2020-1", "2020-10");
         System.out.println(t1);
     }
 }
