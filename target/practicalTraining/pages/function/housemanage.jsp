@@ -44,7 +44,6 @@
             defaultToolbar: ['filter', 'print', 'exports'],
             cols: [
                 [
-                    {type: 'numbers', fixed: 'left', rowspan: 2, title: "序号"},
                     {field: 'id', title: "ID", sort: true,},
                     {field: 'tenant', title: '租赁人', sort: true,},
                     {field: 'houseName', title: '房屋名', sort: true,},
@@ -52,7 +51,7 @@
                     {field: 'address', title: '地址'},
                     {field: 'space', title: '面积'},
                     {field: 'monthRent', title: '月租金'},
-                    {field: 'rentalStatus', title: '租赁状态'},
+                    {field: 'rentalStatus',filter:true, title: '租赁状态'},
                     {field: 'operation', fixed:'right',title: '操作', toolbar: '#operation', width: 120}
                 ]
             ]
