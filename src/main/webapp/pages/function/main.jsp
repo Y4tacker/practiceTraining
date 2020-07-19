@@ -3,10 +3,7 @@
 <head>
     <title>主页</title>
     <%@include file="../common/head.jsp"%>
-    <script src="../../static/script/echarts.min.js"></script>
-    <script>
-        var month=[];
-    </script>
+    <script src="static/script/echarts.min.js"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-fluid">
@@ -157,7 +154,7 @@
 </script>
 <div id="box" style="width: 800px;height: 300px;"></div>
 <script>
-
+    let month = [];
     layui.use(['jquery','layer'],function () {
         var $=layui.jquery;
         $.ajax({
@@ -171,8 +168,11 @@
             success: function (data) {
                 let temp = eval(data);
                 for(var i = 0;i<=11;i++){
-                    month[i]=temp.gson['data'][i]['toatal']
-                }
+                    month[i]=0;
+                };
+                for(var i = 0;i<temp.data.length;i++){
+                    month[parseInt(temp.data[i].date.split('-')[1])]=temp.data[i].total;
+                };
             },
             error: function () {
                 layer.msg("数据异常请刷新", {icon: 5});
@@ -198,11 +198,13 @@
         xAxis:{
             data:["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]
         },
-        yAxis:{},
+        yAxis:{
+            data:[1000,2000,3000,4000,5000]
+        },
         series:[{
             name:'收入',
             type:'line',
-            data:[month[0],month[1],month[2],month[3],month[4],month[5],month[6],month[7],month[8],month[9],month[10],month[11]]
+            data:[month[0],month[1],month[2],month[3],month[4],month[5],month[6],month[7],month[8],month[9],month[10],month[11]],
         }]
     };
     myChart.setOption(option);
