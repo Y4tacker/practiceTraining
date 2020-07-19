@@ -28,10 +28,10 @@ public class BillServiceImpl implements BillService {
 //        HashMap<String, BigDecimal> res = new HashMap<String, BigDecimal>();
         List<Bill> billRes = new LinkedList<Bill>();
 
-        startDate += "-5";
-        endDate += "-5";
+        startDate += "-1";
+        endDate += "-28";
 
-        if (startDate.compareTo(endDate) > 0) { //起始日期大于结束日期则返回错误
+        if (TimeUtils.getIntervalDays(startDate, endDate) < 0) { //起始日期大于结束日期则返回错误
             return null;
         }
 
@@ -42,14 +42,20 @@ public class BillServiceImpl implements BillService {
             House houseItem = house.get(i);
             String st = houseItem.getStartTime();
             String et = houseItem.getEndTime();
-            if (st.compareTo(startDate) < 0) { //查询的开始日期比租房的开始日期晚
+
+            if (TimeUtils.getIntervalDays(st, endDate) < 0) { //房屋开租日期晚于查询截止日期则跳过
+                continue;
+            }
+
+            if (TimeUtils.getIntervalDays(st, startDate) > 0) { //查询的开始日期比租房的开始日期晚
                 st = startDate;
             }
-            if (et.compareTo(endDate) > 0) { //查询的终止日期比租房的终止日期早
+
+            if (TimeUtils.getIntervalDays(et, endDate) < 0) { //查询的终止日期比租房的终止日期早
                 et = endDate;
             }
 
-            int intervalDays = (int) TimeUtils.getIntervalDays(st, et);
+            int intervalDays = (int) TimeUtils.getIntervalDays(st, et) + 1;
             int intervalMonths = intervalDays / 30;
 
             if (intervalDays % 30 != 0) {
@@ -65,11 +71,11 @@ public class BillServiceImpl implements BillService {
             while (intervalMonths-- > 0) {
                 BigDecimal sum = houseItem.getMonthRent();
                 if (houseItem.getMaintenanceFee() != null) {
-                    sum=sum.subtract(houseItem.getMaintenanceFee());
+                    sum = sum.subtract(houseItem.getMaintenanceFee());
                 }
                 String key = year + "-" + month;
 
-                if (!sum.equals(0)) { //添加
+                if (!sum.equals(BigDecimal.ZERO)) { //添加
                     int billResSize = billRes.size();
 
                     if (billResSize == 0) { //表中没有任何元素
@@ -78,6 +84,11 @@ public class BillServiceImpl implements BillService {
                             billItem.setMaintenanceFee(houseItem.getMaintenanceFee());
                         }
                         billRes.add(billItem);
+                        month++;
+                        if (month == 13) {
+                            month = 1;
+                            year++;
+                        }
                         continue;
                     }
 
@@ -125,7 +136,7 @@ public class BillServiceImpl implements BillService {
             @Override
             public int compare(Bill o1, Bill o2) {
                 //升序，o1,o2反过来则降序
-                return (int) TimeUtils.getIntervalDays(o2.getDate()+"-1",o1.getDate()+"-1");
+                return (int) TimeUtils.getIntervalDays(o2.getDate() + "-1", o1.getDate() + "-1");
             }
         });
         return list;

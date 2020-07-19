@@ -67,6 +67,6 @@ public class TimeUtilsTest {
     }
     @Test
     public void getIntervalDays(){
-        System.out.println(TimeUtils.getIntervalDays("2000-1-1","2000-2-1"));
+        System.out.println(TimeUtils.getIntervalDays("2000-1-1","2000-1-30"));
     }
 }
