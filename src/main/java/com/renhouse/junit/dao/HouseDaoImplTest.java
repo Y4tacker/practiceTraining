@@ -189,6 +189,8 @@ public class HouseDaoImplTest {
 
     @Test
     public void queryMonthRentedHouseByLandlord() {
-
+        HouseDao houseDao = new HouseDaoImpl();
+        Integer integer = houseDao.queryMonthRentedHouseByLandlord("admin", "2020", "3");
+        System.out.println(integer);
     }
 }
