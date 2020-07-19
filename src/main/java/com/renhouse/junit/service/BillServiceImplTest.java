@@ -7,6 +7,7 @@ import com.renhouse.utils.TimeUtils;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,5 +47,24 @@ public class BillServiceImplTest {
         List<Bill> t1 = test.calculateBill("admin", "2020-01", "2020-10");
         Page<Bill> admin = test.pageForBill("admin", 0, 15, t1);
         System.out.println(admin);
+    }
+
+    @Test
+    public void  chaji(){
+        ArrayList objArray = new ArrayList();
+        ArrayList objArray2 = new ArrayList();
+        objArray2.add(0,"common1");
+        objArray2.add(1,"common2");
+        objArray2.add(2,"notcommon");
+        objArray2.add(3,"notcommon1");
+        objArray.add(0,"common1");
+        objArray.add(1,"common2");
+        objArray.add(2,"notcommon2");
+        System.out.println("array1 的元素" +objArray);
+        System.out.println("array2 的元素" +objArray2);
+        objArray.removeAll(objArray2);
+        System.out.println("array1 与 array2 数组差集为："+objArray);
+//        int[] month = [1,2,3,4,5,6,7,8,9,10,11,12];
+
     }
 }

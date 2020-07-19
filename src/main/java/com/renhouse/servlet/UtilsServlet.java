@@ -100,6 +100,7 @@ public class UtilsServlet extends BaseServlet {
                 }
             }
         }
+        System.out.println(curGet);
         Map<Object,String> map = new HashMap<>();
         map.put("alreadyCount", String.valueOf(statusAlreadyCount.intValue()));
         map.put("nearDateCount", String.valueOf(nearDateCount.intValue()));
@@ -128,6 +129,7 @@ public class UtilsServlet extends BaseServlet {
         int pageNo = WebUtils.parseInt(request.getParameter("page"), 1);
         int pageSize = WebUtils.parseInt(request.getParameter("limit"), Page.PAGE_SIZE);
         String landlord = (String) request.getSession().getAttribute("landlordName");
+        String landlordName = "admin";
         String currentDateStr = TimeUtils.getCurrentDateStr();
         String[] split = currentDateStr.split("-");
         String curYear = split[0];
