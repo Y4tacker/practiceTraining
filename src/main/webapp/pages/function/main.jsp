@@ -125,7 +125,7 @@
         </div>
     </div>
 </div>
-
+<div id="box" style="width: 800px;height: 300px;"></div>
 <script>
     layui.use(['jquery','layer'],function () {
         var $=layui.jquery;
@@ -152,9 +152,9 @@
         });
     })
 </script>
-<div id="box" style="width: 800px;height: 300px;"></div>
-<script>
-    let month = [];
+<script type="text/javascript">
+    var month=new Array(12);
+    var jsonstr = [];
     layui.use(['jquery','layer'],function () {
         var $=layui.jquery;
         $.ajax({
@@ -173,13 +173,24 @@
                 for(var i = 0;i<temp.data.length;i++){
                     month[parseInt(temp.data[i].date.split('-')[1])]=temp.data[i].total;
                 };
+
+                for(var j=0;j<12;j++){
+                    var json = {};
+                    json.name = j+1+'月';
+                    json.value = month[j];
+                    jsonstr.push(json);
+                };
+                console.log(month[4]);
             },
             error: function () {
                 layer.msg("数据异常请刷新", {icon: 5});
             }
         });
-    })
-    var myChart=echarts.init(document.getElementById("box"));
+    });
+</script>
+<script type="text/javascript">
+    console.log(eval(jsonstr));
+    console.log(month[4]);
     var option={
         title:{
             text:'月收入账单变化图'
@@ -199,14 +210,14 @@
             data:["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]
         },
         yAxis:{
-            data:[1000,2000,3000,4000,5000]
         },
         series:[{
             name:'收入',
             type:'line',
-            data:[month[0],month[1],month[2],month[3],month[4],month[5],month[6],month[7],month[8],month[9],month[10],month[11]],
+            data:jsonstr,
         }]
     };
+    var myChart=echarts.init(document.getElementById("box"));
     myChart.setOption(option);
 </script>
 </body>
