@@ -11,7 +11,7 @@
     <%@include file="../common/head.jsp"%>
     <title>预定订单管理</title>
 </head>
-<body>
+<body bgcolor="white">
 <script type="text/html" id="toolbaradd">
     <div class="layui-btn-container">
         <div class="layui-inline" lay-event="add"><i class="layui-icon layui-icon-add-1"></i></div>

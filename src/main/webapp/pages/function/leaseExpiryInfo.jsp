@@ -14,7 +14,7 @@
         div.layui-unselect{width:300px;pxvertical-align: middle;float:left;} div.layui-form-select{width:300px;pxvertical-align: middle;float:left;} div.layui-form-selected{width:300px;pxvertical-align: middle;float:left;}
     </style>
 </head>
-<body>
+<body bgcolor="white">
 <table class="layui-hide" id="houseinfo-table" lay-filter="houseinfo-table"></table>
 <script type="text/html" id="operation">
     <a class="layui-btn layui-btn-xs" lay-event="renewal">续租</a>

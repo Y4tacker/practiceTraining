@@ -14,7 +14,7 @@
         div.layui-unselect{width:300px;pxvertical-align: middle;float:left;} div.layui-form-select{width:300px;pxvertical-align: middle;float:left;} div.layui-form-selected{width:300px;pxvertical-align: middle;float:left;}
     </style>
 </head>
-<body>
+<body bgcolor="white">
 <script type="text/html" id="toolbaradd">
     <div style="text-align: left;float:top" id='searchgr'>
         <div class="layui-inline">

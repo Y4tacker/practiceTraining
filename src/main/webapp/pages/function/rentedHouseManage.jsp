@@ -11,7 +11,7 @@
     <%@include file="../common/head.jsp"%>
     <title>预定订单管理</title>
 </head>
-<body>
+<body bgcolor="white">
 <table class="layui-hide" id="houseinfo-table" lay-filter="houseinfo-table"></table>
 <script type="text/html" id="operation">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
