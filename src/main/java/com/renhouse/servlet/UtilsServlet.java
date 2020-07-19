@@ -63,6 +63,7 @@ public class UtilsServlet extends BaseServlet {
      */
     protected void indexInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String landlordName = (String) request.getSession().getAttribute("landlordName");
+//        String landlordName = "admin";
         //已租赁房屋数量
         HouseDao houseDao = new HouseDaoImpl();
         OrderDao orderDao = new OrderDaoImpl();
@@ -80,7 +81,7 @@ public class UtilsServlet extends BaseServlet {
         String[] split = currentDateStr.split("-");
         String curYear = split[0];
         String startDate = curYear+"-01";
-        String endDate = curYear + "12";
+        String endDate = curYear + "-12";
         List<Bill> t1 = billService.calculateBill("admin", startDate, endDate);
         if (split[1].substring(0,1).equals("0")){
             String month = split[1].substring(1,2);

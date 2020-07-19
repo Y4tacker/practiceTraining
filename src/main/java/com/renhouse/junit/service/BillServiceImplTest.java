@@ -19,7 +19,7 @@ public class BillServiceImplTest {
         String[] split = currentDateStr.split("-");
         String curYear = split[0];
         String startDate = curYear+"-01";
-        String endDate = curYear + "12";
+        String endDate = curYear + "-12";
         List<Bill> t1 = test.calculateBill("admin", startDate, endDate);
         if (split[1].substring(0,1).equals("0")){
             String month = split[1].substring(1,2);

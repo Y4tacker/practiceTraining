@@ -199,5 +199,7 @@ public interface HouseDao {
      */
     public Integer queryAllHouseCount(String username);
 
+    public Integer queryMonthRentedHouseByLandlord(String username, String year,String month);
+
 
 }
