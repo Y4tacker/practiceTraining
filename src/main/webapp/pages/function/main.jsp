@@ -125,8 +125,10 @@
         </div>
     </div>
 </div>
-<div id="box" style="width: 600px;height: 300px;float:left;"></div>
-<div id="box2" style="width: 600px;height: 300px;float:right;"></div>
+<div class="layui-fluid layui-row" style="vertical-align: middle;">
+    <div id="box" style="width: 800px;height: 400px;float:left;"></div>
+    <div id="box2" style="width: 800px;height: 400px;float:right;"></div>
+</div>
 <script>
     layui.use(['jquery','layer'],function () {
         var $=layui.jquery;
