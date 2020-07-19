@@ -43,7 +43,7 @@ public class BillServiceImplTest {
     @Test
     public void pageForBill() {
         BillServiceImpl test = new BillServiceImpl();
-        List<Bill> t1 = test.calculateBill("admin", "2020-1", "2020-10");
+        List<Bill> t1 = test.calculateBill("admin", "2020-01", "2020-10");
         Page<Bill> admin = test.pageForBill("admin", 0, 15, t1);
         System.out.println(admin);
     }
