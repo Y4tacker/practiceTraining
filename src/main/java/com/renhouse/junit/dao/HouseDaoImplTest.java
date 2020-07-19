@@ -179,4 +179,11 @@ public class HouseDaoImplTest {
         HouseDao houseDao = new HouseDaoImpl();
         System.out.println(houseDao.queryAllHouseCount("admin"));
     }
+
+    @Test
+    public void testQueryHouseByLandlordAndStatusToCreateBill_Already() {
+        HouseDao houseDao = new HouseDaoImpl();
+        List<House> houses = houseDao.queryHouseByLandlordAndStatusToCreateBill_Already("admin");
+        System.out.println(houses);
+    }
 }
