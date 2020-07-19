@@ -48,7 +48,7 @@ public class BillServlet extends BaseServlet {
         } catch (Exception e) {
             String result = "{" +
                     "  \"code\": 1," +
-                    "  \"msg\": " + "\"查询失败！\"" +
+                    "  \"msg\": " + "\"尚未输入查询范围或查询范围内没有记录\"" +
                     "} ";
             response.getWriter().write(result);
         }
