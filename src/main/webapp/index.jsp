@@ -167,8 +167,8 @@
           <p>
              <h1 style="color:#fff;font-size:55px;font-family:'幼圆';font-weight:900;"><strong>成都市房屋租赁管理系统</strong>
              </h1>
-           <p style="font-size:3vh;color:#fff;">买房子请找我谢谢</p>
-            <p style="font-size:3vh;color:#fff;">不买就不爱我</p>
+           <p style="font-size:3vh;color:#fff;">一流的项目团队</p>
+            <p style="font-size:3vh;color:#fff;">为您带来一流的体验</p>
 
            <p style="line-height:3;">
            <a style="border-radius:10px;padding:7px 30px;color:#fff;border-style:solid;text-decoration:none;" href="${pageContext.request.contextPath}/pages/user/login.jsp">登录</a>
@@ -291,20 +291,20 @@
                     var re = "QQ：1078xxxxxx <br/> Wechat: WAOWAOWAO";
                     reply(re);
                 }
-                else if(textContent.indexOf("跪求豪哥哥联系方式") != "-1"){
-                    var re = "打钱就给";
+                else if(textContent.indexOf("你们产品优势在于何处") != "-1"){
+                    var re = "成员来自985高校、一流的建设、一流的项目体验";
                     reply(re);
                 }
-                else if(textContent.indexOf("豪哥哥可爱么") != "-1"){
-                    var re = "菊花送上";
+                else if(textContent.indexOf("你们平台费用介绍") != "-1"){
+                    var re = "一年仅仅需要您所有收入的0.35%";
                     reply(re);
                 }
-                else if(textContent.indexOf("豪哥哥可爱4") != "-1"){
-                    var re = "还用问！豪哥哥可爱";
+                else if(textContent.indexOf("有无优惠政策") != "-1"){
+                    var re = "来了来了！新用户首单前两年立减少60%平台使用费";
                     reply(re);
                 }
                 else{
-                    var re = "请输入正确的关键字：<br> 1.在线客服联系方式是多少<br> 2.跪求豪哥哥联系方式 <br>3.豪哥哥可爱3<br> 4.豪哥哥可爱4";
+                    var re = "请输入正确的关键字：<br> 1.在线客服联系方式是多少<br> 2.你们产品优势在于何处？ <br>3.你们平台费用介绍？<br> 4.有无优惠政策？";
                     reply(re);
                 }
 
