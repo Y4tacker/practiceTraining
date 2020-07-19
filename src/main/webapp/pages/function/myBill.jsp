@@ -50,7 +50,7 @@
 
         var houseinfo_table = table.render({
             elem: '#houseinfo-table',
-            url: 'billServlet?action=getBill&startDate=2019-1&endDate=2019-1',
+            url: 'billServlet?action=getBill&startDate=2019-01&endDate=2019-01',
             height: 'auto',
             title: '账单信息',
             toolbar: '#toolbaradd',
