@@ -31,7 +31,7 @@
             title: '订单信息',
             toolbar: 'true',
             page: true,
-            limit:15,
+            limit:10,
             cols: [
                 [
                     {field: 'tenantName', title: '客户账户', sort: true,},

@@ -58,7 +58,7 @@ public interface HouseService {
     public List<HouseStatus> queryHouseByLandlordAndStatus_Already(String landlord);
 
     /**
-     * 根据房东名字查询已经租赁的客户信息
+     * 分页模型-根据房东名字查询已经租赁的客户信息
      * @param username
      * @param pageNo
      * @param pageSize

@@ -242,7 +242,6 @@ public class BillServiceImpl implements BillService {
         }
         // 设置当前页数据
         page.setItems(pageItems);
-
         return page;
     }
 }
