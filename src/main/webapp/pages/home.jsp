@@ -45,7 +45,7 @@
                 <li class="layui-nav-item leftdaohang" mytitle="房产管理" data-url="pages/function/housemanage.jsp"><a data-type="tabAdd" data-id="0">房产管理</a></li>
                 <li class="layui-nav-item leftdaohang" mytitle="预定订单" data-url="pages/function/ordermanage.jsp"><a data-type="tabAdd" data-id="1">预定订单</a></li>
                 <li class="layui-nav-item leftdaohang" mytitle="统计报表" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="2">统计报表</a></li>
-                <li class="layui-nav-item leftdaohang" mytitle="我的账单" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="3">我的账单</a></li>
+                <li class="layui-nav-item leftdaohang" mytitle="我的账单" data-url="pages/function/myBill.jsp"><a data-type="tabAdd" data-id="3">我的账单</a></li>
                 <li class="layui-nav-item" mytitle="快捷操作" >
                     <a href="javascript:;">快捷操作</a>
                     <dl class="layui-nav-child">

@@ -15,10 +15,31 @@
     </style>
 </head>
 <body>
-<table class="layui-hide" id="houseinfo-table" lay-filter="houseinfo-table"></table>
-<script type="text/html" id="operation">
-    <a class="layui-btn layui-btn-xs" lay-event="search">查询</a>
-</script>
+<div class="layui-card">
+    <div class="layui-card-header">
+        <div style="text-align: left;float:top" id='searchgr'>
+            <div class="layui-inline">
+                <div class="layui-row">
+                    <div class="layui-col-md6">
+                        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">起始时间</label>
+                        <input class="layui-input" name="searchtxtst" id="searchtxtst" autocomplete="off" style="width: 200px" placeholder="输入格式：xxxx-xx">
+                    </div>
+                    <div class="layui-col-md6">
+                        <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; float: left;">结束时间</label>
+                        <input class="layui-input" name="searchtxten" id="searchtxten" autocomplete="off" style="width: 200px" placeholder="输入格式：xxxx-xx">
+                    </div>
+                </div>
+            </div>
+            <button class="layui-btn" data-type="reload" id="do_search"><i class="layui-icon layui-icon-search"></i></button>
+        </div>
+    </div>
+    <div class="layui-card-body">
+        <table class="layui-table" id="houseinfo-table" lay-filter="houseinfo-table"></table>
+        <script type="text/html" id="operation">
+            <a class="layui-btn layui-btn-xs" lay-event="search">查询</a>
+        </script>
+    </div>
+</div>
 <script type="text/javascript">
     layui.use(['form', 'element', 'jquery', 'table', 'layer'], function () {
         var element = layui.element
@@ -29,7 +50,7 @@
 
         var houseinfo_table = table.render({
             elem: '#houseinfo-table',
-            url: 'BillServlet?action=getBill',
+            url: 'billServlet?action=getBill&startDate=2019-01&endDate=2019-01',
             height: 'auto',
             title: '账单信息',
             toolbar: '#toolbaradd',
@@ -46,20 +67,21 @@
                 ]
             ]
         });
-
-        table.on('tool(houseinfo-table)', function (obj) {
-            var house = obj.data;
-            console.log(house);
-            /*if (obj.event === 'search') {
-                $('#form_houseinfo').find('#id_edit').val(house.id);
-                $('#form_houseinfo').find('#landlord_edit').val(house.landlord);
-                $('#form_houseinfo').find('#monthRent_edit').val(house.monthRent);
-                $('#form_houseinfo').find('#space_edit').val(house.space);
-                $('#form_houseinfo').find('#address_edit').val(house.address);
-                $('#form_houseinfo').find('#layout_edit').val(house.layout);
-                $('#form_houseinfo').find('#houseName_edit').val(house.houseName);
-                form.render();
-            }*/
+        $('body').on('click', '#do_search', function(){
+            var startDate = $('#searchtxtst').val();
+            var endDate = $('#searchtxten').val();
+            table.reload('houseinfo-table', {
+                method: 'post',
+                url: 'billServlet',
+                where: {
+                    'startDate': startDate,
+                    'endDate': endDate,
+                    'action': 'getBill',
+                },
+                page: {
+                    curr: 1
+                }
+            });
         });
     });
 </script>
