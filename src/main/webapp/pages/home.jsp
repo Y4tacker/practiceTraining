@@ -41,7 +41,7 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item leftdaohang" mytitle="主页" data-url="pages/function/main.jsp"><a data-type="tabAdd" data-id="2">主页</a></li>
+                <li class="layui-nav-item leftdaohang" mytitle="主页" data-url="pages/function/main.jsp" id="mainpage"><a data-type="tabAdd" data-id="2">主页</a></li>
                 <li class="layui-nav-item leftdaohang" mytitle="房产管理" data-url="pages/function/housemanage.jsp"><a data-type="tabAdd" data-id="0">房产管理</a></li>
                 <li class="layui-nav-item leftdaohang" mytitle="预定订单" data-url="pages/function/ordermanage.jsp"><a data-type="tabAdd" data-id="1">预定订单</a></li>
                 <li class="layui-nav-item leftdaohang" mytitle="我的账单" data-url="pages/function/myBill.jsp"><a data-type="tabAdd" data-id="3">我的账单</a></li>
@@ -170,6 +170,7 @@
             var othis = $(this);
             active[type] ? active[type].call(this, othis) : '';
         });
+        document.querySelector('body > div.layui-layout.layui-layout-admin > div.layui-side.layui-bg-black > div > ul > li:nth-child(1) > a').click();
         var activee = {
             tabAdd: function () {
                 //新增一个Tab项
