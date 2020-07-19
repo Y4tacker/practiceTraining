@@ -176,8 +176,28 @@ public interface HouseDao {
      */
     public List<House> queryForUnRentedHouseItems(int begin,int  pageSize,String username);
 
+    /**
+     * 查询还有十五天到期房屋数量
+     * @param username
+     * @return
+     */
     public Integer queryForNearDateCount(String username);
 
+    /**
+     *  分页模型-查询还有十五天到期房屋数量
+     * @param begin
+     * @param pageSize
+     * @param username
+     * @return
+     */
     public List<NearDateHouse> queryForNearDateItems(int begin, int  pageSize, String username);
+
+    /**
+     * 查询所有房屋数量
+     * @param username
+     * @return
+     */
+    public Integer queryAllHouseCount(String username);
+
 
 }

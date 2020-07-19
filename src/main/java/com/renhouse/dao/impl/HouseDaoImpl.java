@@ -74,7 +74,7 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
 
     @Override
     public List<House> queryHouseByLandlordAndStatusToCreateBill_Already(String landlord) {
-        String sql = "select tenant,monthRent,startTime,endTime,houseName,maintenanceFee from t_house where landlord = ? and startTime is not NULL and endTime is not null and rentalStatus = '已租赁'";
+        String sql = "select id,landlord,tenant,monthRent,startTime,endTime,houseName,maintenanceFee from t_house where landlord = ? and startTime is not NULL and endTime is not null and rentalStatus = '已租赁'";
         return queryForList(House.class, sql, landlord);
     }
 
@@ -161,5 +161,12 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
     public List<NearDateHouse> queryForNearDateItems(int begin, int pageSize, String username) {
         String sql = "select t_house.id,endTime,realName,address,houseName,phoneNumber,email from t_house,t_tenant where t_house.landlord =t_tenant.landlord AND t_house.tenant = t_tenant.tenantName AND t_tenant.landlord = ? and t_house.rentalStatus = '已租赁' and datediff(endTime,CURRENT_DATE())<16 limit ?,?";
         return queryForList(NearDateHouse.class,sql,username, begin,pageSize);
+    }
+
+    @Override
+    public Integer queryAllHouseCount(String username) {
+        String sql = "select count(*) from t_house where landlord = ?";
+        Number count = (Number) queryForSingleValue(sql, username);
+        return count.intValue();
     }
 }
