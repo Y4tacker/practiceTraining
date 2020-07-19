@@ -15,7 +15,7 @@
 <%--            +request.getContextPath()--%>
 <%--            +"/";--%>
 <%--%>--%>
-<base href="${pageContext.request.contextPath}/test">
+<base href="${pageContext.request.contextPath}/practiceTraining">
 <link type="text/css" rel="stylesheet" href="static/layui/css/layui.css">
 <script type="text/javascript" src="static/layui/layui.all.js"></script>
 <script type="text/javascript" src="static/layui/layui.js"></script>

@@ -35,7 +35,7 @@
             title: '房源信息',
             toolbar: 'true',
             page: true,
-            limit:15,
+            limit:10,
             cols: [
                 [
                     {field: 'realName', title: '真实姓名'},

@@ -30,7 +30,7 @@ public class HouseServlet extends BaseServlet {
             house.setStartTime(null);
             house.setEndTime(null);
             house.setTenant("暂无");
-            house.setMaintenanceFee(null);
+            house.setMaintenanceFee(BigDecimal.valueOf(0));
             houseService.addHouse(house);
             String result = "{" +
                     "  \"code\": 0," +
@@ -50,6 +50,8 @@ public class HouseServlet extends BaseServlet {
         Boolean status = false;
         House house = null;
         String monthRent = request.getParameter("monthRent");
+        String startTime = request.getParameter("startTime");
+        String endTime = request.getParameter("endTime");
         if (monthRent == null) {
             String result = "{" +
                     "  \"code\": 1," +
@@ -82,7 +84,12 @@ public class HouseServlet extends BaseServlet {
             try {
                 House houseInfo = houseService.queryHouseById(house.getId());
                 house.setLandlord(houseInfo.getLandlord());
-                house.setMaintenanceFee(houseInfo.getMaintenanceFee());
+                if (houseInfo.getMaintenanceFee()==null){
+                    house.setMaintenanceFee(new BigDecimal(0));
+                }else {
+                    house.setMaintenanceFee(houseInfo.getMaintenanceFee());
+                }
+
                 if ("未租赁".equals(request.getParameter("rentalStatus"))) {
                     house.setTenant("暂无");
                     house.setStartTime(null);
@@ -90,8 +97,8 @@ public class HouseServlet extends BaseServlet {
                     house.setMaintenanceFee(null);
                 } else {
                     house.setTenant(request.getParameter("tenant"));
-                    house.setStartTime(houseInfo.getStartTime());
-                    house.setEndTime(houseInfo.getEndTime());
+                    house.setStartTime(startTime);
+                    house.setEndTime(endTime);
                 }
                 houseService.updateHouse(house);
                 String result = "{" +
@@ -166,18 +173,33 @@ public class HouseServlet extends BaseServlet {
         //1 获取请求的参数 pageNo 和 pageSize
         int pageNo = WebUtils.parseInt(req.getParameter("page"), 1);
         int pageSize = WebUtils.parseInt(req.getParameter("limit"), Page.PAGE_SIZE);
+        String realName = req.getParameter("realName");
+        if (realName == null){
+            Page<HouseStatus> page = houseService.pageForRentedHouse((String) req.getSession().getAttribute("landlordName"), pageNo, pageSize);
+            List<HouseStatus> items = page.getItems();
+            Gson gson = new Gson();
+            String toJson = gson.toJson(items);
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": \"\"," +
+                    "  \"count\": " + page.getPageTotalCount() + "," +
+                    "  \"data\": " + toJson +
+                    "} ";
+            resp.getWriter().write(result);
+        }else {
+            Page<HouseStatus> page = houseService.pageForRentedHouse((String) req.getSession().getAttribute("landlordName"), realName ,pageNo, pageSize);
+            List<HouseStatus> items = page.getItems();
+            Gson gson = new Gson();
+            String toJson = gson.toJson(items);
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": \"\"," +
+                    "  \"count\": " + page.getPageTotalCount() + "," +
+                    "  \"data\": " + toJson +
+                    "} ";
+            resp.getWriter().write(result);
+        }
 
-        Page<HouseStatus> page = houseService.pageForRentedHouse((String) req.getSession().getAttribute("landlordName"), pageNo, pageSize);
-        List<HouseStatus> items = page.getItems();
-        Gson gson = new Gson();
-        String toJson = gson.toJson(items);
-        String result = "{" +
-                "  \"code\": 0," +
-                "  \"msg\": \"\"," +
-                "  \"count\": " + page.getPageTotalCount() + "," +
-                "  \"data\": " + toJson +
-                "} ";
-        resp.getWriter().write(result);
     }
 
     /**

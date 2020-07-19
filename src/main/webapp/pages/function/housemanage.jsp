@@ -38,9 +38,10 @@
             url: 'houseServlet?action=page',
             height: 'auto',
             title: '房源信息',
+            style: 'color:white',
             toolbar: '#toolbaradd',
             page: true,
-            limit:15,
+            limit:10,
             defaultToolbar: ['filter', 'print', 'exports'],
             cols: [
                 [

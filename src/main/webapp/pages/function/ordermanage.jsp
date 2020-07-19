@@ -36,7 +36,7 @@
             title: '订单信息',
             toolbar: '#toolbaradd',
             page: true,
-            limit:15,
+            limit:10,
             defaultToolbar: ['filter', 'print', 'exports'],
             cols: [
                 [
