@@ -41,10 +41,9 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item leftdaohang" mytitle="主页" data-url="pages/function/main.jsp"><a data-type="tabAdd" data-id="7">主页</a></li>
+                <li class="layui-nav-item leftdaohang" mytitle="主页" data-url="pages/function/main.jsp"><a data-type="tabAdd" data-id="2">主页</a></li>
                 <li class="layui-nav-item leftdaohang" mytitle="房产管理" data-url="pages/function/housemanage.jsp"><a data-type="tabAdd" data-id="0">房产管理</a></li>
                 <li class="layui-nav-item leftdaohang" mytitle="预定订单" data-url="pages/function/ordermanage.jsp"><a data-type="tabAdd" data-id="1">预定订单</a></li>
-                <li class="layui-nav-item leftdaohang" mytitle="统计报表" data-url="pages/housemanage.jsp"><a data-type="tabAdd" data-id="2">统计报表</a></li>
                 <li class="layui-nav-item leftdaohang" mytitle="我的账单" data-url="pages/function/myBill.jsp"><a data-type="tabAdd" data-id="3">我的账单</a></li>
                 <li class="layui-nav-item" mytitle="快捷操作" >
                     <a href="javascript:;">快捷操作</a>
@@ -52,7 +51,7 @@
                         <dd><a data-url="pages/function/rentedHouseManage.jsp" data-type="tabAdd" data-id="5" class="leftdaohangson" mytitle="租赁房屋客户信息">租赁房屋客户信息</a></dd>
                         <dd><a data-url="pages/function/feeManange.jsp" data-type="tabAdd" data-id="6" class="leftdaohangson" mytitle="维护费记录">维护费记录</a></dd>
                         <dd><a data-url="pages/function/unRentedHouseInfo.jsp" data-type="tabAdd" data-id="6" class="leftdaohangson" mytitle="闲置房屋">闲置房屋</a></dd>
-                        <dd><a data-url="pages/function/leaseExpiryInfo.jsp" data-type="tabAdd" data-id="6" class="leftdaohangson" mytitle="租约到期">租约到期</a></dd>
+                        <dd><a data-url="pages/function/leaseExpiryInfo.jsp" data-type="tabAdd" data-id="7" class="leftdaohangson" mytitle="租约到期">租约到期</a></dd>
                     </dl>
                 </li>
             </ul>
