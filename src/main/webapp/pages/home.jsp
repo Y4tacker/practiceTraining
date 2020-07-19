@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <div class="layui-footer">
+    <div class="layui-footer" style="text-align:center;" >
         © layui.com - 底部固定区域
         在线人数为：${sessionScope.online}
     </div>

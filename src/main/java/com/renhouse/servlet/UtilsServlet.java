@@ -188,20 +188,26 @@ public class UtilsServlet extends BaseServlet {
         allMonth.put("11","Nov");
         allMonth.put("12","Dec");
         String[] month = new String[]{"1","2","3","4","5","6","7","8","9","10","11","12"};
-        String res = "{\"result\":[";
+        String tmp = "[{";
         for (int i = 0; i < month.length; i++) {
             if (month[i].length()==1){
                 String temp = "0"+month[i];
-                res += "\""+allMonth.get(temp)+"\":"+"\""+result.get(temp)+"\""+",";
+                tmp += "\""+allMonth.get(temp)+"\":"+"\""+result.get(temp)+"\""+",";
             }else {
                 if (month[i].equals("12")){
-                    res += "\""+allMonth.get(month[i])+"\":"+"\""+result.get(month[i])+"\"";
+                    tmp += "\""+allMonth.get(month[i])+"\":"+"\""+result.get(month[i])+"\"";
                 }else {
-                    res += "\""+allMonth.get(month[i])+"\":"+"\""+result.get(month[i])+"\""+",";
+                    tmp += "\""+allMonth.get(month[i])+"\":"+"\""+result.get(month[i])+"\""+",";
                 }
             }
         }
-        res += "]}";
+        tmp += "}]";
+        String res = "{" +
+                "  \"code\": 0," +
+                "  \"msg\": \"\"," +
+                "  \"count\": \"\"," +
+                "  \"data\": " + tmp +
+                "} ";
         response.getWriter().write(res);
     }
 }

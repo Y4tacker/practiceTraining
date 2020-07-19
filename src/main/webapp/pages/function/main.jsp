@@ -5,7 +5,7 @@
     <%@include file="../common/head.jsp"%>
     <script src="static/script/echarts.min.js"></script>
 </head>
-<body class="layui-layout-body">
+<body class="layui-layout-body" bgcolor="white">
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-xs12 layui-col-md3">
@@ -125,7 +125,8 @@
         </div>
     </div>
 </div>
-<div id="box" style="width: 800px;height: 300px;"></div>
+<div id="box" style="width: 600px;height: 300px;float:left;"></div>
+<div id="box2" style="width: 600px;height: 300px;float:right;"></div>
 <script>
     layui.use(['jquery','layer'],function () {
         var $=layui.jquery;
@@ -180,7 +181,8 @@
                     json.value = month[j];
                     jsonstr.push(json);
                 };
-                console.log(month[4]);
+                console.log(month);
+                console.log(jsonstr);
             },
             error: function () {
                 layer.msg("数据异常请刷新", {icon: 5});
@@ -213,6 +215,65 @@
             }]
         };
         var myChart=echarts.init(document.getElementById("box"));
+        myChart.setOption(option);
+    });
+</script>
+<script type="text/javascript">
+    layui.use(['jquery','layer'],function () {
+        var $=layui.jquery;
+        var month=new Array(12);
+        var jsonstr = [];
+        $.ajax({
+            url: 'utilsServlet',
+            method: 'get',
+            async: false,
+            dataType: 'json',
+            data: {
+                'action': 'indexHouseChart',
+            },
+            success: function (data) {
+                let temp = eval(data);
+                let info = temp.data[0]
+                let tempNo = 1;
+                Object.keys(info).forEach(function(key){
+                    var json = {};
+                    json.name = tempNo+'月';
+                    json.value = info[key];
+                    tempNo += 1;
+                    jsonstr.push(json);
+                });
+            },
+            error: function () {
+                layer.msg("数据异常请刷新", {icon: 5});
+            }
+        });
+        var option={
+            title:{
+                text:'月租赁房屋数量变化图'
+            },
+            toolbox:{
+                show:true,
+                feature:{
+                    saveAsImage:{
+                        show:true
+                    }
+                }
+            },
+            legend:{
+                data:['租赁房屋数量']
+            },
+            xAxis:{
+                data:["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]
+            },
+            yAxis:{
+            },
+            series:[{
+                name:'收入',
+                type:'line',
+                data:jsonstr,
+            }]
+        };
+        var myChart=echarts.init(document.getElementById("box2"));
         myChart.setOption(option);
     });
 </script>
