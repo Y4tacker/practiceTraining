@@ -17,6 +17,15 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">已查看</a>
 </script>
+<script type="text/html" id="toolbaradd">
+    <div style="text-align: left;float:top" id='searchgr'>
+        <div class="layui-inline">
+            <label class="layui-form-label"style="width:125px;display:block;overflow:hidden;white-phoneNumber:nowrap; ">真实姓名搜索</label>
+            <input class="layui-input" name="searchtxt" id="searchtxt" autocomplete="off" style="width: 200px">
+        </div>
+        <button class="layui-btn" data-type="reload" id="do_search"><i class="layui-icon layui-icon-search"></i></button>
+    </div>
+</script>
 <script type="text/javascript">
     layui.use(['form', 'element', 'jquery', 'table', 'layer'], function () {
         var element = layui.element
@@ -29,7 +38,8 @@
             url: 'houseServlet?action=pageForRented',
             height: 'auto',
             title: '订单信息',
-            toolbar: 'true',
+            defaultToolbar: ['filter', 'print', 'exports'],
+            toolbar: '#toolbaradd',
             page: true,
             limit:15,
             cols: [
@@ -42,6 +52,21 @@
                     {field: 'email', title: '邮箱'}
                 ],
             ]
+        });
+        $('body').on('click', '#do_search', function(){
+            var realName = $('#searchtxt').val();
+            table.reload('houseinfo-table', {
+                method: 'post',
+                url: 'houseServlet',
+                where: {
+                    'realName': realName,
+                    'action': 'pageForRented',
+                },
+                page: {
+                    curr: 1
+                }
+            });
+            //location.replace('');
         });
     });
 </script>
