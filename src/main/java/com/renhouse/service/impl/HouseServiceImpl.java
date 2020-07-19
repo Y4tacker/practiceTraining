@@ -10,7 +10,10 @@ import com.renhouse.pojo.vo.NearDateHouse;
 import com.renhouse.pojo.vo.TenantMaintenanceFee;
 import com.renhouse.service.HouseService;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HouseServiceImpl implements HouseService {
     private HouseDao houseDao = new HouseDaoImpl();
@@ -261,5 +264,22 @@ public class HouseServiceImpl implements HouseService {
         page.setItems(items);
 
         return page;
+    }
+
+    @Override
+    public Map<String, Object> queryMonthRentedHouseByLandlord(String username, String year) {
+        ArrayList arrayList = new ArrayList();
+        Map<String,Object> map = new HashMap<>();
+        String[] month = new String[]{"1","2","3","4","5","6","7","8","9","10","11","12"};
+        for (int i = 0; i < month.length; i++) {
+            Integer integer = houseDao.queryMonthRentedHouseByLandlord(username, year, month[i]);
+            if (month[i].length()==1){
+                String temp = "0"+month[i];
+                map.put(temp,integer);
+            }else {
+                map.put(month[i],integer);
+            }
+        }
+        return map;
     }
 }

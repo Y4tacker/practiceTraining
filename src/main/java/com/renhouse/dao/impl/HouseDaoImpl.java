@@ -175,8 +175,8 @@ public class HouseDaoImpl extends BaseDao implements HouseDao {
         if (month.length()==1){
             month = "0" + month;
         }
-        String sql = "select count(*) from t_house where landlord = ? and rentalStatus='已租赁' and startTime Like '?-?-%'";
-        Number count = (Number) queryForSingleValue(sql, username,year,month);
+        String sql = "select count(*) from t_house where landlord = ? and rentalStatus='已租赁' and startTime Like '"+year+"-"+month+"-%'";
+        Number count = (Number) queryForSingleValue(sql, username);
         return count.intValue();
     }
 }

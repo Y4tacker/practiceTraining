@@ -8,6 +8,7 @@ import com.renhouse.pojo.vo.NearDateHouse;
 import com.renhouse.pojo.vo.TenantMaintenanceFee;
 
 import java.util.List;
+import java.util.Map;
 
 public interface HouseService {
     /**
@@ -103,8 +104,22 @@ public interface HouseService {
      */
     public Page<TenantMaintenanceFee> pageForMaintenanceFee(String username,int pageNo, int pageSize);
 
+    /**
+     * 分页模型-即将到期房屋
+     * @param username
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     public Page<NearDateHouse> pageForNearDate(String username, int pageNo, int pageSize);
 
+    /**
+     * 通过房东名和年份查询每月租赁房屋
+     * @param username
+     * @param year
+     * @return
+     */
+    public Map<String,Object> queryMonthRentedHouseByLandlord(String username, String year);
 
 
 }

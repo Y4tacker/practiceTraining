@@ -8,7 +8,9 @@ import com.renhouse.dao.impl.OrderDaoImpl;
 import com.renhouse.pojo.Page;
 import com.renhouse.pojo.vo.Bill;
 import com.renhouse.service.BillService;
+import com.renhouse.service.HouseService;
 import com.renhouse.service.impl.BillServiceImpl;
+import com.renhouse.service.impl.HouseServiceImpl;
 import com.renhouse.utils.EmailUtils;
 import com.renhouse.utils.TimeUtils;
 import com.renhouse.utils.WebUtils;
@@ -166,6 +168,40 @@ public class UtilsServlet extends BaseServlet {
      * @throws IOException
      */
     protected void indexHouseChart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        HouseService houseService = new HouseServiceImpl();
+        String landlord = (String) request.getSession().getAttribute("landlordName");
+        String currentDateStr = TimeUtils.getCurrentDateStr();
+        String[] split = currentDateStr.split("-");
+        String curYear = split[0];
+        Map<String, Object> result = houseService.queryMonthRentedHouseByLandlord(landlord, curYear);
+        Map<String, Object> allMonth = new HashMap<>();
+        allMonth.put("01","Jan");
+        allMonth.put("02","Feb");
+        allMonth.put("03","Mar");
+        allMonth.put("04","Apr");
+        allMonth.put("05","May");
+        allMonth.put("06","Jun");
+        allMonth.put("07","Jul");
+        allMonth.put("08","Aug");
+        allMonth.put("09","Sep");
+        allMonth.put("10","Oct");
+        allMonth.put("11","Nov");
+        allMonth.put("12","Dec");
+        String[] month = new String[]{"1","2","3","4","5","6","7","8","9","10","11","12"};
+        String res = "{\"result\":[";
+        for (int i = 0; i < month.length; i++) {
+            if (month[i].length()==1){
+                String temp = "0"+month[i];
+                res += "\""+allMonth.get(temp)+"\":"+"\""+result.get(temp)+"\""+",";
+            }else {
+                if (month[i].equals("12")){
+                    res += "\""+allMonth.get(month[i])+"\":"+"\""+result.get(month[i])+"\"";
+                }else {
+                    res += "\""+allMonth.get(month[i])+"\":"+"\""+result.get(month[i])+"\""+",";
+                }
+            }
+        }
+        res += "]}";
+        response.getWriter().write(res);
     }
 }
