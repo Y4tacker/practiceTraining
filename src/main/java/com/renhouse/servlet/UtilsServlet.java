@@ -5,10 +5,13 @@ import com.renhouse.dao.HouseDao;
 import com.renhouse.dao.OrderDao;
 import com.renhouse.dao.impl.HouseDaoImpl;
 import com.renhouse.dao.impl.OrderDaoImpl;
+import com.renhouse.pojo.Page;
 import com.renhouse.pojo.vo.Bill;
+import com.renhouse.service.BillService;
 import com.renhouse.service.impl.BillServiceImpl;
 import com.renhouse.utils.EmailUtils;
 import com.renhouse.utils.TimeUtils;
+import com.renhouse.utils.WebUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -110,5 +113,56 @@ public class UtilsServlet extends BaseServlet {
 //        response.getWriter().write("房产数量"+houseCount.intValue());
 //        response.getWriter().write("未查看订单数量："+orderCount.intValue());
 //        response.getWriter().write("本月收入："+curGet);
+    }
+
+    /**
+     * 首页图表所需要数据---月收入账单变化图
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void indexIncomeChart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        BillService billService = new BillServiceImpl();
+        int pageNo = WebUtils.parseInt(request.getParameter("page"), 1);
+        int pageSize = WebUtils.parseInt(request.getParameter("limit"), Page.PAGE_SIZE);
+        String landlord = (String) request.getSession().getAttribute("landlordName");
+        String currentDateStr = TimeUtils.getCurrentDateStr();
+        String[] split = currentDateStr.split("-");
+        String curYear = split[0];
+        String startDate = curYear+"-01";
+        String endDate = curYear+"-12";
+        List<Bill> billRes = billService.calculateBill(landlord, startDate, endDate);
+
+        try {
+            Page<Bill> page = billService.pageForBill(landlord, pageNo, pageSize, billRes);
+            List<Bill> items = page.getItems();
+            Gson gson = new Gson();
+            String toJson = gson.toJson(items);
+            String result = "{" +
+                    "  \"code\": 0," +
+                    "  \"msg\": \"\"," +
+                    "  \"count\": " + page.getPageTotalCount() + "," +
+                    "  \"data\": " + toJson +
+                    "} ";
+            response.getWriter().write(result);
+        } catch (Exception e) {
+            String result = "{" +
+                    "  \"code\": 1," +
+                    "  \"msg\": " + "\"查询失败！\"" +
+                    "} ";
+            response.getWriter().write(result);
+        }
+    }
+
+    /**
+     * 首页图表所需要数据---月收入账单变化图
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void indexHouseChart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     }
 }
