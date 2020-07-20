@@ -35,9 +35,6 @@
     </div>
     <div class="layui-card-body">
         <table class="layui-table" id="houseinfo-table" lay-filter="houseinfo-table"></table>
-        <script type="text/html" id="operation">
-            <a class="layui-btn layui-btn-xs" lay-event="search">查询</a>
-        </script>
     </div>
 </div>
 <script type="text/javascript">
@@ -63,7 +60,6 @@
                     {field: 'monthRent', title: '月租金'},
                     {field: 'maintenanceFee', title: '维护费'},
                     {field: 'total', title: '总共'},
-                    {field: 'operation', fixed:'right',title: '操作', toolbar: '#operation', width: 70}
                 ]
             ]
         });
