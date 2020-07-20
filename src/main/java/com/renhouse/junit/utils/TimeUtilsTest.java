@@ -1,4 +1,4 @@
-package com.renhouse.junit;
+package com.renhouse.junit.utils;
 
 import com.renhouse.utils.TimeUtils;
 import org.junit.Test;

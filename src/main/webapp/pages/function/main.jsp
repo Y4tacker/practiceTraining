@@ -126,8 +126,8 @@
     </div>
 </div>
 <div class="layui-fluid layui-row" style="vertical-align: middle;">
-    <div id="box" style="width: 800px;height: 400px;float:left;"></div>
-    <div id="box2" style="width: 800px;height: 400px;float:right;"></div>
+    <div id="box" style="width:600px;height: 400px;float:left;display:inline-block; *display:inline; *zoom:1;"></div>
+    <div id="box2" style="width:600px;height: 400px;float:right;display:inline-block; *display:inline; *zoom:1;"></div>
 </div>
 <script>
     layui.use(['jquery','layer'],function () {
